@@ -67,9 +67,9 @@ public class OverlayContainerViewController: UIViewController, OverlayScrollView
     }
 
     private var translationPosition: OverlayContainerViewController.TranslationPosition {
-        if overlayTranslationHeight == configuration.lastNotchHeight {
+        if overlayTranslationHeight == configuration.maximumNotchHeight {
             return .top
-        } else if overlayTranslationHeight == configuration.firstNotchHeight {
+        } else if overlayTranslationHeight == configuration.minimumNotchHeight {
             return .bottom
         } else {
             return .inFlight
@@ -93,7 +93,8 @@ public class OverlayContainerViewController: UIViewController, OverlayScrollView
         super.viewWillLayoutSubviews()
         guard needsOverlayContainerHeightUpdate else { return }
         needsOverlayContainerHeightUpdate = false
-        overlayContainerViewHeightConstraint?.constant = configuration.lastNotchHeight
+        configuration.reloadNotchHeights()
+        overlayContainerViewHeightConstraint?.constant = configuration.maximumNotchHeight
         dragOverlay(toHeight: targetNotchHeight)
     }
 
@@ -202,11 +203,11 @@ public class OverlayContainerViewController: UIViewController, OverlayScrollView
     }
 
     private func overlayHasReachedANotch() -> Bool {
-        return configuration.heights().contains { $0 == overlayTranslationHeight }
+        return configuration.sortedHeights().contains { $0 == overlayTranslationHeight }
     }
 
     private func overlayHasAmibiguousTranslationHeight() -> Bool {
-        guard let index = configuration.heights().index(where: { $0 == overlayTranslationHeight }) else {
+        guard let index = configuration.sortedHeights().index(where: { $0 == overlayTranslationHeight }) else {
             return true
         }
         return configuration.heightForNotch(at: index) != targetNotchHeight
@@ -230,14 +231,14 @@ public class OverlayContainerViewController: UIViewController, OverlayScrollView
         let height: CGFloat
         if usesFunction {
             let parameters = ConcreteOverlayTranslationParameters(
-                minimumHeight: configuration.firstNotchHeight,
-                maximumHeight: configuration.lastNotchHeight,
+                minimumHeight: configuration.minimumNotchHeight,
+                maximumHeight: configuration.maximumNotchHeight,
                 translation: translation
             )
             let function = configuration.overlayTranslationFunction(using: parameters, for: viewController)
             height = function.overlayTranslationHeight(using: parameters)
         } else {
-            height = max(configuration.firstNotchHeight, min(configuration.lastNotchHeight, translation))
+            height = max(configuration.minimumNotchHeight, min(configuration.maximumNotchHeight, translation))
         }
         dragOverlay(toHeight: height)
     }
@@ -266,12 +267,11 @@ public class OverlayContainerViewController: UIViewController, OverlayScrollView
 
     private func endOverlayTranslation(withVelocity velocity: CGPoint) {
         guard let controller = topViewController, overlayHasAmibiguousTranslationHeight() else { return }
-        let values = (0..<configuration.numberOfNotches()).map { ($0, configuration.heightForNotch(at: $0)) }
         let context = ConcreteOverlayContainerContextTargetNotchPolicy(
             overlayViewController: controller,
             overlayTranslationHeight: overlayTranslationHeight,
             velocity: velocity,
-            notchHeightByIndex: Dictionary(uniqueKeysWithValues: values)
+            notchHeightByIndex: configuration.notchHeightByIndex
         )
         let policy = configuration.overlayTargetNotchPolicy(forOverlay: controller)
         let index = policy.targetNotchIndex(using: context)

@@ -13,21 +13,23 @@ class OverlayContainerViewControllerConfiguration {
 
     weak var delegate: OverlayContainerViewControllerDelegate?
 
-    var lastNotchIndex: Int {
+    var maximumNotchIndex: Int {
         return  max(numberOfNotches() - 1, 0)
     }
 
-    var firstNotchIndex: Int {
+    var minimumNotchIndex: Int {
         return 0
     }
 
-    var lastNotchHeight: CGFloat {
-        return heightForNotch(at: lastNotchIndex)
+    var maximumNotchHeight: CGFloat {
+        return heightForNotch(at: maximumNotchIndex)
     }
 
-    var firstNotchHeight: CGFloat {
-        return heightForNotch(at: firstNotchIndex)
+    var minimumNotchHeight: CGFloat {
+        return heightForNotch(at: minimumNotchIndex)
     }
+
+    private(set) var notchHeightByIndex: [Int: CGFloat] = [:]
 
     // MARK: - Life Cycle
 
@@ -37,22 +39,24 @@ class OverlayContainerViewControllerConfiguration {
 
     // MARK: - Public
 
+    func reloadNotchHeights() {
+        let numberOfNotches = requestNumberOfNotches()
+        let heights = (0..<numberOfNotches).map { requestHeightForNotch(at: $0) }
+        assert(heights.sorted() == heights, "The notches should be sorted by height. The notch at the first index must be the smaller one.")
+        let values = heights.enumerated().map { ($0, $1) }
+        notchHeightByIndex = Dictionary(uniqueKeysWithValues: values)
+    }
+
     func numberOfNotches() -> Int {
-        guard let controller = overlayContainerViewController else { return 0 }
-        return delegate?.numberOfNotches(in: controller) ?? 0
+        return notchHeightByIndex.count
     }
 
     func heightForNotch(at index: Int) -> CGFloat {
-        guard let controller = overlayContainerViewController else { return 0 }
-        return delegate?.overlayContainerViewController(
-            controller,
-            heightForNotchAt: index,
-            availableSpace: overlayContainerViewController?.view.frame.height ?? 0
-        ) ?? 0
+        return notchHeightByIndex[index] ?? 0
     }
 
-    func heights() -> [CGFloat] {
-        return (0..<numberOfNotches()).map { heightForNotch(at: $0) }
+    func sortedHeights() -> [CGFloat] {
+        return Array(notchHeightByIndex.values.sorted())
     }
 
     func animationController(forOverlay overlay: UIViewController) -> OverlayAnimatedTransitioning {
@@ -103,5 +107,21 @@ class OverlayContainerViewControllerConfiguration {
             containerController,
             overlayTranslationFunctionForOverlay: overlayViewController
         ) ?? RubberBandOverlayTranslationFunction()
+    }
+
+    // MARK: - Private
+
+    private func requestHeightForNotch(at index: Int) -> CGFloat {
+        guard let controller = overlayContainerViewController else { return 0 }
+        return delegate?.overlayContainerViewController(
+            controller,
+            heightForNotchAt: index,
+            availableSpace: overlayContainerViewController?.view.frame.height ?? 0
+        ) ?? 0
+    }
+
+    private func requestNumberOfNotches() -> Int {
+        guard let controller = overlayContainerViewController else { return 0 }
+        return delegate?.numberOfNotches(in: controller) ?? 0
     }
 }
