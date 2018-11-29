@@ -7,11 +7,7 @@
 
 import UIKit
 
-public class OverlayContainerViewController: UIViewController, OverlayScrollViewDelegate {
-
-    enum TranslationPosition {
-        case top, bottom, inFlight
-    }
+public class OverlayContainerViewController: UIViewController {
 
     public var delegate: OverlayContainerViewControllerDelegate? {
         set {
@@ -42,13 +38,6 @@ public class OverlayContainerViewController: UIViewController, OverlayScrollView
     private var translationHeightConstraint: NSLayoutConstraint?
 
     private lazy var configuration: OverlayContainerViewControllerConfiguration = self.makeConfiguration()
-    private let proxy = OverlayScrollViewDelegateProxy()
-
-    // (gz) 2018-11-27 The overlay's transaction is not always equal to the scroll view translation.
-    // The user can scroll bottom then drag the overlay up repeatedly in a single gesture.
-    private var overlayTranslation: CGFloat = 0
-    private var scrollViewTranslation: CGFloat = 0
-    private var lastContentOffsetWhileScrolling: CGPoint = .zero
 
     private var needsOverlayContainerHeightUpdate = true {
         didSet {
@@ -56,25 +45,8 @@ public class OverlayContainerViewController: UIViewController, OverlayScrollView
         }
     }
 
-    private(set) var targetNotchIndex = 0
-
-    private var targetNotchHeight: CGFloat {
-        return configuration.heightForNotch(at: targetNotchIndex)
-    }
-
-    private var overlayTranslationHeight: CGFloat {
-        return translationHeightConstraint?.constant ?? 0
-    }
-
-    private var translationPosition: OverlayContainerViewController.TranslationPosition {
-        if overlayTranslationHeight == configuration.maximumNotchHeight {
-            return .top
-        } else if overlayTranslationHeight == configuration.minimumNotchHeight {
-            return .bottom
-        } else {
-            return .inFlight
-        }
-    }
+    private var translationController: HeightContrainstOverlayTranslationController?
+    private var translationDrivers: [OverlayTranslationDriver] = []
 
     // MARK: - UIViewController
 
@@ -91,11 +63,11 @@ public class OverlayContainerViewController: UIViewController, OverlayScrollView
 
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        guard needsOverlayContainerHeightUpdate else { return }
+        guard needsOverlayContainerHeightUpdate, let controller = translationController else { return }
         needsOverlayContainerHeightUpdate = false
         configuration.reloadNotchHeights()
         overlayContainerViewHeightConstraint?.constant = configuration.maximumNotchHeight
-        dragOverlay(toHeight: targetNotchHeight)
+        controller.moveOverlay(toNotchAt: controller.translationEndNotchIndex, velocity: .zero, animated: false)
     }
 
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -107,74 +79,7 @@ public class OverlayContainerViewController: UIViewController, OverlayScrollView
 
     public func moveOverlay(toNotchAt index: Int, animated: Bool) {
         view.layoutIfNeeded()
-        moveOverlay(toNotchAt: index, velocity: .zero, animated: animated)
-    }
-
-    // MARK: - OverlayScrollViewDelegate
-
-
-    func overlayScrollViewDidScroll(_ scrollView: UIScrollView) {
-        let previousTranslation = scrollViewTranslation
-        scrollViewTranslation = scrollView.panGestureRecognizer.translation(in: view).y
-        if shouldDragOverlay(following: scrollView) {
-            overlayTranslation += scrollViewTranslation - previousTranslation
-            let offset = adjustedContentOffset(dragging: scrollView)
-            scrollView.contentOffset = offset
-            dragOverlay(forOffset: overlayTranslation, usesFunction: false)
-        } else {
-            lastContentOffsetWhileScrolling = scrollView.contentOffset
-        }
-    }
-
-    func overlayScrollView(_ scrollView: UIScrollView,
-                           willEndDraggingwithVelocity velocity: CGPoint,
-                           targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        overlayTranslation = 0
-        scrollViewTranslation = 0
-        // (gz) 2018-11-27 We reset the translation each time the user ends dragging.
-        // Otherwise the calculation is wrong in `overlayScrollViewDidScroll(_:)`
-        // if the user drags the overlay while the animation did not finish.
-        scrollView.panGestureRecognizer.setTranslation(.zero, in: view)
-        switch translationPosition {
-        case .bottom where targetContentOffset.pointee.y > -scrollView.contentInset.top:
-            // (gz) 2018-11-26 The user raises its finger in the bottom position
-            // and the content offset will exceed the top content inset.
-            targetContentOffset.pointee.y = -scrollView.contentInset.top
-        case .inFlight where !overlayHasReachedANotch():
-            targetContentOffset.pointee.y = lastContentOffsetWhileScrolling.y
-        case .top, .bottom, .inFlight:
-            break
-        }
-        endOverlayTranslation(withVelocity: velocity)
-    }
-
-    // MARK: - Action
-
-    @objc private func overlayPanGestureAction(_ sender: OverlayTranslationGestureRecognizer) {
-        guard let overlay = topViewController else { return }
-        let translation = sender.translation(in: nil)
-        switch sender.state {
-        case .began:
-            let location = sender.location(in: nil)
-            let startingPoint = location.offset(by: translation.multiply(by: -1))
-            let shouldStartDragging = configuration.shouldStartDraggingOverlay(
-                overlay,
-                at: startingPoint,
-                in: view
-            )
-            if shouldStartDragging {
-                dragOverlay(forOffset: translation.y, usesFunction: true)
-            } else {
-                sender.cancel()
-            }
-        case .changed:
-            dragOverlay(forOffset: translation.y, usesFunction: true)
-        case .failed, .ended, .cancelled:
-            let convertedVelocity = sender.velocity(in: nil)
-            endOverlayTranslation(withVelocity: convertedVelocity)
-        case .possible:
-            break
-        }
+        translationController?.moveOverlay(toNotchAt: index, velocity: .zero, animated: animated)
     }
 
     // MARK: - Private
@@ -192,142 +97,69 @@ public class OverlayContainerViewController: UIViewController, OverlayScrollView
 
     private func loadOverlayViews() {
         viewControllers.forEach { addChild($0, in: overlayContainerView) }
-        if let topViewController = topViewController,
-            let scrollView = configuration.scrollView(drivingOverlay: topViewController) {
-            proxy.forward(to: self, delegateInvocationsFrom: scrollView)
+        loadTranslationDrivers()
+    }
+
+    private func loadTranslationDrivers() {
+        guard let translationHeightConstraint = translationHeightConstraint,
+            let overlayController = topViewController else {
+            return
         }
+        let controller = HeightContrainstOverlayTranslationController(
+            translationHeightConstraint: translationHeightConstraint,
+            overlayViewController: overlayController,
+            configuration: configuration
+        )
+        controller.delegate = self
+        var drivers: [OverlayTranslationDriver] = []
+        let panGestureDriver = PanGestureOverlayTranslationDriver(
+            translationController: controller,
+            panGestureRecognizer: overlayPanGesture
+        )
+        drivers.append(panGestureDriver)
+        if let scrollView = configuration.scrollView(drivingOverlay: overlayController) {
+            let driver = ScrollViewOverlayTranslationDriver(
+                translationController: controller,
+                scrollView: scrollView
+            )
+            drivers.append(driver)
+        }
+        translationDrivers = drivers
+        translationController = controller
     }
 
     private func setUpPanGesture() {
         view.addGestureRecognizer(overlayPanGesture)
     }
-
-    private func overlayHasReachedANotch() -> Bool {
-        return configuration.sortedHeights().contains { $0 == overlayTranslationHeight }
-    }
-
-    private func overlayHasAmibiguousTranslationHeight() -> Bool {
-        guard let index = configuration.sortedHeights().index(where: { $0 == overlayTranslationHeight }) else {
-            return true
-        }
-        return configuration.heightForNotch(at: index) != targetNotchHeight
-    }
-
-    private func shouldDragOverlay(following scrollView: UIScrollView) -> Bool {
-        guard scrollView.isTracking else { return false }
-        switch translationPosition {
-        case .bottom:
-            return !scrollView.isContentOriginInBounds && scrollView.scrollsUp
-        case .top:
-            return scrollView.isContentOriginInBounds && !scrollView.scrollsUp
-        case .inFlight:
-            return scrollView.isContentOriginInBounds || scrollView.scrollsUp
-        }
-    }
-
-    private func dragOverlay(forOffset offset: CGFloat, usesFunction: Bool) {
-        guard let viewController = topViewController else { return }
-        let translation = targetNotchHeight - offset
-        let height: CGFloat
-        if usesFunction {
-            let parameters = ConcreteOverlayTranslationParameters(
-                minimumHeight: configuration.minimumNotchHeight,
-                maximumHeight: configuration.maximumNotchHeight,
-                translation: translation
-            )
-            let function = configuration.overlayTranslationFunction(using: parameters, for: viewController)
-            height = function.overlayTranslationHeight(using: parameters)
-        } else {
-            height = max(configuration.minimumNotchHeight, min(configuration.maximumNotchHeight, translation))
-        }
-        dragOverlay(toHeight: height)
-    }
-
-    private func adjustedContentOffset(dragging scrollView: UIScrollView) -> CGPoint {
-        var contentOffset = lastContentOffsetWhileScrolling
-        switch translationPosition {
-        case .inFlight, .top:
-            // (gz) 2018-11-26 The user raised its finger in the top or in flight positions while scrolling bottom.
-            // If the scroll's animation did not finish when the user drags the overlay,
-            // the content offset may have exceeded the top inset. We adjust it.
-            if scrollView.isContentOriginInBounds {
-                scrollView.scrollToTop()
-            }
-        case .bottom:
-            break
-        }
-        // (gz) 2018-11-26 Between two `overlayScrollViewDidScroll:` calls,
-        // the scrollView exceeds the top's contentInset. We adjust the target.
-        let topInset = -scrollView.contentInset.top
-        if (contentOffset.y - topInset) * (scrollView.contentOffset.y - topInset) < 0 {
-            contentOffset.y = topInset
-        }
-        return contentOffset
-    }
-
-    private func endOverlayTranslation(withVelocity velocity: CGPoint) {
-        guard let controller = topViewController, overlayHasAmibiguousTranslationHeight() else { return }
-        let context = ConcreteOverlayContainerContextTargetNotchPolicy(
-            overlayViewController: controller,
-            overlayTranslationHeight: overlayTranslationHeight,
-            velocity: velocity,
-            notchHeightByIndex: configuration.notchHeightByIndex
-        )
-        let policy = configuration.overlayTargetNotchPolicy(forOverlay: controller)
-        let index = policy.targetNotchIndex(using: context)
-        moveOverlay(toNotchAt: index, velocity: velocity, animated: true)
-    }
-
-    private func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool) {
-        guard let overlay = topViewController else { return }
-        let height = overlayTranslationHeight
-        targetNotchIndex = index
-        dragOverlay(toHeight: targetNotchHeight)
-        guard animated else { return }
-        let context = ConcreteOverlayContainerContextTransitioning(
-            overlayViewController: overlay,
-            overlayTranslationHeight: height,
-            velocity: velocity,
-            targetNotchIndex: targetNotchIndex,
-            targetNotchHeight: targetNotchHeight
-        )
-        let animationController = configuration.animationController(forOverlay: overlay)
-        let animator = animationController.interruptibleAnimator(using: context)
-        let coordinator = InterruptibleAnimatorOverlayContainerTransitionCoordinator(
-            animator: animator,
-            context: context
-        )
-        delegate?.overlayContainerViewController(
-            self,
-            willEndReachingNotchAt: targetNotchIndex,
-            transitionCoordinator: coordinator
-        )
-        animator.addAnimations? {
-            self.view.layoutIfNeeded()
-        }
-        animator.startAnimation()
-    }
-
-    private func dragOverlay(toHeight height: CGFloat) {
-        guard translationHeightConstraint?.constant != height else { return }
-        translationHeightConstraint?.constant = height
-        if let topViewController = topViewController {
-            delegate?.overlayContainerViewController(
-                self,
-                didDragOverlay: topViewController,
-                toHeight: height
-            )
-        }
-    }
-
     private func makeConfiguration() -> OverlayContainerViewControllerConfiguration {
         return OverlayContainerViewControllerConfiguration(overlayContainerViewController: self)
     }
 
     private func makePanGesture() -> OverlayTranslationGestureRecognizer {
-        return OverlayTranslationGestureRecognizer(
-            target: self,
-            action: #selector(overlayPanGestureAction(_:))
+        return OverlayTranslationGestureRecognizer()
+    }
+}
+
+extension OverlayContainerViewController: OverlayTranslationControllerDelegate {
+
+    // MARK: - HeightContrainstOverlayTranslationControllerDelegate
+
+    func translationController(_ translationController: OverlayTranslationController,
+                               didDragOverlayToHeight height: CGFloat) {
+        guard let controller = topViewController else { return }
+        delegate?.overlayContainerViewController(self, didDragOverlay: controller, toHeight: height)
+    }
+
+    func translationController(_ translationController: OverlayTranslationController,
+                               willReachNotchAt index: Int,
+                               transitionCoordinator: OverlayContainerTransitionCoordinator) {
+        transitionCoordinator.animate(alongsideTransition: { _ in
+            self.view.layoutIfNeeded()
+        }, completion: { _ in })
+        delegate?.overlayContainerViewController(
+            self,
+            willEndReachingNotchAt: index,
+            transitionCoordinator: transitionCoordinator
         )
     }
 }
