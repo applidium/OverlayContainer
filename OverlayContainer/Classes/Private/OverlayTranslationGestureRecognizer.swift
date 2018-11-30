@@ -11,6 +11,10 @@ class OverlayTranslationGestureRecognizer: UIPanGestureRecognizer {
 
     weak var drivingScrollView: UIScrollView?
 
+    var translationOffset: CGFloat = 0
+
+    private(set) var startingLocation: CGPoint = .zero
+
     // MARK: - Public
 
     func cancel() {
@@ -22,7 +26,7 @@ class OverlayTranslationGestureRecognizer: UIPanGestureRecognizer {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
-        state = .began
+        startingLocation = location(in: view)
     }
 
     override func shouldRequireFailure(of otherGestureRecognizer: UIGestureRecognizer) -> Bool {
