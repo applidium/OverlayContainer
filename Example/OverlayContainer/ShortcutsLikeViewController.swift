@@ -11,6 +11,10 @@ import UIKit
 
 class ShortcutsLikeViewController: UIViewController {
 
+    enum OverlayNotch: Int, CaseIterable {
+        case minimum, medium, maximum
+    }
+
     private let detailViewController = DetailViewController()
     private let masterViewController = MasterViewController()
 
@@ -18,10 +22,17 @@ class ShortcutsLikeViewController: UIViewController {
 
     // MARK: - UIViewController
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Shortcuts"
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setUpIfNeeded()
     }
+
+    // MARK: - Private
 
     private func setUpIfNeeded() {
         guard sizeClass != traitCollection.horizontalSizeClass else { return }
@@ -54,16 +65,20 @@ extension ShortcutsLikeViewController: OverlayContainerViewControllerDelegate {
     // MARK: - OverlayContainerViewControllerDelegate
 
     func numberOfNotches(in containerViewController: OverlayContainerViewController) -> Int {
-        return 2
+        return OverlayNotch.allCases.count
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         heightForNotchAt index: Int,
                                         availableSpace: CGFloat) -> CGFloat {
-        if index == 0 {
-            return 200
+        switch OverlayNotch.allCases[index] {
+            case .maximum:
+                return availableSpace * 3 / 4
+            case .medium:
+                return availableSpace / 2
+            case .minimum:
+                return availableSpace * 1 / 4
         }
-        return availableSpace - 200
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,

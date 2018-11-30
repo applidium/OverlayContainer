@@ -11,17 +11,17 @@ import UIKit
 
 class MapsLikeViewController: UIViewController {
 
+    enum OverlayNotch: Int, CaseIterable {
+        case minimum, maximum
+    }
+
     @IBOutlet var overlayContainerView: UIView!
     @IBOutlet var backgroundView: UIView!
 
     @IBOutlet private var widthConstraint: NSLayoutConstraint!
     @IBOutlet private var trailingConstraint: NSLayoutConstraint!
 
-    enum OverlayNotch: Int, CaseIterable {
-        case minimum, maximum
-    }
-
-    private var initialSetup = false
+    private var needsSetup = true
 
     // MARK: - UIViewController
 
@@ -35,8 +35,8 @@ class MapsLikeViewController: UIViewController {
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        guard initialSetup else { return }
-        initialSetup = true
+        guard needsSetup else { return }
+        needsSetup = false
         setUpConstraints(for: view.bounds.size)
     }
 

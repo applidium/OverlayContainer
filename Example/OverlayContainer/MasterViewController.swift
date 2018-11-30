@@ -6,11 +6,14 @@
 //  Copyright © 2018 CocoaPods. All rights reserved.
 //
 
+import MapKit
 import UIKit
 
 class MasterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+        let map = MKMapView()
+        view.addSubview(map)
+        map.pinToSuperview()
     }
 }

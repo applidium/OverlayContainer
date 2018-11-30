@@ -10,37 +10,41 @@ import UIKit
 
 class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    let header = UIView()
+    let header = Bundle.main.loadNibNamed("DetailHeaderView", owner: nil, options: nil)![0] as! UIView
     let tableView = UITableView()
+
+    // MARK: - UIViewController
 
     override func loadView() {
         view = UIView()
+        view.backgroundColor = .white
         view.addSubview(tableView)
         view.addSubview(header)
-        header.backgroundColor = .green
-        header.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        header.heightAnchor.constraint(equalToConstant: 70).isActive = true
         header.pinToSuperview(edges: [.top, .left, .right])
         tableView.dataSource = self
         tableView.pinToSuperview()
         tableView.delegate = self
         tableView.scrollsToTop = false
         tableView.contentInsetAdjustmentBehavior = .never
+        view.layer.cornerRadius = 15
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.masksToBounds = true
+        tableView.isHidden = true
     }
-
-    var initialSetup = false
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        guard !initialSetup else { return }
-        initialSetup = true
-        tableView.contentInset.top = header.frame.height
+        guard tableView.contentInset.top != header.frame.height else { return }
         tableView.contentOffset.y = -header.frame.height
+        tableView.contentInset.top = header.frame.height
     }
+
+    // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .default, reuseIdentifier: "cell")
         cell.textLabel?.text = "\(indexPath.row)"
-        cell.contentView.backgroundColor = .red
         return cell
     }
 
@@ -48,7 +52,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         return 100
     }
 
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return false
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
