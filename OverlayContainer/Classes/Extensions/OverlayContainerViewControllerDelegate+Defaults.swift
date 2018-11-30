@@ -19,11 +19,6 @@ public extension OverlayContainerViewControllerDelegate {
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        shouldStartTranslationAt point: CGPoint) -> Bool {
-        return true
-    }
-
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         shouldStartDraggingOverlay overlayViewController: UIViewController,
                                         at point: CGPoint,
                                         in coordinateSpace: UICoordinateSpace) -> Bool {
