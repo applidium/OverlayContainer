@@ -92,9 +92,7 @@ public class OverlayContainerViewController: UIViewController {
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
         overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
         translationHeightConstraint = overlayTranslationView.heightAnchor.constraint(equalToConstant: 0)
-        translationHeightConstraint?.isActive = true
         overlayContainerViewHeightConstraint = overlayContainerView.heightAnchor.constraint(equalToConstant: 0)
-        overlayContainerViewHeightConstraint?.isActive = true
     }
 
     private func updateOverlayConstraints(forNew size: CGSize) {
@@ -105,6 +103,8 @@ public class OverlayContainerViewController: UIViewController {
         configuration.reloadNotchHeights()
         overlayContainerViewHeightConstraint?.constant = configuration.maximumNotchHeight
         controller.moveOverlay(toNotchAt: controller.translationEndNotchIndex, velocity: .zero, animated: false)
+        translationHeightConstraint?.isActive = true
+        overlayContainerViewHeightConstraint?.isActive = true
     }
 
     private func loadOverlayViews() {
