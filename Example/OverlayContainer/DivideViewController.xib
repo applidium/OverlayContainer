@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DivideViewController" customModule="OverlayContainer_Example" customModuleProvider="target">
+            <connections>
+                <outlet property="leftContainerView" destination="ByK-A0-pgT" id="QQz-WL-gP2"/>
+                <outlet property="rightContainerView" destination="jyb-2h-fUf" id="JLG-b2-x1g"/>
+                <outlet property="view" destination="nIg-b6-NMq" id="5Jt-cZ-I7P"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="nIg-b6-NMq">
+            <rect key="frame" x="0.0" y="0.0" width="1232" height="941"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyb-2h-fUf">
+                    <rect key="frame" x="410.5" y="0.0" width="821.5" height="941"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ByK-A0-pgT">
+                    <rect key="frame" x="0.0" y="0.0" width="410.5" height="941"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="P4s-4I-afb"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ByK-A0-pgT" firstAttribute="leading" secondItem="nIg-b6-NMq" secondAttribute="leading" id="0I2-T2-S9V"/>
+                <constraint firstItem="jyb-2h-fUf" firstAttribute="leading" secondItem="ByK-A0-pgT" secondAttribute="trailing" id="4S9-lN-hTJ"/>
+                <constraint firstAttribute="bottom" secondItem="ByK-A0-pgT" secondAttribute="bottom" id="7xA-tk-FAJ"/>
+                <constraint firstAttribute="trailing" secondItem="jyb-2h-fUf" secondAttribute="trailing" id="HWj-Po-9A4"/>
+                <constraint firstItem="jyb-2h-fUf" firstAttribute="top" secondItem="nIg-b6-NMq" secondAttribute="top" id="O4e-ZN-ToI"/>
+                <constraint firstAttribute="bottom" secondItem="jyb-2h-fUf" secondAttribute="bottom" id="WvV-be-nsP"/>
+                <constraint firstItem="ByK-A0-pgT" firstAttribute="top" secondItem="nIg-b6-NMq" secondAttribute="top" id="nj3-eV-bL6"/>
+                <constraint firstItem="jyb-2h-fUf" firstAttribute="width" secondItem="nIg-b6-NMq" secondAttribute="width" multiplier="2/3" priority="750" id="uZb-vf-cMb"/>
+                <constraint firstItem="jyb-2h-fUf" firstAttribute="leading" secondItem="ByK-A0-pgT" secondAttribute="trailing" id="wry-ke-eC0"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="AL5-H1-db3"/>
+            <point key="canvasLocation" x="299.19999999999999" y="-27.436281859070466"/>
+        </view>
+    </objects>
+</document>
