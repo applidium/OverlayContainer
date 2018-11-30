@@ -14,6 +14,6 @@ public protocol OverlayContainerTransitionCoordinatorContext {
 }
 
 public protocol OverlayContainerTransitionCoordinator {
-    func animate(alongsideTransition animation: @escaping (OverlayContainerTransitionCoordinatorContext) -> Void,
-                 completion: @escaping (OverlayContainerTransitionCoordinatorContext) -> Void) 
+    func animate(alongsideTransition animation: ((OverlayContainerTransitionCoordinatorContext) -> Void)?,
+                 completion: ((OverlayContainerTransitionCoordinatorContext) -> Void)?)
 }

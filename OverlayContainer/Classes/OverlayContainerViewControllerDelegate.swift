@@ -24,8 +24,10 @@ public protocol OverlayContainerViewControllerDelegate: class {
                                         overlayTranslationFunctionForOverlay overlayViewController: UIViewController) -> OverlayTranslationFunction?
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         didDragOverlay overlayViewController: UIViewController,
-                                        toHeight height: CGFloat)
+                                        toHeight height: CGFloat,
+                                        availableSpace: CGFloat)
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        willEndReachingNotchAt index: Int,
+                                        willEndDraggingOverlay overlayViewController: UIViewController,
+                                        endNotchIndex: Int,
                                         transitionCoordinator: OverlayContainerTransitionCoordinator)
 }

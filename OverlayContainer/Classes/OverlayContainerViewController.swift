@@ -159,18 +159,25 @@ extension OverlayContainerViewController: OverlayTranslationControllerDelegate {
     func translationController(_ translationController: OverlayTranslationController,
                                didDragOverlayToHeight height: CGFloat) {
         guard let controller = topViewController else { return }
-        delegate?.overlayContainerViewController(self, didDragOverlay: controller, toHeight: height)
+        delegate?.overlayContainerViewController(
+            self,
+            didDragOverlay: controller,
+            toHeight: height,
+            availableSpace: previousSize.height
+        )
     }
 
     func translationController(_ translationController: OverlayTranslationController,
                                willReachNotchAt index: Int,
                                transitionCoordinator: OverlayContainerTransitionCoordinator) {
+        guard let controller = topViewController else { return }
         transitionCoordinator.animate(alongsideTransition: { _ in
             self.view.layoutIfNeeded()
         }, completion: { _ in })
         delegate?.overlayContainerViewController(
             self,
-            willEndReachingNotchAt: index,
+            willEndDraggingOverlay: controller,
+            endNotchIndex: index,
             transitionCoordinator: transitionCoordinator
         )
     }

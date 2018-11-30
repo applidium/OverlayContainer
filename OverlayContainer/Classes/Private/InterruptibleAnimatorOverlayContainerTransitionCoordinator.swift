@@ -17,14 +17,14 @@ class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContain
         self.context = context
     }
 
-    func animate(alongsideTransition animation: @escaping (OverlayContainerTransitionCoordinatorContext) -> Void,
-                 completion: @escaping (OverlayContainerTransitionCoordinatorContext) -> Void) {
+    func animate(alongsideTransition animation: ((OverlayContainerTransitionCoordinatorContext) -> Void)?,
+                 completion: ((OverlayContainerTransitionCoordinatorContext) -> Void)?) {
         let context = self.context
         animator.addAnimations? {
-            animation(context)
+            animation?(context)
         }
         animator.addCompletion? { _ in
-            completion(context)
+            completion?(context)
         }
     }
 }
