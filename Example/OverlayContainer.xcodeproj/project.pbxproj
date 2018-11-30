@@ -21,6 +21,8 @@
 		E71AC95E21B04EC400445A23 /* UIViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */; };
 		E733097221B12B430028009E /* DivideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E733097121B12B430028009E /* DivideViewController.swift */; };
 		E733097421B12B6A0028009E /* DivideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E733097321B12B6A0028009E /* DivideViewController.xib */; };
+		E733097821B12DF00028009E /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E733097721B12DF00028009E /* MapsLikeViewController.swift */; };
+		E733097A21B12E120028009E /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E733097921B12E120028009E /* MapsLikeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
 		E733097121B12B430028009E /* DivideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivideViewController.swift; sourceTree = "<group>"; };
 		E733097321B12B6A0028009E /* DivideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DivideViewController.xib; sourceTree = "<group>"; };
+		E733097721B12DF00028009E /* MapsLikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLikeViewController.swift; sourceTree = "<group>"; };
+		E733097921B12E120028009E /* MapsLikeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapsLikeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +201,8 @@
 		E733097621B12CE80028009E /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				E733097721B12DF00028009E /* MapsLikeViewController.swift */,
+				E733097921B12E120028009E /* MapsLikeViewController.xib */,
 			);
 			name = Maps;
 			sourceTree = "<group>";
@@ -291,6 +297,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E733097A21B12E120028009E /* MapsLikeViewController.xib in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				E733097421B12B6A0028009E /* DivideViewController.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
@@ -401,6 +408,7 @@
 				E733097221B12B430028009E /* DivideViewController.swift in Sources */,
 				E71AC95621B04CFE00445A23 /* ShortcutsLikeViewController.swift in Sources */,
 				E71AC95E21B04EC400445A23 /* UIViewController+Children.swift in Sources */,
+				E733097821B12DF00028009E /* MapsLikeViewController.swift in Sources */,
 				E71AC95821B04D2E00445A23 /* StackViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				E71AC95421B04CBE00445A23 /* UIView+Constraints.swift in Sources */,
