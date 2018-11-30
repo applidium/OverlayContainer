@@ -45,6 +45,7 @@ public class OverlayContainerViewController: UIViewController {
         }
     }
 
+    private var previousSize: CGSize = .zero
     private var translationController: HeightContrainstOverlayTranslationController?
     private var translationDrivers: [OverlayTranslationDriver] = []
 
@@ -63,16 +64,17 @@ public class OverlayContainerViewController: UIViewController {
 
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        guard needsOverlayContainerHeightUpdate, let controller = translationController else { return }
-        needsOverlayContainerHeightUpdate = false
-        configuration.reloadNotchHeights()
-        overlayContainerViewHeightConstraint?.constant = configuration.maximumNotchHeight
-        controller.moveOverlay(toNotchAt: controller.translationEndNotchIndex, velocity: .zero, animated: false)
+        guard needsOverlayContainerHeightUpdate else { return }
+        needsOverlayContainerHeightUpdate = true
+        updateOverlayConstraints(forNew: view.bounds.size)
     }
 
-    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    public override func viewWillTransition(to size: CGSize,
+                                            with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        needsOverlayContainerHeightUpdate = true
+        coordinator.animate(alongsideTransition: { _ in
+            self.updateOverlayConstraints(forNew: size)
+        }, completion: nil)
     }
 
     // MARK: - Public
@@ -93,6 +95,16 @@ public class OverlayContainerViewController: UIViewController {
         translationHeightConstraint?.isActive = true
         overlayContainerViewHeightConstraint = overlayContainerView.heightAnchor.constraint(equalToConstant: 0)
         overlayContainerViewHeightConstraint?.isActive = true
+    }
+
+    private func updateOverlayConstraints(forNew size: CGSize) {
+        guard let controller = translationController, previousSize != size else {
+            return
+        }
+        previousSize = size
+        configuration.reloadNotchHeights()
+        overlayContainerViewHeightConstraint?.constant = configuration.maximumNotchHeight
+        controller.moveOverlay(toNotchAt: controller.translationEndNotchIndex, velocity: .zero, animated: false)
     }
 
     private func loadOverlayViews() {
