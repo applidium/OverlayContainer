@@ -16,6 +16,10 @@ public protocol OverlayContainerTransitionCoordinatorContext {
     var targetNotchHeight: CGFloat { get }
     /// The current translation height.
     var overlayTranslationHeight: CGFloat { get }
+    /// The notch indexes.
+    var notchIndexes: Range<Int> { get }
+    /// Returns the height of the specified notch.
+    func height(forNotchAt index: Int) -> CGFloat
 }
 
 /// A protocol that provides support for animations associated with a overlay translation end.
@@ -23,7 +27,7 @@ public protocol OverlayContainerTransitionCoordinatorContext {
 /// Do not adopt this procotol in your own classes. Use the one provided by the `OverlayContainerDelegate` to
 /// add any extra animations alongside the translation end animations. It occurs when the user finish dragging
 /// the container's child view controllers.
-public protocol OverlayContainerTransitionCoordinator {
+public protocol OverlayContainerTransitionCoordinator: OverlayContainerTransitionCoordinatorContext {
     /// Runs the specified animations at the same time as overlay translation end animations.
     func animate(alongsideTransition animation: ((OverlayContainerTransitionCoordinatorContext) -> Void)?,
                  completion: ((OverlayContainerTransitionCoordinatorContext) -> Void)?)

@@ -31,8 +31,8 @@ public class RushingForwardTargetNotchPolicy: OverlayTranslationTargetNotchPolic
         guard !context.notchIndexes.isEmpty else { return 0 }
         let height = minimumDuration * -context.velocity.y + context.overlayTranslationHeight
         let closestNotches = context.notchIndexes.sorted {
-            let lhsHeight = context.heightForNotch(at: $0)
-            let rhsHeight = context.heightForNotch(at: $1)
+            let lhsHeight = context.height(forNotchAt: $0)
+            let rhsHeight = context.height(forNotchAt: $1)
             let lhsDistance = abs(height - lhsHeight)
             let rhsDistance = abs(height - rhsHeight)
             return (lhsDistance, lhsHeight) < (rhsDistance, rhsHeight)

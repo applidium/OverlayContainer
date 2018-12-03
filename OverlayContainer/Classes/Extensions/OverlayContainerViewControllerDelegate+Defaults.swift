@@ -37,6 +37,5 @@ public extension OverlayContainerViewControllerDelegate {
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         didEndDraggingOverlay overlayViewController: UIViewController,
-                                        translationEndNotchIndex: Int,
                                         transitionCoordinator: OverlayContainerTransitionCoordinator) {}
 }

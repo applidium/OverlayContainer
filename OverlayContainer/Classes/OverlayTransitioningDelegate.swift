@@ -20,7 +20,7 @@ public protocol OverlayContainerContextTargetNotchPolicy {
     /// The notch indexes.
     var notchIndexes: Range<Int> { get }
     /// Returns the height of the specified notch.
-    func heightForNotch(at index: Int) -> CGFloat
+    func height(forNotchAt index: Int) -> CGFloat
 }
 
 /// A protocol that provides contextual information on the current overlay's translation.
@@ -37,6 +37,10 @@ public protocol OverlayContainerContextTransitioning {
     var targetNotchIndex: Int { get }
     /// The expected translation height once the animation ended.
     var targetNotchHeight: CGFloat { get }
+    /// The notch indexes.
+    var notchIndexes: Range<Int> { get }
+    /// Returns the height of the specified notch.
+    func height(forNotchAt index: Int) -> CGFloat
 }
 
 /// A protocol that manages the container's behavior once the user finishes dragging.

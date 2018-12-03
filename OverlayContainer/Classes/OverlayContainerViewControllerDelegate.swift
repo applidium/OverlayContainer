@@ -80,11 +80,9 @@ public protocol OverlayContainerViewControllerDelegate: class {
     ///
     /// - parameter containerViewController: The container requesting this information.
     /// - parameter overlayViewController: The current top overlay view controller.
-    /// - parameter endNotchIndex: The expected notch.
     /// - parameter transitionCoordinator: The transition coordinator object associated with the translation end.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         didEndDraggingOverlay overlayViewController: UIViewController,
-                                        translationEndNotchIndex: Int,
                                         transitionCoordinator: OverlayContainerTransitionCoordinator)
 
     /// Asks the delegate for a translation function when dragging the specified view controller.

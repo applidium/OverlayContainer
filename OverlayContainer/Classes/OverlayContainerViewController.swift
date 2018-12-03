@@ -233,7 +233,6 @@ extension OverlayContainerViewController: OverlayTranslationControllerDelegate {
         delegate?.overlayContainerViewController(
             self,
             didEndDraggingOverlay: controller,
-            translationEndNotchIndex: index,
             transitionCoordinator: transitionCoordinator
         )
     }

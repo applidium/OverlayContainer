@@ -103,7 +103,8 @@ class HeightContrainstOverlayTranslationController: OverlayTranslationController
             overlayTranslationHeight: height,
             velocity: velocity,
             targetNotchIndex: translationEndNotchIndex,
-            targetNotchHeight: translationEndNotchHeight
+            targetNotchHeight: translationEndNotchHeight,
+            notchHeightByIndex: configuration.notchHeightByIndex
         )
         let animationController = configuration.animationController(forOverlay: overlay)
         let animator = animationController.interruptibleAnimator(using: context)

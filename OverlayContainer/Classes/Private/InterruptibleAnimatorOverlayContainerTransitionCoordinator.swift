@@ -9,6 +9,22 @@ import Foundation
 
 class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContainerTransitionCoordinator {
 
+    var targetNotchIndex: Int {
+        return context.targetNotchIndex
+    }
+
+    var targetNotchHeight: CGFloat {
+        return context.targetNotchHeight
+    }
+
+    var overlayTranslationHeight: CGFloat {
+        return context.overlayTranslationHeight
+    }
+
+    var notchIndexes: Range<Int> {
+        return context.notchIndexes
+    }
+
     private let animator: UIViewImplicitlyAnimating
     private let context: OverlayContainerTransitionCoordinatorContext
 
@@ -26,5 +42,9 @@ class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContain
         animator.addCompletion? { _ in
             completion?(context)
         }
+    }
+
+    func height(forNotchAt index: Int) -> CGFloat {
+        return context.height(forNotchAt: index)
     }
 }

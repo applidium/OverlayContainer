@@ -17,7 +17,7 @@ struct ConcreteOverlayContainerContextTargetNotchPolicy: OverlayContainerContext
         return 0..<notchHeightByIndex.count
     }
 
-    func heightForNotch(at index: Int) -> CGFloat {
+    func height(forNotchAt index: Int) -> CGFloat {
         return notchHeightByIndex[index] ?? 0
     }
 }
