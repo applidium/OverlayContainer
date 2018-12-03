@@ -7,13 +7,22 @@
 
 import UIKit
 
+/// A `OverlayContainerViewController` is a container view controller that manages one or more
+/// child view controllers in an overlay interface. It defines a zone where its children can be dragged up and down
+/// hidding or revealing the content underneath it. The container does not contain this underlying content.
 public class OverlayContainerViewController: UIViewController {
 
+    /// `OverlayStyle` defines how the overlay view controllers will be constrained in the container.
     public enum OverlayStyle {
+        /// The overlay view controller will not be height-constrained. They will grow and shrink
+        /// as the user drags them up and down.
         case flexibleHeight
+        /// The overlay view controller will be constrained with a height equal to the highest notch.
+        /// They will be fully visible only when the user has drag them up to this notch.
         case rigid
     }
 
+    /// The container's delegate.
     public var delegate: OverlayContainerViewControllerDelegate? {
         set {
             configuration.delegate = newValue
@@ -24,6 +33,7 @@ public class OverlayContainerViewController: UIViewController {
         }
     }
 
+    /// The overlay view controllers.
     public var viewControllers: [UIViewController] = [] {
         didSet {
             guard isViewLoaded else { return }
@@ -32,10 +42,12 @@ public class OverlayContainerViewController: UIViewController {
         }
     }
 
+    /// The visible overlay view controllers.
     public var topViewController: UIViewController? {
         return viewControllers.last
     }
 
+    /// The overlay container's style.
     public private(set) var style: OverlayStyle
 
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
@@ -58,6 +70,11 @@ public class OverlayContainerViewController: UIViewController {
 
     // MARK: - Life Cycle
 
+    /// Creates an instance with the specified `style`.
+    ///
+    /// - parameter style: The style uses by the container. The default value is `flexibleHeight`.
+    ///
+    /// - returns: The new `OverlayContainerViewController` instance.
     public init(style: OverlayStyle = .flexibleHeight) {
         self.style = style
         super.init(nibName: nil, bundle: nil)
@@ -98,6 +115,11 @@ public class OverlayContainerViewController: UIViewController {
 
     // MARK: - Public
 
+    /// Moves the overlay view controllers to the specified notch.
+    ///
+    /// - parameter index: The index of the target notch.
+    /// - parameter animated: Defines either the transition should be animated or not.
+    ///
     public func moveOverlay(toNotchAt index: Int, animated: Bool) {
         view.layoutIfNeeded()
         translationController?.moveOverlay(toNotchAt: index, velocity: .zero, animated: animated)
@@ -210,8 +232,8 @@ extension OverlayContainerViewController: OverlayTranslationControllerDelegate {
         }, completion: { _ in })
         delegate?.overlayContainerViewController(
             self,
-            willEndDraggingOverlay: controller,
-            endNotchIndex: index,
+            didEndDraggingOverlay: controller,
+            translationEndNotchIndex: index,
             transitionCoordinator: transitionCoordinator
         )
     }

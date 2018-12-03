@@ -70,7 +70,7 @@ class OverlayContainerViewControllerConfiguration {
         return transitioningDelegate?.animationController(for: overlay) ?? SpringOverlayTranslationAnimationController()
     }
 
-    func overlayTargetNotchPolicy(forOverlay overlay: UIViewController) -> OverlayAnimatedTransioningTargetNotchPolicy {
+    func overlayTargetNotchPolicy(forOverlay overlay: UIViewController) -> OverlayTranslationTargetNotchPolicy {
         guard let controller = overlayContainerViewController else {
             return RushingForwardTargetNotchPolicy()
         }

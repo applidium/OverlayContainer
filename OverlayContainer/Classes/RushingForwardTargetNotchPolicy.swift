@@ -8,17 +8,22 @@
 import Foundation
 
 private struct Constant {
-    static let durationConsiduration: CGFloat = 0.1
-    static let minimumVelocityConsideration: CGFloat = 400
+    static let minimumDuration: CGFloat = 0.1
+    static let minimumVelocity: CGFloat = 400
 }
 
-public class RushingForwardTargetNotchPolicy: OverlayAnimatedTransioningTargetNotchPolicy {
+/// `RushingForwardTargetNotchPolicy` specifies an overlay that will always move forward if a
+/// minimum velocity has been reached.
+public class RushingForwardTargetNotchPolicy: OverlayTranslationTargetNotchPolicy {
 
-    public var minimumVelocityConsideration: CGFloat = Constant.minimumVelocityConsideration
+    /// The minimum velocity to reach to move forward. The default value is 400 pt/s.
+    public var minimumVelocity: CGFloat = Constant.minimumVelocity
+    /// The minimum duration defines the minimum translation duration to expect.
+    public var minimumDuration: CGFloat = Constant.minimumDuration
 
     public func targetNotchIndex(using context: OverlayContainerContextTargetNotchPolicy) -> Int {
         guard !context.notchIndexes.isEmpty else { return 0 }
-        let height = Constant.durationConsiduration * -context.velocity.y + context.overlayTranslationHeight
+        let height = minimumDuration * -context.velocity.y + context.overlayTranslationHeight
         let closestNotches = context.notchIndexes.sorted {
             let lhsHeight = context.heightForNotch(at: $0)
             let rhsHeight = context.heightForNotch(at: $1)
@@ -26,7 +31,7 @@ public class RushingForwardTargetNotchPolicy: OverlayAnimatedTransioningTargetNo
             let rhsDistance = abs(height - rhsHeight)
             return (lhsDistance, lhsHeight) < (rhsDistance, rhsHeight)
         }
-        if context.notchIndexes.count > 1 && abs(context.velocity.y) > Constant.minimumVelocityConsideration {
+        if context.notchIndexes.count > 1 && abs(context.velocity.y) > minimumVelocity {
             let lhs = closestNotches[0]
             let rhs = closestNotches[1]
             if context.velocity.y < 0 {

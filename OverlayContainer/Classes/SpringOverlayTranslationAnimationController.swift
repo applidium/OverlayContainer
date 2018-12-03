@@ -8,12 +8,18 @@
 import Foundation
 
 private struct Constant {
+    static let defaultDamping: CGFloat = 0.7
+    static let defaultResponse: CGFloat = 0.3
     static let minimumVelocityConsideration: CGFloat = 500
     static let minimumTranslationDuration: TimeInterval = 0.1
     static let maximumTranslationDuration: TimeInterval = 0.5
 }
 
+/// An `OverlayAnimatedTransitioning` implementation based on `UISpringTimingParameters`.
 public class SpringOverlayTranslationAnimationController: OverlayAnimatedTransitioning {
+
+    public var damping: CGFloat = Constant.defaultDamping
+    public var response: CGFloat = Constant.defaultResponse
 
     // MARK: - OverlayAnimatedTransitioning
 
@@ -21,8 +27,8 @@ public class SpringOverlayTranslationAnimationController: OverlayAnimatedTransit
         let targetHeight = context.targetNotchHeight
         let distance = abs(targetHeight - context.overlayTranslationHeight)
         let timing = UISpringTimingParameters(
-            damping: 0.7,
-            response: 0.3,
+            damping: damping,
+            response: response,
             initialVelocity: context.velocity
         )
         let duration = max(
