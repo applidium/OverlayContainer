@@ -25,12 +25,13 @@ class MapsLikeViewController: UIViewController {
 
     // MARK: - UIViewController
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        guard size != view.bounds.size else { return }
-        coordinator.animate(alongsideTransition: { _ in
-            self.setUpConstraints(for: size)
-        }, completion: nil)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let overlayController = OverlayContainerViewController()
+        overlayController.delegate = self
+        overlayController.viewControllers = [DetailViewController()]
+        addChild(overlayController, in: overlayContainerView)
+        addChild(MasterViewController(), in: backgroundView)
     }
 
     override func viewWillLayoutSubviews() {
@@ -40,13 +41,12 @@ class MapsLikeViewController: UIViewController {
         setUpConstraints(for: view.bounds.size)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let overlayController = OverlayContainerViewController()
-        overlayController.delegate = self
-        overlayController.viewControllers = [DetailViewController()]
-        addChild(overlayController, in: overlayContainerView)
-        addChild(MasterViewController(), in: backgroundView)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        guard size != view.bounds.size else { return }
+        coordinator.animate(alongsideTransition: { _ in
+            self.setUpConstraints(for: size)
+        }, completion: nil)
     }
 
     // MARK: - Private

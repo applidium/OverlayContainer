@@ -19,6 +19,7 @@ class ShortcutsLikeViewController: UIViewController {
     private let masterViewController = MasterViewController()
 
     private var sizeClass: UIUserInterfaceSizeClass = .unspecified
+    private var needsSetup = true
 
     // MARK: - UIViewController
 
@@ -29,12 +30,22 @@ class ShortcutsLikeViewController: UIViewController {
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        setUpIfNeeded()
+        guard needsSetup else { return }
+        needsSetup = false
+        setUp(for: traitCollection)
+    }
+
+    override func willTransition(to newCollection: UITraitCollection,
+                                 with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        coordinator.animate(alongsideTransition: { context in
+            self.setUp(for: newCollection)
+        }, completion: nil)
     }
 
     // MARK: - Private
 
-    private func setUpIfNeeded() {
+    private func setUp(for traitCollection: UITraitCollection) {
         guard sizeClass != traitCollection.horizontalSizeClass else { return }
         sizeClass = traitCollection.horizontalSizeClass
         children.first.flatMap { removeChild($0) }
@@ -50,9 +61,16 @@ class ShortcutsLikeViewController: UIViewController {
             ]
             addChild(stackController, in: view)
         case .regular:
-            let splitController = DivideViewController()
-            splitController.leftViewController = detailViewController
-            splitController.rightViewController = masterViewController
+            let splitController = UISplitViewController()
+            // (gz) 2018-12-03 Both `OverlayContainerViewController` & `StackViewController` disable autorizing mask.
+            // whereas `UINavigationController` & `UISplitViewController` need it.
+            detailViewController.view.translatesAutoresizingMaskIntoConstraints = true
+            masterViewController.view.translatesAutoresizingMaskIntoConstraints = true
+            splitController.viewControllers = [
+                UINavigationController(rootViewController: detailViewController),
+                masterViewController
+            ]
+            splitController.preferredDisplayMode = .allVisible
             addChild(splitController, in: view)
         case .unspecified:
             break

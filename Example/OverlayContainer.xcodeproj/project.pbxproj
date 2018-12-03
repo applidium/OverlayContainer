@@ -19,8 +19,6 @@
 		E71AC95A21B04E3F00445A23 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95921B04E3F00445A23 /* DetailViewController.swift */; };
 		E71AC95C21B04E4B00445A23 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95B21B04E4B00445A23 /* MasterViewController.swift */; };
 		E71AC95E21B04EC400445A23 /* UIViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */; };
-		E733097221B12B430028009E /* DivideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E733097121B12B430028009E /* DivideViewController.swift */; };
-		E733097421B12B6A0028009E /* DivideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E733097321B12B6A0028009E /* DivideViewController.xib */; };
 		E733097821B12DF00028009E /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E733097721B12DF00028009E /* MapsLikeViewController.swift */; };
 		E733097A21B12E120028009E /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E733097921B12E120028009E /* MapsLikeViewController.xib */; };
 		E7E5C0AD21B168850052AD78 /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E5C0AC21B168850052AD78 /* DetailHeaderView.swift */; };
@@ -61,8 +59,6 @@
 		E71AC95921B04E3F00445A23 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E71AC95B21B04E4B00445A23 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
-		E733097121B12B430028009E /* DivideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivideViewController.swift; sourceTree = "<group>"; };
-		E733097321B12B6A0028009E /* DivideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DivideViewController.xib; sourceTree = "<group>"; };
 		E733097721B12DF00028009E /* MapsLikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLikeViewController.swift; sourceTree = "<group>"; };
 		E733097921B12E120028009E /* MapsLikeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapsLikeViewController.xib; sourceTree = "<group>"; };
 		E7E5C0AC21B168850052AD78 /* DetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
@@ -198,8 +194,6 @@
 			children = (
 				E71AC95521B04CFE00445A23 /* ShortcutsLikeViewController.swift */,
 				E71AC95721B04D2E00445A23 /* StackViewController.swift */,
-				E733097121B12B430028009E /* DivideViewController.swift */,
-				E733097321B12B6A0028009E /* DivideViewController.xib */,
 			);
 			name = Shortcuts;
 			sourceTree = "<group>";
@@ -306,7 +300,6 @@
 				E733097A21B12E120028009E /* MapsLikeViewController.xib in Resources */,
 				E7E5C0AF21B1692A0052AD78 /* DetailHeaderView.xib in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
-				E733097421B12B6A0028009E /* DivideViewController.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,7 +405,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E71AC95C21B04E4B00445A23 /* MasterViewController.swift in Sources */,
-				E733097221B12B430028009E /* DivideViewController.swift in Sources */,
 				E71AC95621B04CFE00445A23 /* ShortcutsLikeViewController.swift in Sources */,
 				E71AC95E21B04EC400445A23 /* UIViewController+Children.swift in Sources */,
 				E7E5C0AD21B168850052AD78 /* DetailHeaderView.swift in Sources */,
