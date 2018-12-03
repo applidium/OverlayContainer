@@ -21,6 +21,7 @@
 		E71AC95E21B04EC400445A23 /* UIViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */; };
 		E733097821B12DF00028009E /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E733097721B12DF00028009E /* MapsLikeViewController.swift */; };
 		E733097A21B12E120028009E /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E733097921B12E120028009E /* MapsLikeViewController.xib */; };
+		E74AD22121B594A400BE644D /* BackdropExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74AD22021B594A400BE644D /* BackdropExampleViewController.swift */; };
 		E7E5C0AD21B168850052AD78 /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E5C0AC21B168850052AD78 /* DetailHeaderView.swift */; };
 		E7E5C0AF21B1692A0052AD78 /* DetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7E5C0AE21B1692A0052AD78 /* DetailHeaderView.xib */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
 		E733097721B12DF00028009E /* MapsLikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLikeViewController.swift; sourceTree = "<group>"; };
 		E733097921B12E120028009E /* MapsLikeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapsLikeViewController.xib; sourceTree = "<group>"; };
+		E74AD22021B594A400BE644D /* BackdropExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackdropExampleViewController.swift; sourceTree = "<group>"; };
 		E7E5C0AC21B168850052AD78 /* DetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
 		E7E5C0AE21B1692A0052AD78 /* DetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailHeaderView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,6 +137,7 @@
 				E71AC95921B04E3F00445A23 /* DetailViewController.swift */,
 				E7E5C0AC21B168850052AD78 /* DetailHeaderView.swift */,
 				E7E5C0AE21B1692A0052AD78 /* DetailHeaderView.xib */,
+				E74AD21F21B5948B00BE644D /* Backdrop View */,
 				E733097621B12CE80028009E /* Maps */,
 				E733097521B12C750028009E /* Shortcuts */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -205,6 +208,14 @@
 				E733097921B12E120028009E /* MapsLikeViewController.xib */,
 			);
 			name = Maps;
+			sourceTree = "<group>";
+		};
+		E74AD21F21B5948B00BE644D /* Backdrop View */ = {
+			isa = PBXGroup;
+			children = (
+				E74AD22021B594A400BE644D /* BackdropExampleViewController.swift */,
+			);
+			name = "Backdrop View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,6 +423,7 @@
 				E71AC95821B04D2E00445A23 /* StackViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				E71AC95421B04CBE00445A23 /* UIView+Constraints.swift in Sources */,
+				E74AD22121B594A400BE644D /* BackdropExampleViewController.swift in Sources */,
 				E71AC95A21B04E3F00445A23 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
