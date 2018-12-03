@@ -21,6 +21,12 @@ public class RushingForwardTargetNotchPolicy: OverlayTranslationTargetNotchPolic
     /// The minimum duration defines the minimum translation duration to expect.
     public var minimumDuration: CGFloat = Constant.minimumDuration
 
+    // MARK: - Life Cycle
+
+    public init() {}
+
+    // MARK: - OverlayTranslationTargetNotchPolicy
+
     public func targetNotchIndex(using context: OverlayContainerContextTargetNotchPolicy) -> Int {
         guard !context.notchIndexes.isEmpty else { return 0 }
         let height = minimumDuration * -context.velocity.y + context.overlayTranslationHeight

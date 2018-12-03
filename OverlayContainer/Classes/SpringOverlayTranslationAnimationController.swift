@@ -21,6 +21,10 @@ public class SpringOverlayTranslationAnimationController: OverlayAnimatedTransit
     public var damping: CGFloat = Constant.defaultDamping
     public var response: CGFloat = Constant.defaultResponse
 
+    // MARK: - Life Cycle
+
+    public init() {}
+
     // MARK: - OverlayAnimatedTransitioning
 
     public func interruptibleAnimator(using context: OverlayContainerContextTransitioning) -> UIViewImplicitlyAnimating {

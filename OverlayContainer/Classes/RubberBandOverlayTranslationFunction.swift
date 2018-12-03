@@ -17,6 +17,10 @@ public class RubberBandOverlayTranslationFunction: OverlayTranslationFunction {
     public var bouncesAtMaximumHeight = true
     public var bouncesAtMinimumHeight = true
 
+    // MARK: - Life Cycle
+
+    public init() {}
+
     // MARK: - OverlayTranslationFunction
 
     public func overlayTranslationHeight(using context: OverlayTranslationParameters) -> CGFloat {
