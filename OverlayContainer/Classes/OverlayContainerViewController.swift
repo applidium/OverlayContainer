@@ -9,6 +9,11 @@ import UIKit
 
 public class OverlayContainerViewController: UIViewController {
 
+    public enum OverlayStyle {
+        case flexibleHeight
+        case rigid
+    }
+
     public var delegate: OverlayContainerViewControllerDelegate? {
         set {
             configuration.delegate = newValue
@@ -31,10 +36,12 @@ public class OverlayContainerViewController: UIViewController {
         return viewControllers.last
     }
 
+    public private(set) var style: OverlayStyle
+
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
     private lazy var overlayContainerView = OverlayContainerView()
     private lazy var overlayTranslationView = OverlayTranslationView()
-    private var overlayContainerViewHeightConstraint: NSLayoutConstraint?
+    private var overlayContainerViewStyleConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
 
     private lazy var configuration: OverlayContainerViewControllerConfiguration = self.makeConfiguration()
@@ -48,6 +55,18 @@ public class OverlayContainerViewController: UIViewController {
     private var previousSize: CGSize = .zero
     private var translationController: HeightContrainstOverlayTranslationController?
     private var translationDrivers: [OverlayTranslationDriver] = []
+
+    // MARK: - Life Cycle
+
+    public init(style: OverlayStyle = .flexibleHeight) {
+        self.style = style
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        self.style = .flexibleHeight
+        super.init(coder: aDecoder)
+    }
 
     // MARK: - UIViewController
 
@@ -92,7 +111,16 @@ public class OverlayContainerViewController: UIViewController {
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
         overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
         translationHeightConstraint = overlayTranslationView.heightAnchor.constraint(equalToConstant: 0)
-        overlayContainerViewHeightConstraint = overlayContainerView.heightAnchor.constraint(equalToConstant: 0)
+        switch style {
+        case .flexibleHeight:
+            overlayContainerViewStyleConstraint = overlayContainerView.bottomAnchor.constraint(
+                equalTo: overlayTranslationView.bottomAnchor
+            )
+        case .rigid:
+            overlayContainerViewStyleConstraint = overlayContainerView.heightAnchor.constraint(
+                equalToConstant: 0
+            )
+        }
     }
 
     private func updateOverlayConstraints(forNew size: CGSize) {
@@ -101,10 +129,15 @@ public class OverlayContainerViewController: UIViewController {
         }
         previousSize = size
         configuration.reloadNotchHeights()
-        overlayContainerViewHeightConstraint?.constant = configuration.maximumNotchHeight
+        switch style {
+        case .flexibleHeight:
+            overlayContainerViewStyleConstraint?.constant = 0
+        case .rigid:
+            overlayContainerViewStyleConstraint?.constant = configuration.maximumNotchHeight
+        }
         controller.moveOverlay(toNotchAt: controller.translationEndNotchIndex, velocity: .zero, animated: false)
         translationHeightConstraint?.isActive = true
-        overlayContainerViewHeightConstraint?.isActive = true
+        overlayContainerViewStyleConstraint?.isActive = true
     }
 
     private func loadOverlayViews() {
