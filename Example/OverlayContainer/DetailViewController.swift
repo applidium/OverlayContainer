@@ -45,7 +45,11 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         view.addSubview(header)
         header.heightAnchor.constraint(equalToConstant: 70).isActive = true
         header.pinToSuperview(edges: [.left, .right])
-        header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        if #available(iOS 11.0, *) {
+            header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        } else {
+            header.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        }
         tableView.dataSource = self
         tableView.pinToSuperview(edges: [.left, .right, .bottom])
         tableView.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true

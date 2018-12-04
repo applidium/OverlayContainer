@@ -26,6 +26,6 @@ OverlayContainer is a UI library written in Swift. It makes developing overlay b
   s.author           = { 'gaetanzanella' => 'gaetan.zanella@fabernovel.com' }
   s.source           = { :git => 'https://github.com/gaetanzanella/OverlayContainer.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '10.0'
   s.source_files = 'OverlayContainer/Classes/**/*'
 end

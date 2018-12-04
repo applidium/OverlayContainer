@@ -570,7 +570,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C7G63Q6LZ9;
 				INFOPLIST_FILE = OverlayContainer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaetanzanella.overlaycontainer;
@@ -591,7 +591,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C7G63Q6LZ9;
 				INFOPLIST_FILE = OverlayContainer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaetanzanella.overlaycontainer;
