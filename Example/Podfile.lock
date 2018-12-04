@@ -1,0 +1,16 @@
+PODS:
+  - OverlayContainer (0.0.1)
+
+DEPENDENCIES:
+  - OverlayContainer (from `../`)
+
+EXTERNAL SOURCES:
+  OverlayContainer:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  OverlayContainer: 526c12c01273c1fdbbc292a647dabb8830cd35ac
+
+PODFILE CHECKSUM: efc38d9f3da2bf7f56757ffe850db9ee5c85cbc7
+
+COCOAPODS: 1.6.0.beta.1
