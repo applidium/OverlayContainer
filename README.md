@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/OverlayContainer.svg?style=flat)](https://cocoapods.org/pods/OverlayContainer)
 
 OverlayContainer is a UI library written in Swift. It makes it easier to master overlay based interfaces, such as the one presented in the Apple Maps, Stocks or Shortcuts apps.
-![Shortcuts](https://github.com/gaetanzanella/overlayContainer/blob/master/Assets/shortcuts.gif)
+![Shortcuts](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/shortcuts.gif)
 
 <!-- TOC -->
 
@@ -140,7 +140,7 @@ let overlayContainer = OverlayContainerViewController(style: .rigid)
 ```
 * flexibleHeight
 
-![flexibleHeight](https://github.com/gaetanzanella/overlayContainer/blob/master/Assets/flexibleHeight.gif)
+![flexibleHeight](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/flexibleHeight.gif)
 
 The overlay view controller will not be height-constrained. It will grow and shrink as the user drags it up and down.
 
@@ -148,7 +148,7 @@ The overlay view controller will not be height-constrained. It will grow and shr
 
 * rigid
 
-![rigid](https://github.com/gaetanzanella/overlayContainer/blob/master/Assets/rigid.gif)
+![rigid](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/rigid.gif)
 
 The overlay view controller will be constrained with a height equal to the highest notch. The overlay won't be fully visible until the user drags it up to this notch.
 
@@ -184,18 +184,18 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 
 * Maps Like: A custom layout which adapts its hierachy on rotations.
 
-![Maps](https://github.com/gaetanzanella/overlayContainer/blob/master/Assets/maps.gif)
+![Maps](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/maps.gif)
 * Shortcuts: A custom layout which adapts its hierachy on trait collection changes : Moving from a `UISplitViewController` on regular environment to a simple `StackViewController` on compact environment. Visualize it on iPad Pro.
 
-![Shortcuts](https://github.com/gaetanzanella/overlayContainer/blob/master/Assets/shortcuts.gif)
+![Shortcuts](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/shortcuts.gif)
 
 ## Advanced usage
 
 ### Backdrop view
 
-Coordinate the overlay movements to the aspect of a view using the dedicated delegate methods. See the [backdrop view example](https://github.com/gaetanzanella/overlayContainer/blob/master/Example/OverlayContainer/BackdropExampleViewController.swift).
+Coordinate the overlay movements to the aspect of a view using the dedicated delegate methods. See the [backdrop view example](https://github.com/applidium/ADOverlayContainer/blob/master/Example/OverlayContainer/BackdropExampleViewController.swift).
 
-![backdrop](https://github.com/gaetanzanella/overlayContainer/blob/master/Assets/backdropView.gif)
+![backdrop](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/backdropView.gif)
 
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
