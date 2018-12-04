@@ -103,5 +103,5 @@ public protocol OverlayContainerViewControllerDelegate: class {
     ///
     /// - returns: A object implementing the `OverlayTransitioningDelegate` protocol.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        transitionningDelegateForOverlay overlayViewController: UIViewController) -> OverlayTransitioningDelegate?
+                                        transitioningDelegateForOverlay overlayViewController: UIViewController) -> OverlayTransitioningDelegate?
 }

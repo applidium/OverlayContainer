@@ -9,7 +9,7 @@ import Foundation
 
 public extension OverlayContainerViewControllerDelegate {
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        transitionningDelegateForOverlay overlayViewController: UIViewController) -> OverlayTransitioningDelegate? {
+                                        transitioningDelegateForOverlay overlayViewController: UIViewController) -> OverlayTransitioningDelegate? {
         return nil
     }
 

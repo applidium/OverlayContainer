@@ -65,7 +65,7 @@ class OverlayContainerViewControllerConfiguration {
         }
         let transitioningDelegate = delegate?.overlayContainerViewController(
             controller,
-            transitionningDelegateForOverlay: overlay
+            transitioningDelegateForOverlay: overlay
         )
         return transitioningDelegate?.animationController(for: overlay) ?? SpringOverlayTranslationAnimationController()
     }
@@ -76,7 +76,7 @@ class OverlayContainerViewControllerConfiguration {
         }
         let transitioningDelegate = delegate?.overlayContainerViewController(
             controller,
-            transitionningDelegateForOverlay: overlay
+            transitioningDelegateForOverlay: overlay
         )
         return transitioningDelegate?.overlayTargetNotchPolicy(for: overlay) ?? RushingForwardTargetNotchPolicy()
     }
