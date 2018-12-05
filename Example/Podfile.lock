@@ -1,5 +1,5 @@
 PODS:
-  - OverlayContainer (0.0.1)
+  - OverlayContainer (1.0.0)
 
 DEPENDENCIES:
   - OverlayContainer (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  OverlayContainer: 526c12c01273c1fdbbc292a647dabb8830cd35ac
+  OverlayContainer: 10314f21257c1f4630e025838e3ff0214413f8b2
 
 PODFILE CHECKSUM: efc38d9f3da2bf7f56757ffe850db9ee5c85cbc7
 

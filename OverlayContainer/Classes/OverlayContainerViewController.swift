@@ -47,8 +47,17 @@ public class OverlayContainerViewController: UIViewController {
         return viewControllers.last
     }
 
+    /// The scroll view managing the overlay translation.
+    public weak var drivingScrollView: UIScrollView? {
+        didSet {
+            guard drivingScrollView !== oldValue else { return }
+            guard isViewLoaded else { return }
+            loadTranslationDrivers()
+        }
+    }
+
     /// The overlay container's style.
-    public private(set) var style: OverlayStyle
+    public let style: OverlayStyle
 
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
     private lazy var overlayContainerView = OverlayContainerView()
@@ -164,36 +173,44 @@ public class OverlayContainerViewController: UIViewController {
 
     private func loadOverlayViews() {
         viewControllers.forEach { addChild($0, in: overlayContainerView) }
+        loadTranslationController()
         loadTranslationDrivers()
     }
 
-    private func loadTranslationDrivers() {
+    private func loadTranslationController() {
         guard let translationHeightConstraint = translationHeightConstraint,
             let overlayController = topViewController else {
-            return
+                return
         }
-        let controller = HeightContrainstOverlayTranslationController(
+        translationController = HeightContrainstOverlayTranslationController(
             translationHeightConstraint: translationHeightConstraint,
             overlayViewController: overlayController,
             configuration: configuration
         )
-        controller.delegate = self
+        translationController?.delegate = self
+    }
+
+    private func loadTranslationDrivers() {
+        guard let translationController = translationController,
+            let overlayController = topViewController else {
+                return
+        }
         var drivers: [OverlayTranslationDriver] = []
         let panGestureDriver = PanGestureOverlayTranslationDriver(
-            translationController: controller,
+            translationController: translationController,
             panGestureRecognizer: overlayPanGesture
         )
         drivers.append(panGestureDriver)
-        if let scrollView = configuration.scrollView(drivingOverlay: overlayController) {
+        let scrollView = drivingScrollView ?? configuration.scrollView(drivingOverlay: overlayController)
+        if let scrollView = scrollView {
             overlayPanGesture.drivingScrollView = scrollView
             let driver = ScrollViewOverlayTranslationDriver(
-                translationController: controller,
+                translationController: translationController,
                 scrollView: scrollView
             )
             drivers.append(driver)
         }
         translationDrivers = drivers
-        translationController = controller
     }
 
     private func setUpPanGesture() {

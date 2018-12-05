@@ -16,8 +16,8 @@
 		E71AC95421B04CBE00445A23 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95321B04CBE00445A23 /* UIView+Constraints.swift */; };
 		E71AC95621B04CFE00445A23 /* ShortcutsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95521B04CFE00445A23 /* ShortcutsLikeViewController.swift */; };
 		E71AC95821B04D2E00445A23 /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95721B04D2E00445A23 /* StackViewController.swift */; };
-		E71AC95A21B04E3F00445A23 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95921B04E3F00445A23 /* DetailViewController.swift */; };
-		E71AC95C21B04E4B00445A23 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95B21B04E4B00445A23 /* MasterViewController.swift */; };
+		E71AC95A21B04E3F00445A23 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95921B04E3F00445A23 /* SearchViewController.swift */; };
+		E71AC95C21B04E4B00445A23 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95B21B04E4B00445A23 /* MapsViewController.swift */; };
 		E71AC95E21B04EC400445A23 /* UIViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */; };
 		E733097821B12DF00028009E /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E733097721B12DF00028009E /* MapsLikeViewController.swift */; };
 		E733097A21B12E120028009E /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E733097921B12E120028009E /* MapsLikeViewController.xib */; };
@@ -57,8 +57,8 @@
 		E71AC95321B04CBE00445A23 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		E71AC95521B04CFE00445A23 /* ShortcutsLikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsLikeViewController.swift; sourceTree = "<group>"; };
 		E71AC95721B04D2E00445A23 /* StackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
-		E71AC95921B04E3F00445A23 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		E71AC95B21B04E4B00445A23 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		E71AC95921B04E3F00445A23 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		E71AC95B21B04E4B00445A23 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
 		E733097721B12DF00028009E /* MapsLikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLikeViewController.swift; sourceTree = "<group>"; };
 		E733097921B12E120028009E /* MapsLikeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapsLikeViewController.xib; sourceTree = "<group>"; };
@@ -133,8 +133,8 @@
 			children = (
 				E71AC95221B04CA600445A23 /* Extension */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				E71AC95B21B04E4B00445A23 /* MasterViewController.swift */,
-				E71AC95921B04E3F00445A23 /* DetailViewController.swift */,
+				E71AC95B21B04E4B00445A23 /* MapsViewController.swift */,
+				E71AC95921B04E3F00445A23 /* SearchViewController.swift */,
 				E7E5C0AC21B168850052AD78 /* DetailHeaderView.swift */,
 				E7E5C0AE21B1692A0052AD78 /* DetailHeaderView.xib */,
 				E74AD21F21B5948B00BE644D /* Backdrop View */,
@@ -415,7 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E71AC95C21B04E4B00445A23 /* MasterViewController.swift in Sources */,
+				E71AC95C21B04E4B00445A23 /* MapsViewController.swift in Sources */,
 				E71AC95621B04CFE00445A23 /* ShortcutsLikeViewController.swift in Sources */,
 				E71AC95E21B04EC400445A23 /* UIViewController+Children.swift in Sources */,
 				E7E5C0AD21B168850052AD78 /* DetailHeaderView.swift in Sources */,
@@ -424,7 +424,7 @@
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				E71AC95421B04CBE00445A23 /* UIView+Constraints.swift in Sources */,
 				E74AD22121B594A400BE644D /* BackdropExampleViewController.swift in Sources */,
-				E71AC95A21B04E3F00445A23 /* DetailViewController.swift in Sources */,
+				E71AC95A21B04E3F00445A23 /* SearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

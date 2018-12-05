@@ -1,14 +1,14 @@
 # OverlayContainer
 
-[![CI Status](https://img.shields.io/travis/gaetanzanella/OverlayContainer.svg?style=flat)](https://travis-ci.org/gaetanzanella/OverlayContainer)
 [![Version](https://img.shields.io/cocoapods/v/OverlayContainer.svg?style=flat)](https://cocoapods.org/pods/OverlayContainer)
 [![License](https://img.shields.io/cocoapods/l/OverlayContainer.svg?style=flat)](https://cocoapods.org/pods/OverlayContainer)
 [![Platform](https://img.shields.io/cocoapods/p/OverlayContainer.svg?style=flat)](https://cocoapods.org/pods/OverlayContainer)
 
-OverlayContainer is a UI library written in Swift. It makes it easier to master overlay based interfaces, such as the one presented in the Apple Maps, Stocks or Shortcuts apps.
-![Shortcuts](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/shortcuts.gif)
+OverlayContainer is a UI library written in Swift. It makes it easier to develop overlay based interfaces, such as the one presented in the Apple Maps, Stocks or Shortcuts apps.
 
-<!-- TOC -->
+![scroll](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/scroll.gif)
+
+___
 
 - [Features](#features)
 - [Requirements](#requirements)
@@ -22,21 +22,19 @@ OverlayContainer is a UI library written in Swift. It makes it easier to master 
   - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
   - [Backdrop view](#backdrop-usage)
+  - [Safe Area](#safe-area)
   - [Custom Translation](#custom-translation)
-  - [Custom Translation Animations](#custom-animation)
+  - [Custom Translation Animations](#custom-translation-animations)
 - [Author](#author)
 - [License](#license)
 
-<!-- /TOC -->
-
 ## Features
 
-- [x] UIKit like API
-- [x] Scroll view translation support
-- [x] Transition between scroll & translation
-- [x] Rubber band effect
-- [x] Number of notches customizable
-- [x] Translation animations customizable
+- [x] Unlimited notches
+- [x] Adapts to any custom layouts
+- [x] Fluid transitions between scroll & translation : it perfectly mimics the overlay presented in the Shotcuts app
+- [x] Includes a rubber band effect
+- [x] Animations and target notch policy fully customizable
 
 ## Requirements
 
@@ -85,16 +83,16 @@ class StackViewController: UIViewController {
 A startup sequence might look like this :
 
 ```swift
-let contentController = MasterViewController()
-let overlayController = DetailViewController()
+let mapsController = MapsViewController()
+let searchController = SearchViewController()
 
 let containerController = OverlayContainerViewController()
 containerController.delegate = self
-containerController.viewControllers = [overlayController]
+containerController.viewControllers = [searchController]
 
 let stackController = StackViewController()
 stackController.viewControllers = [
-    contentController,
+    mapsController,
     containerController
 ]
 window?.rootViewController = stackController
@@ -127,9 +125,11 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
     }
 }
 ```
+
 ### Overlay style
 
 The overlay style defines how the overlay view controllers will be constrained in the `OverlayContainerViewController`.
+
 ```swift
 enum OverlayStyle {
     case flexibleHeight // default
@@ -138,13 +138,14 @@ enum OverlayStyle {
 
 let overlayContainer = OverlayContainerViewController(style: .rigid)
 ```
+
 * flexibleHeight
 
 ![flexibleHeight](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/flexibleHeight.gif)
 
 The overlay view controller will not be height-constrained. It will grow and shrink as the user drags it up and down.
 
-**It is specifically designed for overlays containing scroll views. Be careful to always provide a minimum height higher than the intrinsic content of your overlay.**
+It is specifically designed for overlays containing scroll views. **Be careful to always provide a minimum height higher than the intrinsic content of your overlay.**
 
 * rigid
 
@@ -152,21 +153,33 @@ The overlay view controller will not be height-constrained. It will grow and shr
 
 The overlay view controller will be constrained with a height equal to the highest notch. The overlay won't be fully visible until the user drags it up to this notch.
 
-**As described in the [WWDC "UIKit: Apps for Every Size and Shape" video](https://masterer.apple.com/videos/play/wwdc2018-235/?time=328), be careful when using this style. Do not use the `safeAreaLayoutGuide` to arrange your overlay.**
-
 ### Scroll view support
 
 The container view controller can coordinate the scrolling of a scroll view with the overlay translation.
+
+![scrollToTranslation](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/scrollToTranslation.gif)
+
+Use the associated delegate method :
+
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                     scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView? {
     return (overlayViewController as? DetailViewController)?.tableView
 }
 ```
+
+Or directly set the container property :
+
+```swift
+let containerController = OverlayContainerViewController()
+containerController.drivingScrollView = myScrollView
+```
+
 ### Pan gesture support
 
 The container view controller detects pan gestures on its own view. 
 Use the dedicated delegate method to check that the specified starting pan gesture location corresponds to a grabbable view in your custom overlay.
+
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                     shouldStartDraggingOverlay overlayViewController: UIViewController,
@@ -185,6 +198,7 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 * Maps Like: A custom layout which adapts its hierachy on rotations.
 
 ![Maps](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/maps.gif)
+
 * Shortcuts: A custom layout which adapts its hierachy on trait collection changes : Moving from a `UISplitViewController` on regular environment to a simple `StackViewController` on compact environment. Visualize it on iPad Pro.
 
 ![Shortcuts](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/shortcuts.gif)
@@ -215,11 +229,34 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
     }
 ```
 
+### Safe Area
+
+Be careful when using safe areas. As described in the [WWDC "UIKit: Apps for Every Size and Shape" video](https://masterer.apple.com/videos/play/wwdc2018-235/?time=328), the safe area insets will not be updated if your views exceeds the screen bounds. This is specially the case when using the `OverlayStyle.flexibleHeight`.
+
+The simpliest way to handle the safe area correctly is to compute your notch heights using the `safeAreaInsets` provided by the container and avoid the `safeAreaLayoutGuide` bottom anchor in your overlay :
+
+```
+func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                    heightForNotchAt index: Int,
+                                    availableSpace: CGFloat) -> CGFloat {
+    let bottomInset = containerViewController.view.safeAreaInsets.bottom
+    switch OverlayNotch.allCases[index] {
+
+        // ...
+
+        case .minimum:
+            return bottomInset + 100
+    }
+}
+```
+
 ### Custom Translation
 
 Adopt `OverlayTranslationFunction` to modify the relation between the user's finger translation and the actual overlay translation.
 
 By default, the overlay container uses a `RubberBandOverlayTranslationFunction` that provides a rubber band effect.
+
+![rubberBand](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/rubberBand.gif)
 
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
@@ -235,7 +272,10 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 
 Adopt `OverlayTranslationTargetNotchPolicy` & `OverlayAnimatedTransitioning` protocols to define where the overlay should go once the user's touch is released and how to animate the translation.
 
-By default, the overlay container uses a `SpringOverlayTranslationAnimationController` that mimics the behavior of a spring.
+By default, the overlay container uses a `SpringOverlayTranslationAnimationController` that mimics the behavior of a spring. 
+The associated target notch policy `RushingForwardTargetNotchPolicy` will always try to go forward is the user's finger reachs a certain velocity. It might also decide to skip some notches if the user goes too fast.
+
+![animations](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/animations.gif)
 
 ```swift
 

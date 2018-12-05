@@ -23,17 +23,17 @@ class BackdropExampleViewController: UIViewController {
     }
 
     private let backdropViewController = BackdropViewController()
-    private let detailViewController = DetailViewController()
-    private let masterViewController = MasterViewController()
+    private let searchViewController = SearchViewController()
+    private let mapsViewController = MapsViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let overlayController = OverlayContainerViewController()
         overlayController.delegate = self
-        overlayController.viewControllers = [detailViewController]
+        overlayController.viewControllers = [searchViewController]
         let stackController = StackViewController()
         stackController.viewControllers = [
-            masterViewController,
+            mapsViewController,
             backdropViewController,
             overlayController
         ]
@@ -84,14 +84,14 @@ extension BackdropExampleViewController: OverlayContainerViewControllerDelegate 
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView? {
-        return (overlayViewController as? DetailViewController)?.tableView
+        return (overlayViewController as? SearchViewController)?.tableView
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         shouldStartDraggingOverlay overlayViewController: UIViewController,
                                         at point: CGPoint,
                                         in coordinateSpace: UICoordinateSpace) -> Bool {
-        guard let header = (overlayViewController as? DetailViewController)?.header else {
+        guard let header = (overlayViewController as? SearchViewController)?.header else {
             return false
         }
         return header.bounds.contains(coordinateSpace.convert(point, to: header))
