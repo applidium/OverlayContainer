@@ -26,6 +26,7 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
         self.translationController = translationController
         self.scrollView = scrollView
         scrollViewDelegateProxy.forward(to: self, delegateInvocationsFrom: scrollView)
+        lastContentOffsetWhileScrolling = scrollView.contentOffset
     }
 
     // MARK: - OverlayScrollViewDelegate
