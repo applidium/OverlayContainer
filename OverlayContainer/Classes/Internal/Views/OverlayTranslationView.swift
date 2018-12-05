@@ -7,4 +7,4 @@
 
 import Foundation
 
-class OverlayTranslationView: UIView {}
+class OverlayTranslationView: PassThroughView {}

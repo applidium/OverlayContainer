@@ -7,4 +7,4 @@
 
 import Foundation
 
-class OverlayContainerView: UIView {}
+class OverlayContainerView: PassThroughView {}
