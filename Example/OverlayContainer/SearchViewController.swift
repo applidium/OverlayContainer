@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  SearchViewController.swift
 //  OverlayContainer_Example
 //
 //  Created by Gaétan Zanella on 29/11/2018.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    let header = Bundle.main.loadNibNamed("DetailHeaderView", owner: nil, options: nil)![0] as! UIView
+    let header = Bundle.main.loadNibNamed("DetailHeaderView", owner: self, options: nil)![0] as! UIView
     let tableView = UITableView()
 
     // MARK: - UIViewController
@@ -18,14 +18,15 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     override func loadView() {
         view = UIView()
         setUpView()
-        title = "Detail"
+        title = "Search"
     }
 
     // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.textLabel?.text = "\(indexPath.row)"
+        cell.textLabel?.text = "Row \(indexPath.row)"
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return cell
     }
 

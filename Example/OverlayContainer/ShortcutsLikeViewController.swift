@@ -15,8 +15,8 @@ class ShortcutsLikeViewController: UIViewController {
         case minimum, medium, maximum
     }
 
-    private let detailViewController = DetailViewController()
-    private let masterViewController = MasterViewController()
+    private let searchViewController = SearchViewController()
+    private let mapsViewController = MapsViewController()
 
     private var sizeClass: UIUserInterfaceSizeClass = .unspecified
     private var needsSetup = true
@@ -53,10 +53,10 @@ class ShortcutsLikeViewController: UIViewController {
         case .compact:
             let overlayController = OverlayContainerViewController()
             overlayController.delegate = self
-            overlayController.viewControllers = [detailViewController]
+            overlayController.viewControllers = [searchViewController]
             let stackController = StackViewController()
             stackController.viewControllers = [
-                masterViewController,
+                mapsViewController,
                 overlayController
             ]
             addChild(stackController, in: view)
@@ -64,11 +64,11 @@ class ShortcutsLikeViewController: UIViewController {
             let splitController = UISplitViewController()
             // (gz) 2018-12-03 Both `OverlayContainerViewController` & `StackViewController` disable autorizing mask.
             // whereas `UINavigationController` & `UISplitViewController` need it.
-            detailViewController.view.translatesAutoresizingMaskIntoConstraints = true
-            masterViewController.view.translatesAutoresizingMaskIntoConstraints = true
+            searchViewController.view.translatesAutoresizingMaskIntoConstraints = true
+            mapsViewController.view.translatesAutoresizingMaskIntoConstraints = true
             splitController.viewControllers = [
-                UINavigationController(rootViewController: detailViewController),
-                masterViewController
+                UINavigationController(rootViewController: searchViewController),
+                mapsViewController
             ]
             splitController.preferredDisplayMode = .allVisible
             addChild(splitController, in: view)
@@ -101,14 +101,14 @@ extension ShortcutsLikeViewController: OverlayContainerViewControllerDelegate {
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView? {
-        return (overlayViewController as? DetailViewController)?.tableView
+        return (overlayViewController as? SearchViewController)?.tableView
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         shouldStartDraggingOverlay overlayViewController: UIViewController,
                                         at point: CGPoint,
                                         in coordinateSpace: UICoordinateSpace) -> Bool {
-        guard let header = (overlayViewController as? DetailViewController)?.header else {
+        guard let header = (overlayViewController as? SearchViewController)?.header else {
             return false
         }
         return header.bounds.contains(coordinateSpace.convert(point, to: header))

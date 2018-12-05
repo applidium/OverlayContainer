@@ -29,9 +29,9 @@ class MapsLikeViewController: UIViewController {
         super.viewDidLoad()
         let overlayController = OverlayContainerViewController()
         overlayController.delegate = self
-        overlayController.viewControllers = [DetailViewController()]
+        overlayController.viewControllers = [SearchViewController()]
         addChild(overlayController, in: overlayContainerView)
-        addChild(MasterViewController(), in: backgroundView)
+        addChild(MapsViewController(), in: backgroundView)
     }
 
     override func viewWillLayoutSubviews() {
@@ -88,14 +88,14 @@ extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView? {
-        return (overlayViewController as? DetailViewController)?.tableView
+        return (overlayViewController as? SearchViewController)?.tableView
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         shouldStartDraggingOverlay overlayViewController: UIViewController,
                                         at point: CGPoint,
                                         in coordinateSpace: UICoordinateSpace) -> Bool {
-        guard let header = (overlayViewController as? DetailViewController)?.header else {
+        guard let header = (overlayViewController as? SearchViewController)?.header else {
             return false
         }
         let convertedPoint = coordinateSpace.convert(point, to: header)

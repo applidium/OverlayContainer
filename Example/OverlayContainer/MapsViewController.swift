@@ -1,5 +1,5 @@
 //
-//  MasterViewController.swift
+//  MapsViewController.swift
 //  OverlayContainer_Example
 //
 //  Created by Gaétan Zanella on 29/11/2018.
@@ -9,7 +9,7 @@
 import MapKit
 import UIKit
 
-class MasterViewController: UIViewController {
+class MapsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let map = MKMapView()
