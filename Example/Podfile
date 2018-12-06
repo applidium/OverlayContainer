@@ -2,10 +2,4 @@ use_frameworks!
 
 target 'OverlayContainer_Example' do
   pod 'OverlayContainer', :path => '../'
-
-  target 'OverlayContainer_Tests' do
-    inherit! :search_paths
-
-    
-  end
 end
