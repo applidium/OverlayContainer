@@ -3,234 +3,164 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		391F100B9F523984A19855C6 /* Pods_OverlayContainer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AAEC541E5DAFD8D1243F2F /* Pods_OverlayContainer_Example.framework */; };
-		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
-		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
-		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		B072DA7509883B7B6E59D030 /* Pods_OverlayContainer_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 065FE66FD5D319E6DA75D649 /* Pods_OverlayContainer_Tests.framework */; };
-		E71AC95421B04CBE00445A23 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95321B04CBE00445A23 /* UIView+Constraints.swift */; };
-		E71AC95621B04CFE00445A23 /* ShortcutsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95521B04CFE00445A23 /* ShortcutsLikeViewController.swift */; };
-		E71AC95821B04D2E00445A23 /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95721B04D2E00445A23 /* StackViewController.swift */; };
-		E71AC95A21B04E3F00445A23 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95921B04E3F00445A23 /* SearchViewController.swift */; };
-		E71AC95C21B04E4B00445A23 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95B21B04E4B00445A23 /* MapsViewController.swift */; };
-		E71AC95E21B04EC400445A23 /* UIViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */; };
-		E733097821B12DF00028009E /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E733097721B12DF00028009E /* MapsLikeViewController.swift */; };
-		E733097A21B12E120028009E /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E733097921B12E120028009E /* MapsLikeViewController.xib */; };
-		E74AD22121B594A400BE644D /* BackdropExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74AD22021B594A400BE644D /* BackdropExampleViewController.swift */; };
-		E7E5C0AD21B168850052AD78 /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E5C0AC21B168850052AD78 /* DetailHeaderView.swift */; };
-		E7E5C0AF21B1692A0052AD78 /* DetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7E5C0AE21B1692A0052AD78 /* DetailHeaderView.xib */; };
+		486805903174B1CA4EE029C1 /* Pods_OverlayContainer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 935B5D18F4A8FC3C173B0B80 /* Pods_OverlayContainer_Example.framework */; };
+		E777DC3C21B973FE0004BE81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E777DC3B21B973FE0004BE81 /* AppDelegate.swift */; };
+		E777DC5121B974840004BE81 /* BackdropExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E777DC5021B974840004BE81 /* BackdropExampleViewController.swift */; };
+		E777DC5C21B9749E0004BE81 /* ShortcutsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E777DC5221B9749D0004BE81 /* ShortcutsLikeViewController.swift */; };
+		E777DC5D21B9749E0004BE81 /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E777DC5321B9749D0004BE81 /* DetailHeaderView.swift */; };
+		E777DC5F21B9749E0004BE81 /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E777DC5521B9749D0004BE81 /* StackViewController.swift */; };
+		E777DC6121B9749E0004BE81 /* UIViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = E777DC5721B9749D0004BE81 /* UIViewController+Children.swift */; };
+		E777DC6221B9749E0004BE81 /* DetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E777DC5821B9749D0004BE81 /* DetailHeaderView.xib */; };
+		E777DC6321B9749E0004BE81 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E777DC5921B9749D0004BE81 /* SearchViewController.swift */; };
+		E777DC6421B9749E0004BE81 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E777DC5A21B9749D0004BE81 /* MapsViewController.swift */; };
+		E777DC6521B9749E0004BE81 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = E777DC5B21B9749D0004BE81 /* UIView+Constraints.swift */; };
+		E7818DF021B9785A00579ADB /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7818DEE21B9785A00579ADB /* MapsLikeViewController.swift */; };
+		E7818DF121B9785A00579ADB /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7818DEF21B9785A00579ADB /* MapsLikeViewController.xib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		607FACE61AFB9204008FA782 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
-			remoteInfo = OverlayContainer;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		065FE66FD5D319E6DA75D649 /* Pods_OverlayContainer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OverlayContainer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		425744897BD43E52B748DC99 /* Pods-OverlayContainer_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OverlayContainer_Tests.release.xcconfig"; path = "Target Support Files/Pods-OverlayContainer_Tests/Pods-OverlayContainer_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		4E8A14FE6ED744392DCCE33B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		55BDEA0FAD19BA76418252A0 /* Pods-OverlayContainer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OverlayContainer_Example.release.xcconfig"; path = "Target Support Files/Pods-OverlayContainer_Example/Pods-OverlayContainer_Example.release.xcconfig"; sourceTree = "<group>"; };
-		607FACD01AFB9204008FA782 /* OverlayContainer_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OverlayContainer_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		607FACE51AFB9204008FA782 /* OverlayContainer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OverlayContainer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		65AAEC541E5DAFD8D1243F2F /* Pods_OverlayContainer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OverlayContainer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C9A7FCF0BB17DB2D204841A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		A67B118B5F428EDDD80254C0 /* OverlayContainer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = OverlayContainer.podspec; path = ../OverlayContainer.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		ADD4CEC5DCC4F8063647CD23 /* Pods-OverlayContainer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OverlayContainer_Tests.debug.xcconfig"; path = "Target Support Files/Pods-OverlayContainer_Tests/Pods-OverlayContainer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		D1169A8E688961A50FC7E0EF /* Pods-OverlayContainer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OverlayContainer_Example.debug.xcconfig"; path = "Target Support Files/Pods-OverlayContainer_Example/Pods-OverlayContainer_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		E71AC95321B04CBE00445A23 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
-		E71AC95521B04CFE00445A23 /* ShortcutsLikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsLikeViewController.swift; sourceTree = "<group>"; };
-		E71AC95721B04D2E00445A23 /* StackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
-		E71AC95921B04E3F00445A23 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		E71AC95B21B04E4B00445A23 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
-		E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
-		E733097721B12DF00028009E /* MapsLikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLikeViewController.swift; sourceTree = "<group>"; };
-		E733097921B12E120028009E /* MapsLikeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapsLikeViewController.xib; sourceTree = "<group>"; };
-		E74AD22021B594A400BE644D /* BackdropExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackdropExampleViewController.swift; sourceTree = "<group>"; };
-		E7E5C0AC21B168850052AD78 /* DetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
-		E7E5C0AE21B1692A0052AD78 /* DetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailHeaderView.xib; sourceTree = "<group>"; };
+		0204A0F8A9DD071FF7D8A7EB /* Pods-OverlayContainer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OverlayContainer_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OverlayContainer_Example/Pods-OverlayContainer_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		2AD4820CCB0BB1585603DC6E /* Pods-OverlayContainer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OverlayContainer_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-OverlayContainer_Example/Pods-OverlayContainer_Example.release.xcconfig"; sourceTree = "<group>"; };
+		935B5D18F4A8FC3C173B0B80 /* Pods_OverlayContainer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OverlayContainer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E777DC3821B973FE0004BE81 /* OverlayContainer_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OverlayContainer_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E777DC3B21B973FE0004BE81 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E777DC4721B973FF0004BE81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E777DC5021B974840004BE81 /* BackdropExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackdropExampleViewController.swift; path = OverlayContainer/Backdrop/BackdropExampleViewController.swift; sourceTree = SOURCE_ROOT; };
+		E777DC5221B9749D0004BE81 /* ShortcutsLikeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShortcutsLikeViewController.swift; path = OverlayContainer/Shortcuts/ShortcutsLikeViewController.swift; sourceTree = SOURCE_ROOT; };
+		E777DC5321B9749D0004BE81 /* DetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailHeaderView.swift; path = OverlayContainer/Shared/DetailHeaderView.swift; sourceTree = SOURCE_ROOT; };
+		E777DC5521B9749D0004BE81 /* StackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackViewController.swift; path = OverlayContainer/Shared/StackViewController.swift; sourceTree = SOURCE_ROOT; };
+		E777DC5721B9749D0004BE81 /* UIViewController+Children.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Children.swift"; path = "OverlayContainer/Extensions/UIViewController+Children.swift"; sourceTree = SOURCE_ROOT; };
+		E777DC5821B9749D0004BE81 /* DetailHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DetailHeaderView.xib; path = OverlayContainer/Shared/DetailHeaderView.xib; sourceTree = SOURCE_ROOT; };
+		E777DC5921B9749D0004BE81 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = OverlayContainer/Shared/SearchViewController.swift; sourceTree = SOURCE_ROOT; };
+		E777DC5A21B9749D0004BE81 /* MapsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapsViewController.swift; path = OverlayContainer/Shared/MapsViewController.swift; sourceTree = SOURCE_ROOT; };
+		E777DC5B21B9749D0004BE81 /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Constraints.swift"; path = "OverlayContainer/Extensions/UIView+Constraints.swift"; sourceTree = SOURCE_ROOT; };
+		E7818DEE21B9785A00579ADB /* MapsLikeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsLikeViewController.swift; sourceTree = "<group>"; };
+		E7818DEF21B9785A00579ADB /* MapsLikeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapsLikeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		607FACCD1AFB9204008FA782 /* Frameworks */ = {
+		E777DC3521B973FE0004BE81 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				391F100B9F523984A19855C6 /* Pods_OverlayContainer_Example.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		607FACE21AFB9204008FA782 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B072DA7509883B7B6E59D030 /* Pods_OverlayContainer_Tests.framework in Frameworks */,
+				486805903174B1CA4EE029C1 /* Pods_OverlayContainer_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		228C24D4875FAED645D32442 /* Frameworks */ = {
+		27C810646795F28CE4EC0760 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				65AAEC541E5DAFD8D1243F2F /* Pods_OverlayContainer_Example.framework */,
-				065FE66FD5D319E6DA75D649 /* Pods_OverlayContainer_Tests.framework */,
+				935B5D18F4A8FC3C173B0B80 /* Pods_OverlayContainer_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2CDA5FA96F7C3E323BD7B766 /* Pods */ = {
+		6423134E86CAF67F8771C939 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D1169A8E688961A50FC7E0EF /* Pods-OverlayContainer_Example.debug.xcconfig */,
-				55BDEA0FAD19BA76418252A0 /* Pods-OverlayContainer_Example.release.xcconfig */,
-				ADD4CEC5DCC4F8063647CD23 /* Pods-OverlayContainer_Tests.debug.xcconfig */,
-				425744897BD43E52B748DC99 /* Pods-OverlayContainer_Tests.release.xcconfig */,
+				0204A0F8A9DD071FF7D8A7EB /* Pods-OverlayContainer_Example.debug.xcconfig */,
+				2AD4820CCB0BB1585603DC6E /* Pods-OverlayContainer_Example.release.xcconfig */,
 			);
-			path = Pods;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		607FACC71AFB9204008FA782 = {
+		E777DC2F21B973FE0004BE81 = {
 			isa = PBXGroup;
 			children = (
-				607FACF51AFB993E008FA782 /* Podspec Metadata */,
-				607FACD21AFB9204008FA782 /* Example for OverlayContainer */,
-				607FACE81AFB9204008FA782 /* Tests */,
-				607FACD11AFB9204008FA782 /* Products */,
-				2CDA5FA96F7C3E323BD7B766 /* Pods */,
-				228C24D4875FAED645D32442 /* Frameworks */,
+				E777DC3A21B973FE0004BE81 /* OverlayContainer */,
+				E777DC3921B973FE0004BE81 /* Products */,
+				6423134E86CAF67F8771C939 /* Pods */,
+				27C810646795F28CE4EC0760 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		607FACD11AFB9204008FA782 /* Products */ = {
+		E777DC3921B973FE0004BE81 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD01AFB9204008FA782 /* OverlayContainer_Example.app */,
-				607FACE51AFB9204008FA782 /* OverlayContainer_Tests.xctest */,
+				E777DC3821B973FE0004BE81 /* OverlayContainer_Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		607FACD21AFB9204008FA782 /* Example for OverlayContainer */ = {
+		E777DC3A21B973FE0004BE81 /* OverlayContainer */ = {
 			isa = PBXGroup;
 			children = (
-				E71AC95221B04CA600445A23 /* Extension */,
-				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				E71AC95B21B04E4B00445A23 /* MapsViewController.swift */,
-				E71AC95921B04E3F00445A23 /* SearchViewController.swift */,
-				E7E5C0AC21B168850052AD78 /* DetailHeaderView.swift */,
-				E7E5C0AE21B1692A0052AD78 /* DetailHeaderView.xib */,
-				E74AD21F21B5948B00BE644D /* Backdrop View */,
-				E733097621B12CE80028009E /* Maps */,
-				E733097521B12C750028009E /* Shortcuts */,
-				607FACDC1AFB9204008FA782 /* Images.xcassets */,
-				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
-				607FACD31AFB9204008FA782 /* Supporting Files */,
+				E777DC4721B973FF0004BE81 /* Info.plist */,
+				E777DC3B21B973FE0004BE81 /* AppDelegate.swift */,
+				E777DC6621B974A10004BE81 /* Extensions */,
+				E7818DED21B977EF00579ADB /* Shared */,
+				E777DC4F21B974660004BE81 /* Backdrop */,
+				E777DC4D21B9744D0004BE81 /* Maps */,
+				E777DC4E21B9745B0004BE81 /* Shortcuts */,
 			);
-			name = "Example for OverlayContainer";
 			path = OverlayContainer;
 			sourceTree = "<group>";
 		};
-		607FACD31AFB9204008FA782 /* Supporting Files */ = {
+		E777DC4D21B9744D0004BE81 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD41AFB9204008FA782 /* Info.plist */,
+				E7818DEE21B9785A00579ADB /* MapsLikeViewController.swift */,
+				E7818DEF21B9785A00579ADB /* MapsLikeViewController.xib */,
 			);
-			name = "Supporting Files";
+			path = Maps;
 			sourceTree = "<group>";
 		};
-		607FACE81AFB9204008FA782 /* Tests */ = {
+		E777DC4E21B9745B0004BE81 /* Shortcuts */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
-				607FACE91AFB9204008FA782 /* Supporting Files */,
+				E777DC5221B9749D0004BE81 /* ShortcutsLikeViewController.swift */,
 			);
-			path = Tests;
+			path = Shortcuts;
 			sourceTree = "<group>";
 		};
-		607FACE91AFB9204008FA782 /* Supporting Files */ = {
+		E777DC4F21B974660004BE81 /* Backdrop */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEA1AFB9204008FA782 /* Info.plist */,
+				E777DC5021B974840004BE81 /* BackdropExampleViewController.swift */,
 			);
-			name = "Supporting Files";
+			path = Backdrop;
 			sourceTree = "<group>";
 		};
-		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
+		E777DC6621B974A10004BE81 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				A67B118B5F428EDDD80254C0 /* OverlayContainer.podspec */,
-				6C9A7FCF0BB17DB2D204841A /* README.md */,
-				4E8A14FE6ED744392DCCE33B /* LICENSE */,
+				E777DC5B21B9749D0004BE81 /* UIView+Constraints.swift */,
+				E777DC5721B9749D0004BE81 /* UIViewController+Children.swift */,
 			);
-			name = "Podspec Metadata";
+			path = Extensions;
 			sourceTree = "<group>";
 		};
-		E71AC95221B04CA600445A23 /* Extension */ = {
+		E7818DED21B977EF00579ADB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				E71AC95321B04CBE00445A23 /* UIView+Constraints.swift */,
-				E71AC95D21B04EC400445A23 /* UIViewController+Children.swift */,
+				E777DC5A21B9749D0004BE81 /* MapsViewController.swift */,
+				E777DC5921B9749D0004BE81 /* SearchViewController.swift */,
+				E777DC5321B9749D0004BE81 /* DetailHeaderView.swift */,
+				E777DC5821B9749D0004BE81 /* DetailHeaderView.xib */,
+				E777DC5521B9749D0004BE81 /* StackViewController.swift */,
 			);
-			name = Extension;
-			sourceTree = "<group>";
-		};
-		E733097521B12C750028009E /* Shortcuts */ = {
-			isa = PBXGroup;
-			children = (
-				E71AC95521B04CFE00445A23 /* ShortcutsLikeViewController.swift */,
-				E71AC95721B04D2E00445A23 /* StackViewController.swift */,
-			);
-			name = Shortcuts;
-			sourceTree = "<group>";
-		};
-		E733097621B12CE80028009E /* Maps */ = {
-			isa = PBXGroup;
-			children = (
-				E733097721B12DF00028009E /* MapsLikeViewController.swift */,
-				E733097921B12E120028009E /* MapsLikeViewController.xib */,
-			);
-			name = Maps;
-			sourceTree = "<group>";
-		};
-		E74AD21F21B5948B00BE644D /* Backdrop View */ = {
-			isa = PBXGroup;
-			children = (
-				E74AD22021B594A400BE644D /* BackdropExampleViewController.swift */,
-			);
-			name = "Backdrop View";
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		607FACCF1AFB9204008FA782 /* OverlayContainer_Example */ = {
+		E777DC3721B973FE0004BE81 /* OverlayContainer_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "OverlayContainer_Example" */;
+			buildConfigurationList = E777DC4A21B973FF0004BE81 /* Build configuration list for PBXNativeTarget "OverlayContainer_Example" */;
 			buildPhases = (
-				DB515120E435AA7AF91A4892 /* [CP] Check Pods Manifest.lock */,
-				607FACCC1AFB9204008FA782 /* Sources */,
-				607FACCD1AFB9204008FA782 /* Frameworks */,
-				607FACCE1AFB9204008FA782 /* Resources */,
-				E749659821A59E1A004D1A47 /* ShellScript */,
-				12F426B095206C1EEEBEB88E /* [CP] Embed Pods Frameworks */,
+				2513A44CE1E168E7EF7048CF /* [CP] Check Pods Manifest.lock */,
+				E777DC3421B973FE0004BE81 /* Sources */,
+				E777DC3521B973FE0004BE81 /* Frameworks */,
+				E777DC3621B973FE0004BE81 /* Resources */,
+				0B6DB2DD685F5EC44ED40A0D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -238,94 +168,56 @@
 			);
 			name = OverlayContainer_Example;
 			productName = OverlayContainer;
-			productReference = 607FACD01AFB9204008FA782 /* OverlayContainer_Example.app */;
+			productReference = E777DC3821B973FE0004BE81 /* OverlayContainer_Example.app */;
 			productType = "com.apple.product-type.application";
-		};
-		607FACE41AFB9204008FA782 /* OverlayContainer_Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "OverlayContainer_Tests" */;
-			buildPhases = (
-				2CACF5D6154F43737A6015CE /* [CP] Check Pods Manifest.lock */,
-				607FACE11AFB9204008FA782 /* Sources */,
-				607FACE21AFB9204008FA782 /* Frameworks */,
-				607FACE31AFB9204008FA782 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				607FACE71AFB9204008FA782 /* PBXTargetDependency */,
-			);
-			name = OverlayContainer_Tests;
-			productName = Tests;
-			productReference = 607FACE51AFB9204008FA782 /* OverlayContainer_Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		607FACC81AFB9204008FA782 /* Project object */ = {
+		E777DC3021B973FE0004BE81 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
-				ORGANIZATIONNAME = CocoaPods;
+				ORGANIZATIONNAME = "Gaétan Zanella";
 				TargetAttributes = {
-					607FACCF1AFB9204008FA782 = {
-						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = C7G63Q6LZ9;
-						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
-					};
-					607FACE41AFB9204008FA782 = {
-						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = C7G63Q6LZ9;
-						LastSwiftMigration = 0900;
-						TestTargetID = 607FACCF1AFB9204008FA782;
+					E777DC3721B973FE0004BE81 = {
+						CreatedOnToolsVersion = 10.1;
 					};
 				};
 			};
-			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "OverlayContainer" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			buildConfigurationList = E777DC3321B973FE0004BE81 /* Build configuration list for PBXProject "OverlayContainer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 607FACC71AFB9204008FA782;
-			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
+			mainGroup = E777DC2F21B973FE0004BE81;
+			productRefGroup = E777DC3921B973FE0004BE81 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				607FACCF1AFB9204008FA782 /* OverlayContainer_Example */,
-				607FACE41AFB9204008FA782 /* OverlayContainer_Tests */,
+				E777DC3721B973FE0004BE81 /* OverlayContainer_Example */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		607FACCE1AFB9204008FA782 /* Resources */ = {
+		E777DC3621B973FE0004BE81 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E733097A21B12E120028009E /* MapsLikeViewController.xib in Resources */,
-				E7E5C0AF21B1692A0052AD78 /* DetailHeaderView.xib in Resources */,
-				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
-				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		607FACE31AFB9204008FA782 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				E7818DF121B9785A00579ADB /* MapsLikeViewController.xib in Resources */,
+				E777DC6221B9749E0004BE81 /* DetailHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		12F426B095206C1EEEBEB88E /* [CP] Embed Pods Frameworks */ = {
+		0B6DB2DD685F5EC44ED40A0D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -333,7 +225,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OverlayContainer_Example/Pods-OverlayContainer_Example-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-OverlayContainer_Example/Pods-OverlayContainer_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/OverlayContainer/OverlayContainer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -344,32 +236,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OverlayContainer_Example/Pods-OverlayContainer_Example-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OverlayContainer_Example/Pods-OverlayContainer_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2CACF5D6154F43737A6015CE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OverlayContainer_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DB515120E435AA7AF91A4892 /* [CP] Check Pods Manifest.lock */ = {
+		2513A44CE1E168E7EF7048CF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -391,87 +261,47 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E749659821A59E1A004D1A47 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "find \"${SRCROOT}/Pods\" -type f -name *frameworks.sh -exec bash -c \"touch \\\"{}\\\"\" \\;\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		607FACCC1AFB9204008FA782 /* Sources */ = {
+		E777DC3421B973FE0004BE81 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E71AC95C21B04E4B00445A23 /* MapsViewController.swift in Sources */,
-				E71AC95621B04CFE00445A23 /* ShortcutsLikeViewController.swift in Sources */,
-				E71AC95E21B04EC400445A23 /* UIViewController+Children.swift in Sources */,
-				E7E5C0AD21B168850052AD78 /* DetailHeaderView.swift in Sources */,
-				E733097821B12DF00028009E /* MapsLikeViewController.swift in Sources */,
-				E71AC95821B04D2E00445A23 /* StackViewController.swift in Sources */,
-				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				E71AC95421B04CBE00445A23 /* UIView+Constraints.swift in Sources */,
-				E74AD22121B594A400BE644D /* BackdropExampleViewController.swift in Sources */,
-				E71AC95A21B04E3F00445A23 /* SearchViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		607FACE11AFB9204008FA782 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				E777DC6421B9749E0004BE81 /* MapsViewController.swift in Sources */,
+				E777DC5D21B9749E0004BE81 /* DetailHeaderView.swift in Sources */,
+				E7818DF021B9785A00579ADB /* MapsLikeViewController.swift in Sources */,
+				E777DC3C21B973FE0004BE81 /* AppDelegate.swift in Sources */,
+				E777DC6321B9749E0004BE81 /* SearchViewController.swift in Sources */,
+				E777DC5F21B9749E0004BE81 /* StackViewController.swift in Sources */,
+				E777DC5121B974840004BE81 /* BackdropExampleViewController.swift in Sources */,
+				E777DC6521B9749E0004BE81 /* UIView+Constraints.swift in Sources */,
+				E777DC6121B9749E0004BE81 /* UIViewController+Children.swift in Sources */,
+				E777DC5C21B9749E0004BE81 /* ShortcutsLikeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 607FACCF1AFB9204008FA782 /* OverlayContainer_Example */;
-			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		607FACDE1AFB9204008FA782 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				607FACDF1AFB9204008FA782 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		607FACED1AFB9204008FA782 /* Debug */ = {
+		E777DC4821B973FF0004BE81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -483,14 +313,15 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -498,35 +329,40 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		607FACEE1AFB9204008FA782 /* Release */ = {
+		E777DC4921B973FF0004BE81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -538,14 +374,15 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -553,129 +390,76 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		607FACF01AFB9204008FA782 /* Debug */ = {
+		E777DC4B21B973FF0004BE81 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D1169A8E688961A50FC7E0EF /* Pods-OverlayContainer_Example.debug.xcconfig */;
+			baseConfigurationReference = 0204A0F8A9DD071FF7D8A7EB /* Pods-OverlayContainer_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C7G63Q6LZ9;
 				INFOPLIST_FILE = OverlayContainer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaetanzanella.overlaycontainer;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaetanzanella.OverlayContainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		607FACF11AFB9204008FA782 /* Release */ = {
+		E777DC4C21B973FF0004BE81 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55BDEA0FAD19BA76418252A0 /* Pods-OverlayContainer_Example.release.xcconfig */;
+			baseConfigurationReference = 2AD4820CCB0BB1585603DC6E /* Pods-OverlayContainer_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C7G63Q6LZ9;
 				INFOPLIST_FILE = OverlayContainer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaetanzanella.overlaycontainer;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaetanzanella.OverlayContainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		607FACF31AFB9204008FA782 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = ADD4CEC5DCC4F8063647CD23 /* Pods-OverlayContainer_Tests.debug.xcconfig */;
-			buildSettings = {
-				DEVELOPMENT_TEAM = C7G63Q6LZ9;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OverlayContainer_Example.app/OverlayContainer_Example";
-			};
-			name = Debug;
-		};
-		607FACF41AFB9204008FA782 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 425744897BD43E52B748DC99 /* Pods-OverlayContainer_Tests.release.xcconfig */;
-			buildSettings = {
-				DEVELOPMENT_TEAM = C7G63Q6LZ9;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OverlayContainer_Example.app/OverlayContainer_Example";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "OverlayContainer" */ = {
+		E777DC3321B973FE0004BE81 /* Build configuration list for PBXProject "OverlayContainer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				607FACED1AFB9204008FA782 /* Debug */,
-				607FACEE1AFB9204008FA782 /* Release */,
+				E777DC4821B973FF0004BE81 /* Debug */,
+				E777DC4921B973FF0004BE81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "OverlayContainer_Example" */ = {
+		E777DC4A21B973FF0004BE81 /* Build configuration list for PBXNativeTarget "OverlayContainer_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				607FACF01AFB9204008FA782 /* Debug */,
-				607FACF11AFB9204008FA782 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "OverlayContainer_Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				607FACF31AFB9204008FA782 /* Debug */,
-				607FACF41AFB9204008FA782 /* Release */,
+				E777DC4B21B973FF0004BE81 /* Debug */,
+				E777DC4C21B973FF0004BE81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
+	rootObject = E777DC3021B973FE0004BE81 /* Project object */;
 }
