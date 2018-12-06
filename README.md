@@ -219,14 +219,14 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
         backdropView.alpha = // compute alpha based on height
     }
 
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        didEndDraggingOverlay overlayViewController: UIViewController,
-                                        transitionCoordinator: OverlayContainerTransitionCoordinator) {
-        backdropView.alpha = // compute alpha based on the transitionCoordinator
-        transitionCoordinator.animate(alongsideTransition: { context in
-            self.backdropView.alpha =  // compute the final alpha value on the transitionCoordinator
-        }, completion: nil)
-    }
+func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                    didEndDraggingOverlay overlayViewController: UIViewController,
+                                    transitionCoordinator: OverlayContainerTransitionCoordinator) {
+    backdropView.alpha = // compute alpha based on the transitionCoordinator
+    transitionCoordinator.animate(alongsideTransition: { context in
+        self.backdropView.alpha =  // compute the final alpha value on the transitionCoordinator
+    }, completion: nil)
+}
 ```
 
 ### Safe Area
@@ -235,7 +235,7 @@ Be careful when using safe areas. As described in the [WWDC "UIKit: Apps for Eve
 
 The simpliest way to handle the safe area correctly is to compute your notch heights using the `safeAreaInsets` provided by the container and avoid the `safeAreaLayoutGuide` bottom anchor in your overlay :
 
-```
+```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                     heightForNotchAt index: Int,
                                     availableSpace: CGFloat) -> CGFloat {
@@ -273,7 +273,9 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 Adopt `OverlayTranslationTargetNotchPolicy` & `OverlayAnimatedTransitioning` protocols to define where the overlay should go once the user's touch is released and how to animate the translation.
 
 By default, the overlay container uses a `SpringOverlayTranslationAnimationController` that mimics the behavior of a spring. 
-The associated target notch policy `RushingForwardTargetNotchPolicy` will always try to go forward is the user's finger reachs a certain velocity. It might also decide to skip some notches if the user goes too fast.
+The associated target notch policy `RushingForwardTargetNotchPolicy` will always try to go forward if the user's finger reachs a certain velocity. It might also decide to skip some notches if the user goes too fast.
+
+Tweak the provided implementations or implement our own objects to modify the overlay translation behavior.
 
 ![animations](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/animations.gif)
 
