@@ -213,11 +213,11 @@ Coordinate the overlay movements to the aspect of a view using the dedicated del
 
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        didDragOverlay overlayViewController: UIViewController,
-                                        toHeight height: CGFloat,
-                                        availableSpace: CGFloat) {
-        backdropView.alpha = // compute alpha based on height
-    }
+                                    didDragOverlay overlayViewController: UIViewController,
+                                    toHeight height: CGFloat,
+                                    availableSpace: CGFloat) {
+    backdropView.alpha = // compute alpha based on height
+}
 
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                     didEndDraggingOverlay overlayViewController: UIViewController,
