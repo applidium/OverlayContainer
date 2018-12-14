@@ -35,13 +35,14 @@ There are currently several alternatives like :
 - [Pulley](https://github.com/52inc/Pulley)
 - [FloatingPanel](https://github.com/SCENEE/FloatingPanel)
 
-`OverlayContainer` tries to be as lightweight and non-intrusive as possible. It focuses its effort on the hard part, the overlay translation, and perfectly mimics the overlay presented in the Shotcuts app.
-The layout and the UI customization is done by you to avoid to corrupt your project. `OverlayContainer` adapts to it. See the provided examples for help or feel free to ask directly.
+`OverlayContainer` uses a different approach. It tries to be as lightweight and non-intrusive as possible. The layout and the UI customization are done by you to avoid to corrupt your project. `OverlayContainer` adapts to it. See the provided examples for help or feel free to ask directly.
+
+The library focuses its effort on the hard part, the overlay translation. It perfectly mimics the overlay presented in the Shotcuts app.
 
 - [x] Unlimited notches
-- [x] Adapts to any custom layouts
+- [x] Adaptive to any custom layouts
 - [x] Fluid transitions between scroll & translation
-- [x] Includes a rubber band effect
+- [x] Rubber band effect
 - [x] Animations and target notch policy fully customizable
 
 ## Requirements
