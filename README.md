@@ -148,19 +148,21 @@ enum OverlayStyle {
 let overlayContainer = OverlayContainerViewController(style: .rigid)
 ```
 
+* rigid
+
+![rigid](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/rigid.gif)
+
+The overlay view controller will be constrained with a height equal to the highest notch. The overlay won't be fully visible until the user drags it up to this notch.
+
 * flexibleHeight
 
 ![flexibleHeight](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/flexibleHeight.gif)
 
 The overlay view controller will not be height-constrained. It will grow and shrink as the user drags it up and down.
 
-It is specifically designed for overlays containing scroll views. **Be careful to always provide a minimum height higher than the intrinsic content of your overlay.**
+Note though that while the user is dragging the overlay, the overlay's view may perform some extra layout computations. This is specially true for the table views or the collection views : some cells may be dequeued or removed when its frame changes. Try `.rigid` if you encounter performance issues.
 
-* rigid
-
-![rigid](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/rigid.gif)
-
-The overlay view controller will be constrained with a height equal to the highest notch. The overlay won't be fully visible until the user drags it up to this notch.
+**Be careful to always provide a minimum height higher than the intrinsic content of your overlay.**
 
 ### Scroll view support
 
