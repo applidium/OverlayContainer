@@ -8,16 +8,18 @@
 import Foundation
 
 private struct Constant {
-    static let defaultDamping: CGFloat = 0.7
+    static let defaultMass: CGFloat = 1
+    static let defaultDamping: CGFloat = 0.6
     static let defaultResponse: CGFloat = 0.3
-    static let minimumVelocityConsideration: CGFloat = 500
-    static let minimumTranslationDuration: TimeInterval = 0.1
-    static let maximumTranslationDuration: TimeInterval = 0.5
+    static let minimumDamping: CGFloat = 1
+    static let minimumVelocityConsideration: CGFloat = 150
+    static let maximumVelocityConsideration: CGFloat = 3000
 }
 
 /// An `OverlayAnimatedTransitioning` implementation based on `UISpringTimingParameters`.
 public class SpringOverlayTranslationAnimationController: OverlayAnimatedTransitioning {
 
+    public var mass: CGFloat = Constant.defaultMass
     public var damping: CGFloat = Constant.defaultDamping
     public var response: CGFloat = Constant.defaultResponse
 
@@ -28,29 +30,29 @@ public class SpringOverlayTranslationAnimationController: OverlayAnimatedTransit
     // MARK: - OverlayAnimatedTransitioning
 
     public func interruptibleAnimator(using context: OverlayContainerContextTransitioning) -> UIViewImplicitlyAnimating {
-        let targetHeight = context.targetNotchHeight
-        let distance = abs(targetHeight - context.overlayTranslationHeight)
-        let timing = UISpringTimingParameters(
-            damping: damping,
-            response: response,
-            initialVelocity: context.velocity
+        let velocity = min(
+            Constant.maximumVelocityConsideration,
+            max(abs(context.velocity.y), Constant.minimumVelocityConsideration)
         )
-        let duration = max(
-            min(TimeInterval(distance / abs(context.velocity.y)), Constant.maximumTranslationDuration),
-            Constant.minimumTranslationDuration
+        let velocityRange = Constant.maximumVelocityConsideration - Constant.minimumVelocityConsideration
+        let normalizedVelocity = (velocity - Constant.minimumVelocityConsideration) / velocityRange
+        let normalizedDamping = normalizedVelocity * (damping - Constant.minimumDamping) + Constant.minimumDamping
+        let timing = UISpringTimingParameters(
+            damping: normalizedDamping,
+            response: Constant.defaultResponse,
+            mass: mass
         )
         return UIViewPropertyAnimator(
-            duration: duration,
+            duration: 0, // duration is ignored when using `UISpringTimingParameters.init(mass:stiffness:damping:initialVelocity)`
             timingParameters: timing
         )
     }
 }
 
 extension UISpringTimingParameters {
-    convenience init(damping: CGFloat, response: CGFloat, initialVelocity: CGPoint = .zero) {
+    convenience init(damping: CGFloat, response: CGFloat, mass: CGFloat) {
         let stiffness = pow(2 * .pi / response, 2)
         let damp = 4 * .pi * damping / response
-        let vector = CGVector(dx: abs(initialVelocity.x / 1000), dy: abs(initialVelocity.y) / 1000)
-        self.init(mass: 1, stiffness: stiffness, damping: damp, initialVelocity: vector)
+        self.init(mass: mass, stiffness: stiffness, damping: damp, initialVelocity: .zero)
     }
 }
