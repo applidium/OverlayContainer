@@ -21,6 +21,7 @@
 		E7818DF021B9785A00579ADB /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7818DEE21B9785A00579ADB /* MapsLikeViewController.swift */; };
 		E7818DF121B9785A00579ADB /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7818DEF21B9785A00579ADB /* MapsLikeViewController.xib */; };
 		E78F2BB021D11EE000B1C505 /* OverlayScrollViewDelegateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78F2BAF21D11EE000B1C505 /* OverlayScrollViewDelegateTest.swift */; };
+		E78F2BB221D1205200B1C505 /* OverlayNotchHeightTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78F2BB121D1205200B1C505 /* OverlayNotchHeightTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		E78F2BA521D11E8500B1C505 /* OverlayContainer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OverlayContainer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E78F2BA921D11E8600B1C505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E78F2BAF21D11EE000B1C505 /* OverlayScrollViewDelegateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayScrollViewDelegateTest.swift; sourceTree = "<group>"; };
+		E78F2BB121D1205200B1C505 /* OverlayNotchHeightTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayNotchHeightTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				E78F2BA921D11E8600B1C505 /* Info.plist */,
+				E78F2BB121D1205200B1C505 /* OverlayNotchHeightTest.swift */,
 				E78F2BAF21D11EE000B1C505 /* OverlayScrollViewDelegateTest.swift */,
 			);
 			path = OverlayContainer_Tests;
@@ -347,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E78F2BB221D1205200B1C505 /* OverlayNotchHeightTest.swift in Sources */,
 				E78F2BB021D11EE000B1C505 /* OverlayScrollViewDelegateTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
