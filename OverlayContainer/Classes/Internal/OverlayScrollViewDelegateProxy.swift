@@ -9,7 +9,7 @@ import Foundation
 
 class OverlayScrollViewDelegateProxy: NSObject, UIScrollViewDelegate {
 
-    private weak var scrollViewObservation: NSKeyValueObservation?
+    private var scrollViewObservation: NSKeyValueObservation?
     private weak var originalDelegate: UIScrollViewDelegate?
     private weak var delegate: OverlayScrollViewDelegate?
 

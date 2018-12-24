@@ -42,7 +42,7 @@ public class OverlayContainerViewController: UIViewController {
         }
     }
 
-    /// The visible overlay view controllers.
+    /// The visible overlay view controller.
     public var topViewController: UIViewController? {
         return viewControllers.last
     }
