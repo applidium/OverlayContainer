@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OverlayContainer'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'OverlayContainer is a UI library which makes it easier to develop overlay based interfaces.'
   s.swift_version    = "4.2"
 
