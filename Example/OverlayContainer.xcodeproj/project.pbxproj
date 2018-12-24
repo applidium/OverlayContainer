@@ -22,6 +22,16 @@
 		E7818DF121B9785A00579ADB /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7818DEF21B9785A00579ADB /* MapsLikeViewController.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E78F2BAA21D11E8600B1C505 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E777DC3021B973FE0004BE81 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E777DC3721B973FE0004BE81;
+			remoteInfo = OverlayContainer_Example;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0204A0F8A9DD071FF7D8A7EB /* Pods-OverlayContainer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OverlayContainer_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OverlayContainer_Example/Pods-OverlayContainer_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		2AD4820CCB0BB1585603DC6E /* Pods-OverlayContainer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OverlayContainer_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-OverlayContainer_Example/Pods-OverlayContainer_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -40,6 +50,8 @@
 		E777DC5B21B9749D0004BE81 /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Constraints.swift"; path = "OverlayContainer/Extensions/UIView+Constraints.swift"; sourceTree = SOURCE_ROOT; };
 		E7818DEE21B9785A00579ADB /* MapsLikeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsLikeViewController.swift; sourceTree = "<group>"; };
 		E7818DEF21B9785A00579ADB /* MapsLikeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapsLikeViewController.xib; sourceTree = "<group>"; };
+		E78F2BA521D11E8500B1C505 /* OverlayContainer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OverlayContainer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E78F2BA921D11E8600B1C505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +60,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				486805903174B1CA4EE029C1 /* Pods_OverlayContainer_Example.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E78F2BA221D11E8500B1C505 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				E777DC3A21B973FE0004BE81 /* OverlayContainer */,
+				E78F2BA621D11E8500B1C505 /* OverlayContainer_Tests */,
 				E777DC3921B973FE0004BE81 /* Products */,
 				6423134E86CAF67F8771C939 /* Pods */,
 				27C810646795F28CE4EC0760 /* Frameworks */,
@@ -85,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				E777DC3821B973FE0004BE81 /* OverlayContainer_Example.app */,
+				E78F2BA521D11E8500B1C505 /* OverlayContainer_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,6 +170,14 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		E78F2BA621D11E8500B1C505 /* OverlayContainer_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E78F2BA921D11E8600B1C505 /* Info.plist */,
+			);
+			path = OverlayContainer_Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -171,6 +200,24 @@
 			productReference = E777DC3821B973FE0004BE81 /* OverlayContainer_Example.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E78F2BA421D11E8500B1C505 /* OverlayContainer_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E78F2BAE21D11E8600B1C505 /* Build configuration list for PBXNativeTarget "OverlayContainer_Tests" */;
+			buildPhases = (
+				E78F2BA121D11E8500B1C505 /* Sources */,
+				E78F2BA221D11E8500B1C505 /* Frameworks */,
+				E78F2BA321D11E8500B1C505 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E78F2BAB21D11E8600B1C505 /* PBXTargetDependency */,
+			);
+			name = OverlayContainer_Tests;
+			productName = OverlayContainer_Tests;
+			productReference = E78F2BA521D11E8500B1C505 /* OverlayContainer_Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -183,6 +230,10 @@
 				TargetAttributes = {
 					E777DC3721B973FE0004BE81 = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					E78F2BA421D11E8500B1C505 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = E777DC3721B973FE0004BE81;
 					};
 				};
 			};
@@ -200,6 +251,7 @@
 			projectRoot = "";
 			targets = (
 				E777DC3721B973FE0004BE81 /* OverlayContainer_Example */,
+				E78F2BA421D11E8500B1C505 /* OverlayContainer_Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -211,6 +263,13 @@
 			files = (
 				E7818DF121B9785A00579ADB /* MapsLikeViewController.xib in Resources */,
 				E777DC6221B9749E0004BE81 /* DetailHeaderView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E78F2BA321D11E8500B1C505 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +340,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E78F2BA121D11E8500B1C505 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E78F2BAB21D11E8600B1C505 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E777DC3721B973FE0004BE81 /* OverlayContainer_Example */;
+			targetProxy = E78F2BAA21D11E8600B1C505 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E777DC4821B973FF0004BE81 /* Debug */ = {
@@ -438,6 +512,46 @@
 			};
 			name = Release;
 		};
+		E78F2BAC21D11E8600B1C505 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C7G63Q6LZ9;
+				INFOPLIST_FILE = OverlayContainer_Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gaetanzanella.OverlayContainer-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OverlayContainer_Example.app/OverlayContainer_Example";
+			};
+			name = Debug;
+		};
+		E78F2BAD21D11E8600B1C505 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C7G63Q6LZ9;
+				INFOPLIST_FILE = OverlayContainer_Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gaetanzanella.OverlayContainer-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OverlayContainer_Example.app/OverlayContainer_Example";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -455,6 +569,15 @@
 			buildConfigurations = (
 				E777DC4B21B973FF0004BE81 /* Debug */,
 				E777DC4C21B973FF0004BE81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E78F2BAE21D11E8600B1C505 /* Build configuration list for PBXNativeTarget "OverlayContainer_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E78F2BAC21D11E8600B1C505 /* Debug */,
+				E78F2BAD21D11E8600B1C505 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
