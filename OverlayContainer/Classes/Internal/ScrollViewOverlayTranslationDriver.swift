@@ -57,20 +57,20 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
         // if the user drags the overlay while the animation did not finish.
         scrollView.panGestureRecognizer.setTranslation(.zero, in: nil)
         // (gz) 2018-01-24 We adjust the content offset and the velocity only if the overlay will be dragged.
+        switch controller.translationPosition {
+        case .bottom where targetContentOffset.pointee.y > -scrollView.contentInset.top:
+            // (gz) 2018-11-26 The user raises its finger in the bottom position
+            // and the content offset will exceed the top content inset.
+            targetContentOffset.pointee.y = -scrollView.contentInset.top
+        case .inFlight where !controller.overlayHasReachedANotch():
+            targetContentOffset.pointee.y = lastContentOffsetWhileScrolling.y
+        case .top, .bottom, .inFlight:
+            break
+        }
         // If the overlay is in flight and the user scrolls bottom, we ignore the velocity and we do not
         // modify the target offset.
         let adjustedVelocity: CGPoint
         if shouldDragOverlay(following: scrollView) {
-            switch controller.translationPosition {
-            case .bottom where targetContentOffset.pointee.y > -scrollView.contentInset.top:
-                // (gz) 2018-11-26 The user raises its finger in the bottom position
-                // and the content offset will exceed the top content inset.
-                targetContentOffset.pointee.y = -scrollView.contentInset.top
-            case .inFlight where !controller.overlayHasReachedANotch():
-                targetContentOffset.pointee.y = lastContentOffsetWhileScrolling.y
-            case .top, .bottom, .inFlight:
-                break
-            }
             adjustedVelocity = velocity
         } else {
             adjustedVelocity = .zero
