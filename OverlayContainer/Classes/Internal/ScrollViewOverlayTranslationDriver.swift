@@ -38,7 +38,8 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
         if shouldDragOverlay(following: scrollView) {
             overlayTranslation += scrollViewTranslation - previousTranslation
             let offset = adjustedContentOffset(dragging: scrollView)
-            scrollView.contentOffset = offset
+            lastContentOffsetWhileScrolling = offset
+            scrollView.contentOffset = offset // Warning : calls `overlayScrollViewDidScroll(_:)` again
             controller.dragOverlay(withOffset: overlayTranslation, usesFunction: false)
         } else {
             lastContentOffsetWhileScrolling = scrollView.contentOffset
