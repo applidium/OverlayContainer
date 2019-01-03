@@ -1,6 +1,6 @@
 PODS:
   - Nimble (7.3.1)
-  - OverlayContainer (1.0.1)
+  - OverlayContainer (1.0.2)
   - Quick (1.3.2)
 
 DEPENDENCIES:
@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
-  OverlayContainer: 276dd53a53fcc5ace4c2a8d36ce64bcb35c1c929
+  OverlayContainer: 8ed4658f67ddfe6684c8bea65a3a6285d81c1c8b
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
 
 PODFILE CHECKSUM: feede583cc3fe904faa8cbc5b78473d940306545
