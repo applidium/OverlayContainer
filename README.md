@@ -37,13 +37,14 @@ There are currently several alternatives like :
 
 `OverlayContainer` uses a different approach. It tries to be as lightweight and non-intrusive as possible. The layout and the UI customization are done by you to avoid to corrupt your project. `OverlayContainer` adapts to it. See the provided examples for help or feel free to ask directly.
 
-The library focuses its effort on the hard part, the overlay translation. It perfectly mimics the overlay presented in the Shotcuts app.
+The library focuses its effort on the hard part, the overlay translation. It perfectly mimics the overlay presented in the Siri Shotcuts app.
 
 - [x] Unlimited notches
 - [x] Adaptive to any custom layouts
 - [x] Fluid transitions between scroll & translation
 - [x] Rubber band effect
 - [x] Animations and target notch policy fully customizable
+- [x] Unit tested
 
 ## Requirements
 
@@ -206,11 +207,22 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 
 ### Examples
 
-* Maps Like: A custom layout which adapts its hierachy on rotations.
+To run the examples, install the dependencie first :
+
+```sh
+> cd REPO_LOCATION/OverlayContainer/Example
+> pod install
+...
+> open OverlayContainer.xcworkspace
+```
+
+Choose the layout you wish to display in the `AppDelegate` :
+
+* MapsLikeViewController: A custom layout which adapts its hierachy on rotations.
 
 ![Maps](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/maps.gif)
 
-* Shortcuts: A custom layout which adapts its hierachy on trait collection changes : Moving from a `UISplitViewController` on regular environment to a simple `StackViewController` on compact environment. Visualize it on iPad Pro.
+* ShortcutsLikeViewController: A custom layout which adapts its hierachy on trait collection changes : Moving from a `UISplitViewController` on regular environment to a simple `StackViewController` on compact environment. Visualize it on iPad Pro.
 
 ![Shortcuts](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/shortcuts.gif)
 
