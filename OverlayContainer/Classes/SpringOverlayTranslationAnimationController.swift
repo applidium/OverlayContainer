@@ -39,7 +39,7 @@ public class SpringOverlayTranslationAnimationController: OverlayAnimatedTransit
         let normalizedDamping = normalizedVelocity * (damping - Constant.minimumDamping) + Constant.minimumDamping
         let timing = UISpringTimingParameters(
             damping: normalizedDamping,
-            response: Constant.defaultResponse,
+            response: response,
             mass: mass
         )
         return UIViewPropertyAnimator(
