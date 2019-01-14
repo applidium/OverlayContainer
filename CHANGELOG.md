@@ -1,3 +1,7 @@
+## 1.0.3 (14 January 2019)
+
+- Fix ability to change response within SpringAnimation 
+
 ## 1.0.2 (21 December 2018)
 
 - Fix scrolling edge cases
