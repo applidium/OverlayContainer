@@ -15,6 +15,7 @@ ___
 - [Requirements](#requirements)
 - [Installation](#installation)
   - [CocoaPods](#cocoapods)
+  - [Carthage](#carthage)
 - [Usage](#usage)
   - [Setup](#mininim-setup)
   - [Overlay style](#overlay-style)
@@ -59,6 +60,14 @@ OverlayContainer is available through [CocoaPods](https://cocoapods.org). To ins
 
 ```ruby
 pod 'OverlayContainer'
+```
+
+### Carthage
+
+Add the following to your Cartfile:
+
+```ruby
+github "applidium/ADOverlayContainer"
 ```
 
 ## Usage
@@ -208,14 +217,7 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 
 ### Examples
 
-To run the examples, install the dependencie first :
-
-```sh
-> cd REPO_LOCATION/OverlayContainer/Example
-> pod install
-...
-> open OverlayContainer.xcworkspace
-```
+To test the examples, open `OverlayContainer.xcworkspace` and run the `OverlayContainer_Example` target.
 
 Choose the layout you wish to display in the `AppDelegate` :
 

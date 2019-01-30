@@ -1,3 +1,7 @@
+## 1.0.4 (30 January 2019)
+
+- Add Carthage support
+
 ## 1.0.3 (14 January 2019)
 
 - Fix ability to change response within SpringAnimation 
