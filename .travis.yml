@@ -14,8 +14,8 @@ env:
   - LANG=en_US.UTF-8
   - LC_ALL=en_US.UTF-8
   - DESTINATION="OS=12.1,name=iPhone XS"
-  - SCHEME="OverlayContainer_Example"
-  - WORKSPACE="Example/OverlayContainer.xcworkspace"
+  - SCHEME="OverlayContainer"
+  - WORKSPACE="OverlayContainer.xcworkspace"
 skip_cleanup: true
 
 jobs:
@@ -27,4 +27,4 @@ jobs:
 
   - stage: tests
     script:
-    - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO | xcpretty
+    - set -o pipefail && xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO | xcpretty

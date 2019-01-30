@@ -1,6 +1,7 @@
 # OverlayContainer
 
 [![Version](https://img.shields.io/cocoapods/v/OverlayContainer.svg?style=flat)](https://cocoapods.org/pods/OverlayContainer)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/OverlayContainer.svg?style=flat)](https://cocoapods.org/pods/OverlayContainer)
 [![Platform](https://img.shields.io/cocoapods/p/OverlayContainer.svg?style=flat)](https://cocoapods.org/pods/OverlayContainer)
 [![Build Status](https://api.travis-ci.org/applidium/ADOverlayContainer.svg?branch=master)](https://travis-ci.org/applidium/ADOverlayContainer)
@@ -67,7 +68,7 @@ pod 'OverlayContainer'
 Add the following to your Cartfile:
 
 ```ruby
-github "applidium/ADOverlayContainer"
+github "https://github.com/applidium/ADOverlayContainer"
 ```
 
 ## Usage
