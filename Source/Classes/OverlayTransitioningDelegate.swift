@@ -45,7 +45,7 @@ public protocol OverlayContainerContextTransitioning {
 
 /// A protocol that manages the container's behavior once the user finishes dragging.
 ///
-/// Adopt this protocol to provide our own translation behavior.
+/// Adopt this protocol to provide your own translation behavior.
 public protocol OverlayTransitioningDelegate: class {
     /// Returns the target notch policy for the specified child view controller.
     func overlayTargetNotchPolicy(for overlayViewController: UIViewController) -> OverlayTranslationTargetNotchPolicy?
@@ -55,7 +55,7 @@ public protocol OverlayTransitioningDelegate: class {
 
 /// A protocol that provides the expected notch index once the user finishes dragging.
 ///
-/// Adopt this protocol to provide our own policy. You can also use the provided
+/// Adopt this protocol to provide your own policy. You can also use the provided
 /// implementations like `RushingForwardTargetNotchPolicy`.
 public protocol OverlayTranslationTargetNotchPolicy {
     /// Returns the expected notch index based on the specified context.

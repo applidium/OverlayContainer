@@ -1,3 +1,7 @@
+## 1.1.0 (25 February 2019)
+
+- Add ability to invalidate the current height of the overlay notches
+
 ## 1.0.4 (30 January 2019)
 
 - Add Carthage support

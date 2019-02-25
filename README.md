@@ -22,12 +22,14 @@ ___
   - [Overlay style](#overlay-style)
   - [Scroll view support](#scroll-view-support)
   - [Pan gesture support](#pan-gesture-support)
+  - [Tracking the overlay](#tracking-the-overlay)
   - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
   - [Backdrop view](#backdrop-usage)
   - [Safe Area](#safe-area)
   - [Custom Translation](#custom-translation)
   - [Custom Translation Animations](#custom-translation-animations)
+  - [Notches reload](#notches-reload)
 - [Author](#author)
 - [License](#license)
 
@@ -216,6 +218,46 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 }
 ```
 
+### Tracking the overlay
+
+You can track the overlay motions using the dedicated delegate methods.
+
+`didDragOverlay` is called each time the overlay is dragged by the user to the specified height.
+
+```swift
+func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                    didDragOverlay overlayViewController: UIViewController,
+                                    toHeight height: CGFloat,
+                                    availableSpace: CGFloat)
+```
+
+`didEndDraggingOverlay` is called when the user has finished dragging the overlay. The container is about to move the overlay to the specified notch.
+
+```swift
+func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                    didEndDraggingOverlay overlayViewController: UIViewController,
+                                    transitionCoordinator: OverlayContainerTransitionCoordinator)
+```
+
+The `transition coordinator` provides information about the animation that is about to start:
+
+```swift
+/// The notch's index the container expects to reach.
+var targetNotchIndex: Int { get }
+
+/// The notch's height the container expects to reach.
+var targetNotchHeight: CGFloat { get }
+
+/// The current translation height.
+var overlayTranslationHeight: CGFloat { get }
+
+/// The notch indexes.
+var notchIndexes: Range<Int> { get }
+
+/// Returns the height of the specified notch.
+func height(forNotchAt index: Int) -> CGFloat
+```
+
 ### Examples
 
 To test the examples, open `OverlayContainer.xcworkspace` and run the `OverlayContainer_Example` target.
@@ -320,6 +362,16 @@ func animationController(for overlayViewController: UIViewController) -> Overlay
     return controller
 }
 ```
+
+### Notches reload
+
+You can reload all the data that is used to construct the notches using the dedicated method:
+
+```swift
+func invalidateNotchHeights()
+```
+
+This method does not reload the notch heights immediately. It only clears the current container's state. Call `moveOverlay(toNotchAt:animated:)` to perform the change immediately or to move the overlay to a correct notch if the number of notches has changed.
 
 ## Author
 
