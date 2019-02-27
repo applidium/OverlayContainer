@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Example/OverlayContainer_Example.xcodeproj">
+      location = "group:OverlayContainer.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:OverlayContainer.xcodeproj">
+      location = "group:Example/OverlayContainer_Example.xcodeproj">
    </FileRef>
 </Workspace>
