@@ -21,10 +21,21 @@ skip_cleanup: true
 jobs:
   include:
 
+  - stage: Carthage
+    before_install:
+    - brew update
+    - brew outdated carthage || brew upgrade carthage
+    script:
+    - carthage build --no-skip-current
+
   - stage: podspec
     script:
     - pod spec lint
 
-  - stage: tests
+  - stage: Build
     script:
     - set -o pipefail && xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO | xcpretty
+
+  - stage: Tests
+    script:
+    - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO | xcpretty
