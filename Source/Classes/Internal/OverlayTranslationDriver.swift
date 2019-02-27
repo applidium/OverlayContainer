@@ -7,4 +7,6 @@
 
 import UIKit
 
-protocol OverlayTranslationDriver {}
+protocol OverlayTranslationDriver {
+    func clean()
+}

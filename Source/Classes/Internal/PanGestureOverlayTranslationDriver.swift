@@ -22,6 +22,12 @@ class PanGestureOverlayTranslationDriver: NSObject, OverlayTranslationDriver {
         panGestureRecognizer.addTarget(self, action: #selector(overlayPanGestureAction(_:)))
     }
 
+    // MARK: - OverlayTranslationDriver
+
+    func clean() {
+        // no-op
+    }
+
     // MARK: - Action
 
     @objc private func overlayPanGestureAction(_ sender: OverlayTranslationGestureRecognizer) {

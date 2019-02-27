@@ -11,12 +11,13 @@ class OverlayScrollViewDelegateProxy: NSObject, UIScrollViewDelegate {
 
     private var scrollViewObservation: NSKeyValueObservation?
     private weak var originalDelegate: UIScrollViewDelegate?
+    private weak var scrollView: UIScrollView?
     private weak var delegate: OverlayScrollViewDelegate?
 
     // MARK: - Life Cycle
 
     deinit {
-        scrollViewObservation?.invalidate()
+        cancelForwarding()
     }
 
     // MARK: - NSObject
@@ -36,14 +37,22 @@ class OverlayScrollViewDelegateProxy: NSObject, UIScrollViewDelegate {
 
     // MARK: - Public
 
-    func forward(to delegate: OverlayScrollViewDelegate, delegateInvocationsFrom scrollView: UIScrollView) {
+    func cancelForwarding() {
         scrollViewObservation?.invalidate()
+        scrollView?.delegate = originalDelegate
+    }
+
+    func forward(to delegate: OverlayScrollViewDelegate, delegateInvocationsFrom scrollView: UIScrollView) {
+        guard !(scrollView.delegate === self) else { return }
+        cancelForwarding()
         self.delegate = delegate
         self.originalDelegate = scrollView.delegate
+        self.scrollView = scrollView
         scrollView.delegate = self
         scrollViewObservation = scrollView.observe(\.delegate) { [weak self] (scrollView, delegate) in
             guard !(scrollView.delegate === self) else { return }
             self?.originalDelegate = scrollView.delegate
+            self?.scrollView = scrollView
             scrollView.delegate = self
         }
     }

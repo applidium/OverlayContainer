@@ -214,6 +214,8 @@ public class OverlayContainerViewController: UIViewController {
             let overlayController = topViewController else {
                 return
         }
+        translationDrivers.forEach { $0.clean() }
+        translationDrivers.removeAll()
         var drivers: [OverlayTranslationDriver] = []
         let panGestureDriver = PanGestureOverlayTranslationDriver(
             translationController: translationController,

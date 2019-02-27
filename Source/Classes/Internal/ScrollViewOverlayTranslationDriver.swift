@@ -29,6 +29,12 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
         lastContentOffsetWhileScrolling = scrollView.contentOffset
     }
 
+    // MARK: - OverlayTranslationDriver
+
+    func clean() {
+        scrollViewDelegateProxy.cancelForwarding()
+    }
+
     // MARK: - OverlayScrollViewDelegate
 
     func overlayScrollViewDidScroll(_ scrollView: UIScrollView) {
