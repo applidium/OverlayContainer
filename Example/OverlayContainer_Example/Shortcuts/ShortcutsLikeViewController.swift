@@ -15,7 +15,7 @@ class ShortcutsLikeViewController: UIViewController {
         case minimum, medium, maximum
     }
 
-    private let searchViewController = SearchViewController()
+    private let searchViewController = SearchViewController(showsCloseAction: false)
     private let mapsViewController = MapsViewController()
 
     private var sizeClass: UIUserInterfaceSizeClass = .unspecified

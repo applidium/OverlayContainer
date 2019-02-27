@@ -23,7 +23,7 @@ class BackdropExampleViewController: UIViewController {
     }
 
     private let backdropViewController = BackdropViewController()
-    private let searchViewController = SearchViewController()
+    private let searchViewController = SearchViewController(showsCloseAction: false)
     private let mapsViewController = MapsViewController()
 
     override func viewDidLoad() {

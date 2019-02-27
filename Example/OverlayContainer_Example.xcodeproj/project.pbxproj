@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E7022C91222699BD00AD86B5 /* ModalNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7022C90222699BD00AD86B5 /* ModalNavigationViewController.swift */; };
+		E7022C9322269A8500AD86B5 /* ModalNavigationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7022C9222269A8500AD86B5 /* ModalNavigationViewController.xib */; };
 		E78485DB2201E8E900DE64C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485DA2201E8E900DE64C3 /* AppDelegate.swift */; };
 		E78486022201E95E00DE64C3 /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485EE2201E95E00DE64C3 /* MapsLikeViewController.swift */; };
 		E78486032201E95E00DE64C3 /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E78485EF2201E95E00DE64C3 /* MapsLikeViewController.xib */; };
@@ -21,6 +23,8 @@
 		E784860D2201E95E00DE64C3 /* ShortcutsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485FE2201E95E00DE64C3 /* ShortcutsLikeViewController.swift */; };
 		E78486562201EAA400DE64C3 /* OverlayContainer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E78486552201EAA400DE64C3 /* OverlayContainer.framework */; };
 		E78486572201EAA400DE64C3 /* OverlayContainer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E78486552201EAA400DE64C3 /* OverlayContainer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7C4C67922256DB8009AD786 /* OverlayNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4C67822256DB8009AD786 /* OverlayNavigationViewController.swift */; };
+		E7C4C67B22256F2B009AD786 /* OverlayNavigationAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4C67A22256F2B009AD786 /* OverlayNavigationAnimationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E7022C90222699BD00AD86B5 /* ModalNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationViewController.swift; sourceTree = "<group>"; };
+		E7022C9222269A8500AD86B5 /* ModalNavigationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModalNavigationViewController.xib; sourceTree = "<group>"; };
 		E78485D72201E8E900DE64C3 /* OverlayContainer_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OverlayContainer_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E78485DA2201E8E900DE64C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E78485E62201E8EA00DE64C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,6 +60,8 @@
 		E78485FC2201E95E00DE64C3 /* UIViewController+Children.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
 		E78485FE2201E95E00DE64C3 /* ShortcutsLikeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShortcutsLikeViewController.swift; sourceTree = "<group>"; };
 		E78486552201EAA400DE64C3 /* OverlayContainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OverlayContainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7C4C67822256DB8009AD786 /* OverlayNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayNavigationViewController.swift; sourceTree = "<group>"; };
+		E7C4C67A22256F2B009AD786 /* OverlayNavigationAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayNavigationAnimationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +76,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E7022C8F2226983A00AD86B5 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				E7C4C67822256DB8009AD786 /* OverlayNavigationViewController.swift */,
+				E7C4C67A22256F2B009AD786 /* OverlayNavigationAnimationController.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		E78485CE2201E8E900DE64C3 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +105,7 @@
 		E78485D92201E8E900DE64C3 /* OverlayContainer_Example */ = {
 			isa = PBXGroup;
 			children = (
+				E7C4C67722256D93009AD786 /* Modal Navigation */,
 				E78485ED2201E95E00DE64C3 /* Maps */,
 				E78485F02201E95E00DE64C3 /* Backdrop */,
 				E78485F22201E95E00DE64C3 /* Shared */,
@@ -144,6 +162,16 @@
 				E78485FE2201E95E00DE64C3 /* ShortcutsLikeViewController.swift */,
 			);
 			path = Shortcuts;
+			sourceTree = "<group>";
+		};
+		E7C4C67722256D93009AD786 /* Modal Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				E7022C90222699BD00AD86B5 /* ModalNavigationViewController.swift */,
+				E7022C9222269A8500AD86B5 /* ModalNavigationViewController.xib */,
+				E7022C8F2226983A00AD86B5 /* Navigation */,
+			);
+			path = "Modal Navigation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E78486062201E95E00DE64C3 /* DetailHeaderView.xib in Resources */,
+				E7022C9322269A8500AD86B5 /* ModalNavigationViewController.xib in Resources */,
 				E78486032201E95E00DE64C3 /* MapsLikeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,11 +251,14 @@
 				E78486042201E95E00DE64C3 /* BackdropExampleViewController.swift in Sources */,
 				E78486052201E95E00DE64C3 /* SearchViewController.swift in Sources */,
 				E78486092201E95E00DE64C3 /* StackViewController.swift in Sources */,
+				E7C4C67922256DB8009AD786 /* OverlayNavigationViewController.swift in Sources */,
 				E78486082201E95E00DE64C3 /* MapsViewController.swift in Sources */,
+				E7022C91222699BD00AD86B5 /* ModalNavigationViewController.swift in Sources */,
 				E78485DB2201E8E900DE64C3 /* AppDelegate.swift in Sources */,
 				E78486072201E95E00DE64C3 /* DetailHeaderView.swift in Sources */,
 				E784860B2201E95E00DE64C3 /* UIView+Constraints.swift in Sources */,
 				E784860D2201E95E00DE64C3 /* ShortcutsLikeViewController.swift in Sources */,
+				E7C4C67B22256F2B009AD786 /* OverlayNavigationAnimationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

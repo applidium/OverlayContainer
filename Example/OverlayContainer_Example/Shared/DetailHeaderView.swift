@@ -8,4 +8,26 @@
 
 import UIKit
 
-class DetailHeaderView: UIView {}
+protocol DetailHeaderViewDelegate: AnyObject {
+    func detailHeaderViewDidSelectCloseAction(_ headerView: DetailHeaderView)
+}
+
+class DetailHeaderView: UIView {
+
+    weak var delegate: DetailHeaderViewDelegate?
+
+    var showsCloseAction: Bool {
+        set {
+            button.isHidden = !newValue
+        }
+        get {
+            return !button.isHidden
+        }
+    }
+
+    @IBOutlet private var button: UIButton!
+
+    @IBAction private func closeAction(_ sender: Any) {
+        delegate?.detailHeaderViewDidSelectCloseAction(self)
+    }
+}

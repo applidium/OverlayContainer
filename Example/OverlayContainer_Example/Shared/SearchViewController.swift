@@ -8,10 +8,33 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+protocol SearchViewControllerDelegate: AnyObject {
+    func searchViewControllerDidSelectARow(_ searchViewController: SearchViewController)
+    func searchViewControllerDidSelectCloseAction(_ searchViewController: SearchViewController)
+}
 
-    let header = Bundle.main.loadNibNamed("DetailHeaderView", owner: self, options: nil)![0] as! UIView
-    let tableView = UITableView()
+class SearchViewController: UIViewController,
+    UITableViewDataSource,
+    UITableViewDelegate,
+    DetailHeaderViewDelegate {
+
+    weak var delegate: SearchViewControllerDelegate?
+
+    private let showsCloseAction: Bool
+    private(set) lazy var header = Bundle.main.loadNibNamed("DetailHeaderView", owner: self, options: nil)![0] as! DetailHeaderView
+    private(set) lazy var tableView = UITableView()
+
+    // MARK: - Life Cycle
+
+    init(showsCloseAction: Bool) {
+        self.showsCloseAction = showsCloseAction
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - UIViewController
 
@@ -36,11 +59,19 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.searchViewControllerDidSelectARow(self)
+    }
+
+    // MARK: - DetailHeaderViewDelegate
+
+    func detailHeaderViewDidSelectCloseAction(_ headerView: DetailHeaderView) {
+        delegate?.searchViewControllerDidSelectCloseAction(self)
     }
 
     // MARK: - Private
 
     private func setUpView() {
+        header.delegate = self
         view.backgroundColor = .white
         view.addSubview(tableView)
         view.addSubview(header)
@@ -51,6 +82,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         } else {
             header.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         }
+        header.showsCloseAction = showsCloseAction
         tableView.dataSource = self
         tableView.pinToSuperview(edges: [.left, .right, .bottom])
         tableView.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true

@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DetailHeaderView" customModule="OverlayContainer_Example" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="137"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -33,15 +33,27 @@
                                     <blurEffect style="light"/>
                                 </vibrancyEffect>
                             </visualEffectView>
-                            <searchBar userInteractionEnabled="NO" contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="HZ6-bb-fXd">
-                                <rect key="frame" x="0.0" y="40.5" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="41o-ao-FEy">
+                                <rect key="frame" x="8" y="40.5" width="359" height="56"/>
+                                <subviews>
+                                    <searchBar userInteractionEnabled="NO" contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="HZ6-bb-fXd">
+                                        <rect key="frame" x="0.0" y="0.0" width="305" height="56"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEe-lx-hpD">
+                                        <rect key="frame" x="313" y="0.0" width="46" height="56"/>
+                                        <state key="normal" title="Close"/>
+                                        <connections>
+                                            <action selector="closeAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="lQU-Tx-lLZ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="HZ6-bb-fXd" firstAttribute="centerX" secondItem="oEF-uh-Gwv" secondAttribute="centerX" id="ZYl-KQ-QHo"/>
-                            <constraint firstItem="HZ6-bb-fXd" firstAttribute="centerY" secondItem="oEF-uh-Gwv" secondAttribute="centerY" id="bid-vB-mdU"/>
-                            <constraint firstItem="HZ6-bb-fXd" firstAttribute="leading" secondItem="oEF-uh-Gwv" secondAttribute="leading" id="khS-ed-r5b"/>
+                            <constraint firstItem="41o-ao-FEy" firstAttribute="leading" secondItem="oEF-uh-Gwv" secondAttribute="leading" constant="8" id="2Lb-w0-1EV"/>
+                            <constraint firstAttribute="trailing" secondItem="41o-ao-FEy" secondAttribute="trailing" constant="8" id="Y4Y-ek-1Vi"/>
+                            <constraint firstItem="41o-ao-FEy" firstAttribute="centerY" secondItem="oEF-uh-Gwv" secondAttribute="centerY" id="bLK-In-0yu"/>
                         </constraints>
                     </view>
                     <blurEffect style="extraLight"/>
@@ -56,6 +68,9 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="button" destination="ZEe-lx-hpD" id="jRm-yz-soa"/>
+            </connections>
             <point key="canvasLocation" x="117.59999999999999" y="126.38680659670166"/>
         </view>
     </objects>
