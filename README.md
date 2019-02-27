@@ -25,6 +25,7 @@ ___
   - [Tracking the overlay](#tracking-the-overlay)
   - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
+  - [Overlying multiple view controllers on top of each other](#overlying-multiple-view-controllers-on-top-of-each-other)
   - [Backdrop view](#backdrop-usage)
   - [Safe Area](#safe-area)
   - [Custom Translation](#custom-translation)
@@ -268,11 +269,34 @@ Choose the layout you wish to display in the `AppDelegate` :
 
 ![Maps](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/maps.gif)
 
-* ShortcutsLikeViewController: A custom layout which adapts its hierachy on trait collection changes : Moving from a `UISplitViewController` on regular environment to a simple `StackViewController` on compact environment. Visualize it on iPad Pro.
+* ShortcutsLikeViewController: A custom layout which adapts its hierachy on trait collection changes : Moving from a `UISplitViewController` on regular environment to a simple `StackViewController` on compact environment. Visualize it on an iPad Pro.
 
 ![Shortcuts](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/shortcuts.gif)
 
 ## Advanced usage
+
+### Overlying multiple view controllers on top of each other
+
+`OverlayContainer` does not provide a built-in view controller navigation management. It focuses its effort on the overlay translation.
+
+However in the project, there is a example of a basic solution to overlay multiple overlays on top of each other, like in the `Maps` app. It is based on a simple `UINavigationController` and this implementation of its delegate:
+
+```swift
+func navigationController(_ navigationController: UINavigationController,
+                          animationControllerFor operation: UINavigationController.Operation,
+                          from fromVC: UIViewController,
+                          to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return OverlayNavigationAnimationController(operation: operation)
+}
+
+func navigationController(_ navigationController: UINavigationController,
+                          didShow viewController: UIViewController,
+                          animated: Bool) {
+    overlayController.drivingScrollView = (viewController as? SearchViewController)?.tableView
+}
+```
+
+`OverlayNavigationAnimationController` tweaks the native behavior of the `UINavigationController`: it slides the pushed view controllers up from the bottom of the screen. Feel free to add shadows and modify the animation curve for your needs. The only restriction is that you can not push an `UINavigationController` inside another `UINavigationController`.
 
 ### Backdrop view
 
