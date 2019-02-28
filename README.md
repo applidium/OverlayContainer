@@ -25,12 +25,12 @@ ___
   - [Tracking the overlay](#tracking-the-overlay)
   - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
-  - [Overlying multiple view controllers on top of each other](#overlying-multiple-view-controllers-on-top-of-each-other)
+  - [Multiple overlays](#multiple-overlays)
   - [Backdrop view](#backdrop-usage)
   - [Safe Area](#safe-area)
   - [Custom Translation](#custom-translation)
   - [Custom Translation Animations](#custom-translation-animations)
-  - [Notches reload](#notches-reload)
+  - [Reloading the notches](#reloading-the-notches)
 - [Author](#author)
 - [License](#license)
 
@@ -275,13 +275,15 @@ Choose the layout you wish to display in the `AppDelegate` :
 
 ## Advanced usage
 
-### Overlying multiple view controllers on top of each other
+### Multiple overlays
 
 `OverlayContainer` does not provide a built-in view controller navigation management. It focuses its effort on the overlay translation.
 
-However in the project, there is a example of a basic solution to overlay multiple overlays on top of each other, like in the `Maps` app. It is based on a simple `UINavigationController` and this implementation of its delegate:
+However in the project, there is an example of a basic solution to overlay multiple overlays on top of each other, like in the `Apple Maps` app. It is based on an `UINavigationController` and a custom implementation of its delegate:
 
 ```swift
+// MARK: - UINavigationControllerDelegate
+
 func navigationController(_ navigationController: UINavigationController,
                           animationControllerFor operation: UINavigationController.Operation,
                           from fromVC: UIViewController,
@@ -296,7 +298,7 @@ func navigationController(_ navigationController: UINavigationController,
 }
 ```
 
-`OverlayNavigationAnimationController` tweaks the native behavior of the `UINavigationController`: it slides the pushed view controllers up from the bottom of the screen. Feel free to add shadows and modify the animation curve for your needs. The only restriction is that you can not push an `UINavigationController` inside another `UINavigationController`.
+`OverlayNavigationAnimationController` tweaks the native behavior of the `UINavigationController`: it slides the pushed view controllers up from the bottom of the screen. Feel free to add shadows and modify the animation curve depending on your needs. The only restriction is that you can not push an `UINavigationController` inside another `UINavigationController`.
 
 ### Backdrop view
 
@@ -387,7 +389,7 @@ func animationController(for overlayViewController: UIViewController) -> Overlay
 }
 ```
 
-### Notches reload
+### Reloading the notches
 
 You can reload all the data that is used to construct the notches using the dedicated method:
 
