@@ -30,7 +30,7 @@ class OverlayScrollViewDelegateTest: QuickSpec {
             viewController.scrollView.delegate = viewController
             expect(viewController.scrollView.delegate).toNot(beIdenticalTo(viewController))
         }
-        it("should set the original scroll view delegate back") {
+        it("should restore the scroll view delegate") {
             viewController.scrollView.delegate = viewController
             expect(viewController.scrollView.delegate).to(beIdenticalTo(viewController))
             overlayContainer.drivingScrollView = viewController.scrollView
