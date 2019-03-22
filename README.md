@@ -1,18 +1,54 @@
-# OverlayContainer
+<p align="center">
+<img src="https://github.com/applidium/ADOverlayContainer/blob/master/Assets/icon.png" width="700">
+</p>
 
-[![Version](https://img.shields.io/cocoapods/v/OverlayContainer.svg?style=flat)](https://cocoapods.org/pods/OverlayContainer)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![License](https://img.shields.io/cocoapods/l/OverlayContainer.svg?style=flat)](https://cocoapods.org/pods/OverlayContainer)
-[![Platform](https://img.shields.io/cocoapods/p/OverlayContainer.svg?style=flat)](https://cocoapods.org/pods/OverlayContainer)
-[![Build Status](https://api.travis-ci.org/applidium/ADOverlayContainer.svg?branch=master)](https://travis-ci.org/applidium/ADOverlayContainer)
+<H4 align="center">
+  OverlayContainer is a UI library written in Swift. It makes it easier to develop overlay based interfaces, such as the one presented in the Apple Maps, Stocks or Shortcuts apps
+</H4>
 
-OverlayContainer is a UI library written in Swift. It makes it easier to develop overlay based interfaces, such as the one presented in the Apple Maps, Stocks or Shortcuts apps.
+<p align="center">
+  <a href="https://developer.apple.com/"><img alt="Platform" src="https://img.shields.io/badge/platform-iOS-green.svg"/></a>
+  <a href="https://developer.apple.com/swift"><img alt="Swift4" src="https://img.shields.io/badge/language-Swift%204.2-orange.svg"/></a>
+  <a href="https://cocoapods.org/pods/OverlayContainer"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/OverlayContainer.svg?style=flat"/></a>
+  <a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"/></a>
+  <a href="https://travis-ci.org/applidium/ADOverlayContainer"><img alt="Build Status" src="https://api.travis-ci.org/applidium/ADOverlayContainer.svg?branch=master"/></a>
+  <a href="https://github.com/applidium/ADOverlayContainer/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/cocoapods/l/OverlayContainer.svg?style=flat"/></a>
+</p>
 
-![scroll](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/scroll.gif)
+---
 
-___
+## Features
 
-- [Features](#features)
+There are currently several alternatives like:
+
+- [Pulley](https://github.com/52inc/Pulley)
+- [FloatingPanel](https://github.com/SCENEE/FloatingPanel)
+
+`OverlayContainer` uses a different approach. The library focuses its effort on the hard part, the overlay translation. It perfectly mimics the overlay presented in the Siri Shotcuts app.
+
+It tries to be as lightweight and non-intrusive as possible. The layout and the UI customization are done by you to avoid to corrupt your project. `OverlayContainer` adapts to it. See the provided examples for help or feel free to ask directly.
+
+
+✅ Unlimited notches
+
+✅ Adaptive to any custom layouts
+
+✅ Perfect transitions between scroll & translation
+
+✅ Rubber band effect
+
+✅ Animations and target notch policy fully customizable
+
+✅ Unit tested
+
+---
+
+<p align="center">
+<img src="https://github.com/applidium/ADOverlayContainer/blob/master/Assets/scroll.gif" width="222">
+</p>
+
+---
+
 - [Requirements](#requirements)
 - [Installation](#installation)
   - [CocoaPods](#cocoapods)
@@ -34,23 +70,6 @@ ___
 - [Author](#author)
 - [License](#license)
 
-## Features
-
-There are currently several alternatives like :
-
-- [Pulley](https://github.com/52inc/Pulley)
-- [FloatingPanel](https://github.com/SCENEE/FloatingPanel)
-
-`OverlayContainer` uses a different approach. It tries to be as lightweight and non-intrusive as possible. The layout and the UI customization are done by you to avoid to corrupt your project. `OverlayContainer` adapts to it. See the provided examples for help or feel free to ask directly.
-
-The library focuses its effort on the hard part, the overlay translation. It perfectly mimics the overlay presented in the Siri Shotcuts app.
-
-- [x] Unlimited notches
-- [x] Adaptive to any custom layouts
-- [x] Fluid transitions between scroll & translation
-- [x] Rubber band effect
-- [x] Animations and target notch policy fully customizable
-- [x] Unit tested
 
 ## Requirements
 
