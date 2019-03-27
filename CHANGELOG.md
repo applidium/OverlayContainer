@@ -1,3 +1,12 @@
+## 1.2.0 (27 March 2019)
+
+- Hide `UIViewController+Children` methods
+
+## 1.1.2 (27 March 2019)
+
+- Fix Xcode 10.2 compilation (Nimble & Quick update)
+- Hide Carthage test dependancies
+
 ## 1.1.1 (27 February 2019)
 
 - Fix the cleaning of the translation drivers when a new driving scroll view is set.
