@@ -13,7 +13,7 @@ env:
   global:
   - LANG=en_US.UTF-8
   - LC_ALL=en_US.UTF-8
-  - DESTINATION="OS=12.1,name=iPhone XS"
+  - DESTINATION="OS=12.2,name=iPhone XS"
   - SCHEME="OverlayContainer"
   - WORKSPACE="OverlayContainer.xcworkspace"
 skip_cleanup: true
