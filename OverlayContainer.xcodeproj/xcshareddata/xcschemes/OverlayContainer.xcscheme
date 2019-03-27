@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E78485B52201E63800DE64C3"
+               BlueprintIdentifier = "E78486462201EA7400DE64C3"
                BuildableName = "OverlayContainer_Tests.xctest"
                BlueprintName = "OverlayContainer_Tests"
                ReferencedContainer = "container:OverlayContainer.xcodeproj">
