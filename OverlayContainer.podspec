@@ -8,14 +8,17 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OverlayContainer'
-  s.version          = '1.1.1'
+  s.version          = '1.1.2'
   s.summary          = 'OverlayContainer is a UI library which makes it easier to develop overlay based interfaces.'
-  s.swift_version    = "4.2"
+
+  s.swift_version    = '4.2'
+  s.swift_versions = ['4.2']
 
   s.description      = <<-DESC
   OverlayContainer is a UI library written in Swift. It makes it easier to develop overlay based interfaces, such as the one presented in the Apple Maps, Stocks or Shortcuts apps.
   The main component of the library is the `OverlayContainerViewController`. It defines an area where a view controller can be dragged up and down, hidding or revealing the content underneath it. 
                        DESC
+
 
   s.homepage         = 'https://github.com/applidium/ADOverlayContainer'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
