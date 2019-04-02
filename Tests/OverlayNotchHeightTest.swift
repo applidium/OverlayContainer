@@ -103,11 +103,16 @@ class OverlayNotchHeightTest: QuickSpec {
         }
         it("should call completion callback after animation is finished") {
             Notch.allCases.forEach { notch in
+                var called = false
+                let expectation = self.expectation(description: "callback")
+
                 overlayContainer.moveOverlay(toNotchAt: notch.rawValue, animated: true) { position in
-                    // Not sure about this
+                    called = true
+                    expectation.fulfill()
+
                 }
-                //overlayContainer.view.layoutIfNeeded()
-                //expect(overlay.view.frame.height).to(equal(delegate.height(for: notch)))
+                self.waitForExpectations(timeout: 5, handler: nil)
+                expect(called).to(beTrue())
             }
         }
     }
