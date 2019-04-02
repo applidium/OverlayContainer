@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeightContrainstOverlayTranslationController: OverlayTranslationController {
+class HeightContraintsOverlayTranslationController: OverlayTranslationController {
 
     weak var delegate: OverlayTranslationControllerDelegate?
 
@@ -92,7 +92,7 @@ class HeightContrainstOverlayTranslationController: OverlayTranslationController
         moveOverlay(toNotchAt: index, velocity: velocity, animated: true)
     }
 
-    func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool) {
+    func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool, completion: @escaping ((UIViewAnimatingPosition) -> Void) = {_ in }) {
         guard let overlay = overlayViewController else { return }
         assert(
             index < configuration.numberOfNotches(),
@@ -121,7 +121,9 @@ class HeightContrainstOverlayTranslationController: OverlayTranslationController
             willReachNotchAt: translationEndNotchIndex,
             transitionCoordinator: coordinator
         )
+        animator.addCompletion?(completion)
         animator.startAnimation()
+
     }
 
     // MARK: - Private

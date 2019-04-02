@@ -101,5 +101,14 @@ class OverlayNotchHeightTest: QuickSpec {
                 expect(overlay.view.frame.height).to(equal(delegate.height(forNew: notch)))
             }
         }
+        it("should call completion callback after animation is finished") {
+            Notch.allCases.forEach { notch in
+                overlayContainer.moveOverlay(toNotchAt: notch.rawValue, animated: true) { position in
+                    // Not sure about this
+                }
+                //overlayContainer.view.layoutIfNeeded()
+                //expect(overlay.view.frame.height).to(equal(delegate.height(for: notch)))
+            }
+        }
     }
 }
