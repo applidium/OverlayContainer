@@ -1,5 +1,5 @@
 //
-//  HeightContraintOverlayTranslationController.swift
+//  HeightConstraintOverlayTranslationController.swift
 //  OverlayContainer
 //
 //  Created by Gaétan Zanella on 29/11/2018.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeightContraintsOverlayTranslationController: OverlayTranslationController {
+class HeightConstraintOverlayTranslationController: OverlayTranslationController {
 
     weak var delegate: OverlayTranslationControllerDelegate?
 

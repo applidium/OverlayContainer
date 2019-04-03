@@ -74,7 +74,7 @@ public class OverlayContainerViewController: UIViewController {
     }
 
     private var previousSize: CGSize = .zero
-    private var translationController: HeightContraintsOverlayTranslationController?
+    private var translationController: HeightConstraintOverlayTranslationController?
     private var translationDrivers: [OverlayTranslationDriver] = []
 
     private var overlayContainerConstraintsAreActive: Bool {
@@ -201,7 +201,7 @@ public class OverlayContainerViewController: UIViewController {
             let overlayController = topViewController else {
                 return
         }
-        translationController = HeightContraintsOverlayTranslationController(
+        translationController = HeightConstraintOverlayTranslationController(
             translationHeightConstraint: translationHeightConstraint,
             overlayViewController: overlayController,
             configuration: configuration
