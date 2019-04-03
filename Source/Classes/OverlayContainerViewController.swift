@@ -74,7 +74,7 @@ public class OverlayContainerViewController: UIViewController {
     }
 
     private var previousSize: CGSize = .zero
-    private var translationController: HeightContrainstOverlayTranslationController?
+    private var translationController: HeightConstraintOverlayTranslationController?
     private var translationDrivers: [OverlayTranslationDriver] = []
 
     private var overlayContainerConstraintsAreActive: Bool {
@@ -136,11 +136,11 @@ public class OverlayContainerViewController: UIViewController {
     /// - parameter index: The index of the target notch.
     /// - parameter animated: Defines either the transition should be animated or not.
     ///
-    public func moveOverlay(toNotchAt index: Int, animated: Bool) {
+    public func moveOverlay(toNotchAt index: Int, animated: Bool, completion: (() -> Void)? = nil) {
         if !overlayContainerConstraintsAreActive {
             view.layoutIfNeeded()
         }
-        translationController?.moveOverlay(toNotchAt: index, velocity: .zero, animated: animated)
+        translationController?.moveOverlay(toNotchAt: index, velocity: .zero, animated: animated, completion: completion)
     }
 
     /// Invalidates the current container's notches.
@@ -201,7 +201,7 @@ public class OverlayContainerViewController: UIViewController {
             let overlayController = topViewController else {
                 return
         }
-        translationController = HeightContrainstOverlayTranslationController(
+        translationController = HeightConstraintOverlayTranslationController(
             translationHeightConstraint: translationHeightConstraint,
             overlayViewController: overlayController,
             configuration: configuration

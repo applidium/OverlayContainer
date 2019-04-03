@@ -26,7 +26,7 @@ protocol OverlayTranslationController: class {
     func isDraggable(at point: CGPoint, in coordinateSpace: UICoordinateSpace) -> Bool
     func overlayHasReachedANotch() -> Bool
 
-    func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool)
+    func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool, completion: (() -> Void)?)
 
     func dragOverlay(withOffset offset: CGFloat, usesFunction: Bool)
     func endOverlayTranslation(withVelocity velocity: CGPoint)

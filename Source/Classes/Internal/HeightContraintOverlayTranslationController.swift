@@ -1,5 +1,5 @@
 //
-//  HeightContraintOverlayTranslationController.swift
+//  HeightConstraintOverlayTranslationController.swift
 //  OverlayContainer
 //
 //  Created by Gaétan Zanella on 29/11/2018.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeightContrainstOverlayTranslationController: OverlayTranslationController {
+class HeightConstraintOverlayTranslationController: OverlayTranslationController {
 
     weak var delegate: OverlayTranslationControllerDelegate?
 
@@ -92,7 +92,7 @@ class HeightContrainstOverlayTranslationController: OverlayTranslationController
         moveOverlay(toNotchAt: index, velocity: velocity, animated: true)
     }
 
-    func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool) {
+    func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool, completion: (() -> Void)? = nil) {
         guard let overlay = overlayViewController else { return }
         assert(
             index < configuration.numberOfNotches(),
@@ -101,7 +101,10 @@ class HeightContrainstOverlayTranslationController: OverlayTranslationController
         let height = translationHeight
         translationEndNotchIndex = index
         dragOverlay(toHeight: translationEndNotchHeight)
-        guard animated else { return }
+        guard animated else {
+            completion?()
+            return
+        }
         let context = ConcreteOverlayContainerContextTransitioning(
             overlayViewController: overlay,
             overlayTranslationHeight: height,
@@ -121,6 +124,9 @@ class HeightContrainstOverlayTranslationController: OverlayTranslationController
             willReachNotchAt: translationEndNotchIndex,
             transitionCoordinator: coordinator
         )
+        animator.addCompletion?({ _ in
+            completion?()
+        })
         animator.startAnimation()
     }
 
