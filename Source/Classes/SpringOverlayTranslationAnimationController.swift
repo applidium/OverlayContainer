@@ -42,7 +42,6 @@ public class SpringOverlayTranslationAnimationController: OverlayAnimatedTransit
             response: response,
             mass: mass
         )
-
         return UIViewPropertyAnimator(
             duration: 0, // duration is ignored when using `UISpringTimingParameters.init(mass:stiffness:damping:initialVelocity)`
             timingParameters: timing

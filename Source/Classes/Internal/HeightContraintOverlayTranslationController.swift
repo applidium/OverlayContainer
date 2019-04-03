@@ -92,7 +92,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         moveOverlay(toNotchAt: index, velocity: velocity, animated: true)
     }
 
-    func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool, completion: @escaping ((UIViewAnimatingPosition) -> Void) = {_ in }) {
+    func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool, completion: (() -> Void)? = nil) {
         guard let overlay = overlayViewController else { return }
         assert(
             index < configuration.numberOfNotches(),
@@ -101,7 +101,10 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         let height = translationHeight
         translationEndNotchIndex = index
         dragOverlay(toHeight: translationEndNotchHeight)
-        guard animated else { return }
+        guard animated else {
+            completion?()
+            return
+        }
         let context = ConcreteOverlayContainerContextTransitioning(
             overlayViewController: overlay,
             overlayTranslationHeight: height,
@@ -121,9 +124,10 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
             willReachNotchAt: translationEndNotchIndex,
             transitionCoordinator: coordinator
         )
-        animator.addCompletion?(completion)
+        animator.addCompletion?({ _ in
+            completion?()
+        })
         animator.startAnimation()
-
     }
 
     // MARK: - Private

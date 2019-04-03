@@ -136,7 +136,7 @@ public class OverlayContainerViewController: UIViewController {
     /// - parameter index: The index of the target notch.
     /// - parameter animated: Defines either the transition should be animated or not.
     ///
-    public func moveOverlay(toNotchAt index: Int, animated: Bool, completion: @escaping ((UIViewAnimatingPosition) -> Void) = {_ in }) {
+    public func moveOverlay(toNotchAt index: Int, animated: Bool, completion: (() -> Void)? = nil) {
         if !overlayContainerConstraintsAreActive {
             view.layoutIfNeeded()
         }
