@@ -1,3 +1,7 @@
+## 1.3.0 (04 April 2019)
+
+- Add completion block to `moveOverlay`
+
 ## 1.2.0 (27 March 2019)
 
 - Hide `UIViewController+Children` methods
