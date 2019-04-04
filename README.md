@@ -103,6 +103,16 @@ Thus, your first step is to create a custom view controller container which comb
 It could be as simple as a view controller stacking all its children :
 
 ```swift
+extension UIViewController {
+    func addChild(_ child: UIViewController, in containerView: UIView) {
+        // ...
+    }
+
+    func removeChild(_ child: UIViewController) {
+        // ...
+    }
+}
+
 class StackViewController: UIViewController {
 
     var viewControllers: [UIViewController] = [] {
