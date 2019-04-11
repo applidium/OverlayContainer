@@ -195,6 +195,7 @@ public class OverlayContainerViewController: UIViewController {
 
     private func loadOverlayViews() {
         guard !viewControllers.isEmpty else { return }
+        groundView.isHidden = viewControllers.count == 1
         var truncatedViewControllers = viewControllers
         truncatedViewControllers.popLast().flatMap { addChild($0, in: overlayContainerView) }
         truncatedViewControllers.forEach { addChild($0, in: groundView) }
