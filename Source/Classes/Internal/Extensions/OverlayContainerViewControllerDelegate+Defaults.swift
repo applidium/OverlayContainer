@@ -22,7 +22,8 @@ public extension OverlayContainerViewControllerDelegate {
                                         shouldStartDraggingOverlay overlayViewController: UIViewController,
                                         at point: CGPoint,
                                         in coordinateSpace: UICoordinateSpace) -> Bool {
-        return true
+        let convertedPoint = coordinateSpace.convert(point, to: overlayViewController.view)
+        return overlayViewController.view.bounds.contains(convertedPoint)
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
