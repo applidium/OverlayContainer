@@ -8,4 +8,4 @@
 
 import UIKit
 
-class GroundView: UIView {}
+class GroundView: PassThroughView {}
