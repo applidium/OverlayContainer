@@ -80,7 +80,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         } else {
             height = max(minimumHeight, min(maximumHeight, translation))
         }
-        dragOverlay(toHeight: height)
+        dragOverlay(toHeight: max(height.oc_rounded(), 0))
     }
 
     func endOverlayTranslation(withVelocity velocity: CGPoint) {
