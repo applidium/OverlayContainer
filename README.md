@@ -250,6 +250,9 @@ var overlayTranslationHeight: CGFloat { get }
 /// The notch indexes.
 var notchIndexes: Range<Int> { get }
 
+/// The reachables indexes.
+var reachableIndexes: [Int] { get }
+
 /// Returns the height of the specified notch.
 func height(forNotchAt index: Int) -> CGFloat
 ```
