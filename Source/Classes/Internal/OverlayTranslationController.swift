@@ -8,7 +8,7 @@
 import UIKit
 
 enum OverlayTranslationPosition {
-    case top, bottom, inFlight
+    case top, bottom, inFlight, stationary
 }
 
 protocol OverlayTranslationControllerDelegate: class {

@@ -16,9 +16,14 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     }
 
     var translationPosition: OverlayTranslationPosition {
-        if translationHeight == maximumReachableNotchHeight() {
+        let isAtTop = translationHeight == maximumReachableNotchHeight()
+        let isAtBottom = translationHeight == minimumReachableNotchHeight()
+        if isAtTop && isAtBottom {
+            return .stationary
+        }
+        if isAtTop {
             return .top
-        } else if translationHeight == minimumReachableNotchHeight() {
+        } else if isAtBottom {
             return .bottom
         } else {
             return .inFlight
@@ -139,7 +144,8 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     // MARK: - Private
 
     private func overlayHasAmibiguousTranslationHeight() -> Bool {
-        guard let index = configuration.sortedHeights().index(where: { $0 == translationHeight }) else {
+        let heights = enabledNotchIndexes().map { configuration.heightForNotch(at: $0) }
+        guard let index = heights.index(where: { $0 == translationHeight }) else {
             return true
         }
         return configuration.heightForNotch(at: index) != translationEndNotchHeight
