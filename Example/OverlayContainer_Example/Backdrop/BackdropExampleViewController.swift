@@ -30,14 +30,12 @@ class BackdropExampleViewController: UIViewController {
         super.viewDidLoad()
         let overlayController = OverlayContainerViewController()
         overlayController.delegate = self
-        overlayController.viewControllers = [searchViewController]
-        let stackController = StackViewController()
-        stackController.viewControllers = [
+        overlayController.viewControllers = [
             mapsViewController,
             backdropViewController,
-            overlayController
+            searchViewController
         ]
-        addChild(stackController, in: view)
+        addChild(overlayController, in: view)
     }
 
     private func notchHeight(for notch: OverlayNotch, availableSpace: CGFloat) -> CGFloat {

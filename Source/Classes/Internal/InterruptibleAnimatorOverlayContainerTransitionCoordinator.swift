@@ -25,6 +25,10 @@ class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContain
         return context.notchIndexes
     }
 
+    var reachableIndexes: [Int] {
+        return context.reachableIndexes
+    }
+
     private let animator: UIViewImplicitlyAnimating
     private let context: OverlayContainerTransitionCoordinatorContext
 

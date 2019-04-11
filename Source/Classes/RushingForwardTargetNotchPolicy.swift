@@ -28,16 +28,16 @@ public class RushingForwardTargetNotchPolicy: OverlayTranslationTargetNotchPolic
     // MARK: - OverlayTranslationTargetNotchPolicy
 
     public func targetNotchIndex(using context: OverlayContainerContextTargetNotchPolicy) -> Int {
-        guard !context.notchIndexes.isEmpty else { return 0 }
+        guard !context.reachableIndexes.isEmpty else { return 0 }
         let height = minimumDuration * -context.velocity.y + context.overlayTranslationHeight
-        let closestNotches = context.notchIndexes.sorted {
+        let closestNotches = context.reachableIndexes.sorted {
             let lhsHeight = context.height(forNotchAt: $0)
             let rhsHeight = context.height(forNotchAt: $1)
             let lhsDistance = abs(height - lhsHeight)
             let rhsDistance = abs(height - rhsHeight)
             return (lhsDistance, lhsHeight) < (rhsDistance, rhsHeight)
         }
-        if context.notchIndexes.count > 1 && abs(context.velocity.y) > minimumVelocity {
+        if context.reachableIndexes.count > 1 && abs(context.velocity.y) > minimumVelocity {
             let lhs = closestNotches[0]
             let rhs = closestNotches[1]
             if context.velocity.y < 0 {
@@ -46,7 +46,7 @@ public class RushingForwardTargetNotchPolicy: OverlayTranslationTargetNotchPolic
                 return min(lhs, rhs)
             }
         } else {
-            return closestNotches[0]
+            return closestNotches.first ?? 0
         }
     }
 }

@@ -12,10 +12,7 @@ struct ConcreteOverlayContainerContextTargetNotchPolicy: OverlayContainerContext
     let overlayTranslationHeight: CGFloat
     let velocity: CGPoint
     let notchHeightByIndex: [Int: CGFloat]
-
-    var notchIndexes: Range<Int> {
-        return 0..<notchHeightByIndex.count
-    }
+    let reachableIndexes: [Int]
 
     func height(forNotchAt index: Int) -> CGFloat {
         return notchHeightByIndex[index] ?? 0

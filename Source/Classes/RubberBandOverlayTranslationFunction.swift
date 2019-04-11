@@ -24,10 +24,10 @@ public class RubberBandOverlayTranslationFunction: OverlayTranslationFunction {
     // MARK: - OverlayTranslationFunction
 
     public func overlayTranslationHeight(using context: OverlayTranslationParameters) -> CGFloat {
-        if context.translation > context.maximumHeight && bouncesAtMaximumHeight {
+        if context.translation >= context.maximumHeight && bouncesAtMaximumHeight {
             return logarithmicTranslation(translation: context.translation, limit: context.maximumHeight)
         }
-        if context.translation < context.minimumHeight && bouncesAtMinimumHeight {
+        if context.translation <= context.minimumHeight && bouncesAtMinimumHeight {
             let translation = context.minimumHeight + (context.minimumHeight - context.translation)
             let height = logarithmicTranslation(translation: translation, limit: context.minimumHeight)
             return context.minimumHeight - (height - context.minimumHeight)
@@ -38,6 +38,7 @@ public class RubberBandOverlayTranslationFunction: OverlayTranslationFunction {
     // MARK: - Private
 
     private func logarithmicTranslation(translation: CGFloat, limit: CGFloat) -> CGFloat {
+        guard limit > 0 else { return 0 }
         return limit * (1 + factor * log10(translation / limit))
     }
 }

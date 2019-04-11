@@ -17,8 +17,8 @@ public protocol OverlayContainerContextTargetNotchPolicy {
     var overlayTranslationHeight: CGFloat { get }
     /// The overlay velocity at the moment the touch was released.
     var velocity: CGPoint { get }
-    /// The notch indexes.
-    var notchIndexes: Range<Int> { get }
+    /// The indexes considered as reachable by the container.
+    var reachableIndexes: [Int] { get }
     /// Returns the height of the specified notch.
     func height(forNotchAt index: Int) -> CGFloat
 }
@@ -39,6 +39,8 @@ public protocol OverlayContainerContextTransitioning {
     var targetNotchHeight: CGFloat { get }
     /// The notch indexes.
     var notchIndexes: Range<Int> { get }
+    /// The indexes considered as reachable by the container.
+    var reachableIndexes: [Int] { get }
     /// Returns the height of the specified notch.
     func height(forNotchAt index: Int) -> CGFloat
 }

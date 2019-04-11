@@ -88,8 +88,8 @@ class OverlayContainerViewControllerConfiguration {
     }
 
     func shouldStartDraggingOverlay(_ viewController: UIViewController,
-                                       at point: CGPoint,
-                                       in coordinateSpace: UICoordinateSpace) -> Bool {
+                                    at point: CGPoint,
+                                    in coordinateSpace: UICoordinateSpace) -> Bool {
         guard let containerController = overlayContainerViewController else { return false }
         return delegate?.overlayContainerViewController(
             containerController,
@@ -108,6 +108,21 @@ class OverlayContainerViewControllerConfiguration {
             containerController,
             overlayTranslationFunctionForOverlay: overlayViewController
         ) ?? RubberBandOverlayTranslationFunction()
+    }
+
+    func enabledNotchIndexes(for overlayContainer: UIViewController) -> [Int] {
+        return (0..<numberOfNotches()).filter { canReachNotch(at: $0, for: overlayContainer) }
+    }
+
+    func canReachNotch(at index: Int, for overlayViewController: UIViewController) -> Bool {
+        guard let containerController = overlayContainerViewController else {
+            return true
+        }
+        return delegate?.overlayContainerViewController(
+            containerController,
+            canReachNotchAt: index,
+            forOverlay: overlayViewController
+        ) ?? true
     }
 
     // MARK: - Private

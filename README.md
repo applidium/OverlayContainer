@@ -62,6 +62,7 @@ It tries to be as lightweight and non-intrusive as possible. The layout and the 
   - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
   - [Multiple overlays](#multiple-overlays)
+  - [Showing & Hiding the overlay](#show-&-hide-the-overlay)
   - [Backdrop view](#backdrop-usage)
   - [Safe Area](#safe-area)
   - [Custom Translation](#custom-translation)
@@ -97,41 +98,9 @@ github "https://github.com/applidium/ADOverlayContainer"
 
 ### Setup
 
-The main component of the library is the `OverlayContainerViewController`. It defines an area where a view controller can be dragged up and down, hidding or revealing the content underneath it. 
+The main component of the library is the `OverlayContainerViewController`. It defines an area where a view controller, called the overlay view controller, can be dragged up and down, hidding or revealing the content underneath it.
 
-Thus, your first step is to create a custom view controller container which combines the `OverlayContainerViewController` and the content you wish to overlay.
-It could be as simple as a view controller stacking all its children :
-
-```swift
-extension UIViewController {
-    func addChild(_ child: UIViewController, in containerView: UIView) {
-        // ...
-    }
-
-    func removeChild(_ child: UIViewController) {
-        // ...
-    }
-}
-
-class StackViewController: UIViewController {
-
-    var viewControllers: [UIViewController] = [] {
-        didSet {
-            guard isViewLoaded else { return }
-            loadChildren()
-        }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadChildren()
-    }
-
-    private func loadChildren() {
-        viewControllers.forEach { addChild($0, in: view) }
-    }
-}
-```
+`OverlayContainer` uses the last view controller of its `viewControllers` as the overlay view controller. It stacks the other view controllers on top of each other, if any, and adds them underneath the overlay view controller.
 
 A startup sequence might look like this :
 
@@ -141,20 +110,17 @@ let searchController = SearchViewController()
 
 let containerController = OverlayContainerViewController()
 containerController.delegate = self
-containerController.viewControllers = [searchController]
-
-let stackController = StackViewController()
-stackController.viewControllers = [
+containerController.viewControllers = [
     mapsController,
     containerController
 ]
-window?.rootViewController = stackController
 
+window?.rootViewController = containerController
 ```
 
-The last step is to define the overlay's notches. By default, the overlay container view controller does not display anything. 
-Implement `OverlayContainerViewControllerDelegate` to specify the number of notches wished :
+Specifing only one view controller is absolutely valid in the case the overlay only covers partially its content. See [MapsLikeViewController](https://github.com/applidium/ADOverlayContainer/blob/master/Example/OverlayContainer_Example/Maps/MapsLikeViewController.swift).
 
+The overlay container view controller needs at least one notch. Implement `OverlayContainerViewControllerDelegate` to specify the number of notches wished:
 
 ```swift
 enum OverlayNotch: Int, CaseIterable {
@@ -181,7 +147,7 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 
 ### Overlay style
 
-The overlay style defines how the overlay view controllers will be constrained in the `OverlayContainerViewController`.
+The overlay style defines how the overlay view controller will be constrained in the `OverlayContainerViewController`.
 
 ```swift
 enum OverlayStyle {
@@ -284,6 +250,9 @@ var overlayTranslationHeight: CGFloat { get }
 /// The notch indexes.
 var notchIndexes: Range<Int> { get }
 
+/// The reachables indexes.
+var reachableIndexes: [Int] { get }
+
 /// Returns the height of the specified notch.
 func height(forNotchAt index: Int) -> CGFloat
 ```
@@ -328,6 +297,36 @@ func navigationController(_ navigationController: UINavigationController,
 ```
 
 `OverlayNavigationAnimationController` tweaks the native behavior of the `UINavigationController`: it slides the pushed view controllers up from the bottom of the screen. Feel free to add shadows and modify the animation curve depending on your needs. The only restriction is that you can not push an `UINavigationController` inside another `UINavigationController`.
+
+### Showing & Hiding the overlay
+
+`OverlayContainer` provides a easy way to in-flight enable & disable notches. A frequent use case is to show & hide the overlay. `ShowOverlayExampleViewController` provides a basic implementation of it:
+
+```swift
+var showsOverlay = false
+
+func showOrHideOverlay() {
+    showsOverlay.toggle()
+    let targetNotch: Notch = showsOverlay ? .med : .hidden
+    overlayContainerController.moveOverlay(toNotchAt: targetNotch.rawValue, animated: true)
+}
+
+
+func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                    canReachNotchAt index: Int,
+                                    forOverlay overlayViewController: UIViewController) -> Bool {
+    switch Notch.allCases[index] {
+    case .max:
+        return showsOverlay
+    case .med:
+        return showsOverlay
+    case .hidden:
+        return !showsOverlay
+    }
+}
+```
+
+Make sure to use the `rigid` overlay style if the content can not be flattened.
 
 ### Backdrop view
 
