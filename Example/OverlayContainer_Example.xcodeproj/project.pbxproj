@@ -17,7 +17,6 @@
 		E78486062201E95E00DE64C3 /* DetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E78485F42201E95E00DE64C3 /* DetailHeaderView.xib */; };
 		E78486072201E95E00DE64C3 /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485F52201E95E00DE64C3 /* DetailHeaderView.swift */; };
 		E78486082201E95E00DE64C3 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485F62201E95E00DE64C3 /* MapsViewController.swift */; };
-		E78486092201E95E00DE64C3 /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485F72201E95E00DE64C3 /* StackViewController.swift */; };
 		E784860B2201E95E00DE64C3 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485FB2201E95E00DE64C3 /* UIView+Constraints.swift */; };
 		E784860C2201E95E00DE64C3 /* UIViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485FC2201E95E00DE64C3 /* UIViewController+Children.swift */; };
 		E784860D2201E95E00DE64C3 /* ShortcutsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485FE2201E95E00DE64C3 /* ShortcutsLikeViewController.swift */; };
@@ -54,7 +53,6 @@
 		E78485F42201E95E00DE64C3 /* DetailHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailHeaderView.xib; sourceTree = "<group>"; };
 		E78485F52201E95E00DE64C3 /* DetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
 		E78485F62201E95E00DE64C3 /* MapsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
-		E78485F72201E95E00DE64C3 /* StackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
 		E78485F92201E95E00DE64C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E78485FB2201E95E00DE64C3 /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		E78485FC2201E95E00DE64C3 /* UIViewController+Children.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 				E78485F42201E95E00DE64C3 /* DetailHeaderView.xib */,
 				E78485F52201E95E00DE64C3 /* DetailHeaderView.swift */,
 				E78485F62201E95E00DE64C3 /* MapsViewController.swift */,
-				E78485F72201E95E00DE64C3 /* StackViewController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -250,7 +247,6 @@
 				E784860C2201E95E00DE64C3 /* UIViewController+Children.swift in Sources */,
 				E78486042201E95E00DE64C3 /* BackdropExampleViewController.swift in Sources */,
 				E78486052201E95E00DE64C3 /* SearchViewController.swift in Sources */,
-				E78486092201E95E00DE64C3 /* StackViewController.swift in Sources */,
 				E7C4C67922256DB8009AD786 /* OverlayNavigationViewController.swift in Sources */,
 				E78486082201E95E00DE64C3 /* MapsViewController.swift in Sources */,
 				E7022C91222699BD00AD86B5 /* ModalNavigationViewController.swift in Sources */,

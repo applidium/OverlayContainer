@@ -53,13 +53,11 @@ class ShortcutsLikeViewController: UIViewController {
         case .compact:
             let overlayController = OverlayContainerViewController()
             overlayController.delegate = self
-            overlayController.viewControllers = [searchViewController]
-            let stackController = StackViewController()
-            stackController.viewControllers = [
+            overlayController.viewControllers = [
                 mapsViewController,
-                overlayController
+                searchViewController
             ]
-            addChild(stackController, in: view)
+            addChild(overlayController, in: view)
         case .regular:
             let splitController = UISplitViewController()
             // (gz) 2018-12-03 Both `OverlayContainerViewController` & `StackViewController` disable autorizing mask.
