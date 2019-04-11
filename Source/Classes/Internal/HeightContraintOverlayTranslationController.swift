@@ -70,8 +70,8 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
 
     func dragOverlay(withOffset offset: CGFloat, usesFunction: Bool) {
         guard let viewController = overlayViewController else { return }
-        let maximumHeight = max(translationEndNotchHeight, maximumReachableNotchHeight())
-        let minimumHeight = min(translationEndNotchHeight, minimumReachableNotchHeight())
+        let maximumHeight = maximumReachableNotchHeight()
+        let minimumHeight = minimumReachableNotchHeight()
         let translation = translationEndNotchHeight - offset
         let height: CGFloat
         if usesFunction {
@@ -163,14 +163,18 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     }
 
     private func minimumReachableNotchHeight() -> CGFloat {
-        return enabledNotchIndexes().first.flatMap {
+        let minimum = enabledNotchIndexes().first.flatMap {
             configuration.heightForNotch(at: $0)
         } ?? configuration.maximumNotchHeight
+        // (gz) 2019-04-11 If the overlay is still at a disabled notch
+        return min(translationEndNotchHeight, minimum)
     }
 
     private func maximumReachableNotchHeight() -> CGFloat {
-        return enabledNotchIndexes().last.flatMap {
+        let maximum = enabledNotchIndexes().last.flatMap {
             configuration.heightForNotch(at: $0)
         } ?? configuration.maximumNotchHeight
+        // (gz) 2019-04-11 If the overlay is still at a disabled notch
+        return max(translationEndNotchHeight, maximum)
     }
 }
