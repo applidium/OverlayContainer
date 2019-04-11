@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E7022C91222699BD00AD86B5 /* ModalNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7022C90222699BD00AD86B5 /* ModalNavigationViewController.swift */; };
-		E7022C9322269A8500AD86B5 /* ModalNavigationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7022C9222269A8500AD86B5 /* ModalNavigationViewController.xib */; };
 		E78485DB2201E8E900DE64C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485DA2201E8E900DE64C3 /* AppDelegate.swift */; };
 		E78486022201E95E00DE64C3 /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485EE2201E95E00DE64C3 /* MapsLikeViewController.swift */; };
 		E78486032201E95E00DE64C3 /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E78485EF2201E95E00DE64C3 /* MapsLikeViewController.xib */; };
@@ -45,7 +44,6 @@
 
 /* Begin PBXFileReference section */
 		E7022C90222699BD00AD86B5 /* ModalNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationViewController.swift; sourceTree = "<group>"; };
-		E7022C9222269A8500AD86B5 /* ModalNavigationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModalNavigationViewController.xib; sourceTree = "<group>"; };
 		E78485D72201E8E900DE64C3 /* OverlayContainer_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OverlayContainer_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E78485DA2201E8E900DE64C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E78485E62201E8EA00DE64C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				E7022C90222699BD00AD86B5 /* ModalNavigationViewController.swift */,
-				E7022C9222269A8500AD86B5 /* ModalNavigationViewController.xib */,
 				E7022C8F2226983A00AD86B5 /* Navigation */,
 			);
 			path = "Modal Navigation";
@@ -248,7 +245,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E78486062201E95E00DE64C3 /* DetailHeaderView.xib in Resources */,
-				E7022C9322269A8500AD86B5 /* ModalNavigationViewController.xib in Resources */,
 				E78486032201E95E00DE64C3 /* MapsLikeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

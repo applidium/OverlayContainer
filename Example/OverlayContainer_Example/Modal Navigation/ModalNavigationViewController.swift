@@ -15,9 +15,6 @@ class ModalNavigationViewController: UIViewController, SearchViewControllerDeleg
         case minimum, maximum
     }
 
-    @IBOutlet private var overlayContainerView: UIView!
-    @IBOutlet private var backgroundView: UIView!
-
     private let overlayController = OverlayContainerViewController()
     private let overlayNavigationController = OverlayNavigationViewController()
 
@@ -27,10 +24,9 @@ class ModalNavigationViewController: UIViewController, SearchViewControllerDeleg
         super.viewDidLoad()
         overlayController.delegate = self
         overlayNavigationController.delegate = self
-        overlayController.viewControllers = [overlayNavigationController]
+        overlayController.viewControllers = [MapsViewController(), overlayNavigationController]
         pushSearchViewController()
-        addChild(overlayController, in: overlayContainerView)
-        addChild(MapsViewController(), in: backgroundView)
+        addChild(overlayController, in: view)
     }
 
     // MARK: - SearchViewControllerDelegate
