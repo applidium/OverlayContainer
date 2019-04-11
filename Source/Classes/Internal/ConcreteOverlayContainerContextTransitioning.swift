@@ -17,6 +17,7 @@ struct ConcreteOverlayContainerContextTransitioning:
     let targetNotchIndex: Int
     let targetNotchHeight: CGFloat
     let notchHeightByIndex: [Int: CGFloat]
+    let reachableIndexes: [Int]
 
     var notchIndexes: Range<Int> {
         return 0..<notchHeightByIndex.count

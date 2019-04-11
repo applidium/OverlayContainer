@@ -16,9 +16,9 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     }
 
     var translationPosition: OverlayTranslationPosition {
-        if translationHeight == configuration.maximumNotchHeight {
+        if translationHeight == maximumReachableNotchHeight() {
             return .top
-        } else if translationHeight == configuration.minimumNotchHeight {
+        } else if translationHeight == minimumReachableNotchHeight() {
             return .bottom
         } else {
             return .inFlight
@@ -58,23 +58,27 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     }
 
     func overlayHasReachedANotch() -> Bool {
-        return configuration.sortedHeights().contains { $0 == translationHeight }
+        return enabledNotchIndexes().contains {
+            configuration.heightForNotch(at: $0) == translationHeight
+        }
     }
 
     func dragOverlay(withOffset offset: CGFloat, usesFunction: Bool) {
         guard let viewController = overlayViewController else { return }
+        let maximumHeight = max(translationEndNotchHeight, maximumReachableNotchHeight())
+        let minimumHeight = min(translationEndNotchHeight, minimumReachableNotchHeight())
         let translation = translationEndNotchHeight - offset
         let height: CGFloat
         if usesFunction {
             let parameters = ConcreteOverlayTranslationParameters(
-                minimumHeight: configuration.minimumNotchHeight,
-                maximumHeight: configuration.maximumNotchHeight,
+                minimumHeight: minimumHeight,
+                maximumHeight: maximumHeight,
                 translation: translation
             )
             let function = configuration.overlayTranslationFunction(using: parameters, for: viewController)
             height = function.overlayTranslationHeight(using: parameters)
         } else {
-            height = max(configuration.minimumNotchHeight, min(configuration.maximumNotchHeight, translation))
+            height = max(minimumHeight, min(maximumHeight, translation))
         }
         dragOverlay(toHeight: height)
     }
@@ -85,7 +89,8 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
             overlayViewController: controller,
             overlayTranslationHeight: translationHeight,
             velocity: velocity,
-            notchHeightByIndex: configuration.notchHeightByIndex
+            notchHeightByIndex: configuration.notchHeightByIndex,
+            reachableIndexes: enabledNotchIndexes()
         )
         let policy = configuration.overlayTargetNotchPolicy(forOverlay: controller)
         let index = policy.targetNotchIndex(using: context)
@@ -111,7 +116,8 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
             velocity: velocity,
             targetNotchIndex: translationEndNotchIndex,
             targetNotchHeight: translationEndNotchHeight,
-            notchHeightByIndex: configuration.notchHeightByIndex
+            notchHeightByIndex: configuration.notchHeightByIndex,
+            reachableIndexes: enabledNotchIndexes()
         )
         let animationController = configuration.animationController(forOverlay: overlay)
         let animator = animationController.interruptibleAnimator(using: context)
@@ -143,5 +149,22 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         guard translationHeightConstraint.constant != height else { return }
         translationHeightConstraint.constant = height
         delegate?.translationController(self, didDragOverlayToHeight: height)
+    }
+
+    private func enabledNotchIndexes() -> [Int] {
+        guard let controller = overlayViewController else { return [] }
+        return configuration.enabledNotchIndexes(for: controller)
+    }
+
+    private func minimumReachableNotchHeight() -> CGFloat {
+        return enabledNotchIndexes().first.flatMap {
+            configuration.heightForNotch(at: $0)
+        } ?? configuration.maximumNotchHeight
+    }
+
+    private func maximumReachableNotchHeight() -> CGFloat {
+        return enabledNotchIndexes().last.flatMap {
+            configuration.heightForNotch(at: $0)
+        } ?? configuration.maximumNotchHeight
     }
 }

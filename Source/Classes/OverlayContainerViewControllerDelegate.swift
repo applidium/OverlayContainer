@@ -104,4 +104,15 @@ public protocol OverlayContainerViewControllerDelegate: class {
     /// - returns: A object implementing the `OverlayTransitioningDelegate` protocol.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         transitioningDelegateForOverlay overlayViewController: UIViewController) -> OverlayTransitioningDelegate?
+
+    /// Asks the delegate if the container can reach the specified notch.
+    ///
+    /// - parameter containerViewController: The container requesting this information.
+    /// - parameter index: The index locating the notch.
+    /// - parameter overlayViewController: The current top overlay view controller.
+    ///
+    /// - returns: `true` if the overlay is allowed to reach the specified notch index or `false` if it should not.
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        canReachNotchAt index: Int,
+                                        forOverlay overlayViewController: UIViewController) -> Bool
 }

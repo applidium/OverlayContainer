@@ -38,4 +38,10 @@ public extension OverlayContainerViewControllerDelegate {
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         didEndDraggingOverlay overlayViewController: UIViewController,
                                         transitionCoordinator: OverlayContainerTransitionCoordinator) {}
+
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        canReachNotchAt index: Int,
+                                        forOverlay overlayViewController: UIViewController) -> Bool {
+        return true
+    }
 }
