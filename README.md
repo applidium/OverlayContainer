@@ -112,13 +112,13 @@ let containerController = OverlayContainerViewController()
 containerController.delegate = self
 containerController.viewControllers = [
     mapsController,
-    containerController
+    searchController
 ]
 
 window?.rootViewController = containerController
 ```
 
-Specifing only one view controller is absolutely valid in the case the overlay only covers partially its content. See [MapsLikeViewController](https://github.com/applidium/ADOverlayContainer/blob/master/Example/OverlayContainer_Example/Maps/MapsLikeViewController.swift).
+Specifing only one view controller is absolutely valid. For instance, in [MapsLikeViewController](https://github.com/applidium/ADOverlayContainer/blob/master/Example/OverlayContainer_Example/Maps/MapsLikeViewController.swift) the overlay only covers partially its content.
 
 The overlay container view controller needs at least one notch. Implement `OverlayContainerViewControllerDelegate` to specify the number of notches wished:
 
