@@ -38,6 +38,7 @@ public class RubberBandOverlayTranslationFunction: OverlayTranslationFunction {
     // MARK: - Private
 
     private func logarithmicTranslation(translation: CGFloat, limit: CGFloat) -> CGFloat {
+        guard limit > 0 else { return 0 }
         return limit * (1 + factor * log10(translation / limit))
     }
 }
