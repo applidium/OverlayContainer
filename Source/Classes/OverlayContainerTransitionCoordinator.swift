@@ -18,6 +18,8 @@ public protocol OverlayContainerTransitionCoordinatorContext {
     var overlayTranslationHeight: CGFloat { get }
     /// The notch indexes.
     var notchIndexes: Range<Int> { get }
+    /// The reachable indexes.
+    var reachableIndexes: [Int] { get }
     /// Returns the height of the specified notch.
     func height(forNotchAt index: Int) -> CGFloat
 }
