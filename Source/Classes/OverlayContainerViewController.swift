@@ -62,6 +62,7 @@ public class OverlayContainerViewController: UIViewController {
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
     private lazy var overlayContainerView = OverlayContainerView()
     private lazy var overlayTranslationView = OverlayTranslationView()
+    private lazy var groundView = GroundView()
     private var overlayContainerViewStyleConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
 
@@ -157,6 +158,8 @@ public class OverlayContainerViewController: UIViewController {
     // MARK: - Private
 
     private func loadTranslationViews() {
+        view.addSubview(groundView)
+        groundView.pinToSuperview()
         view.addSubview(overlayTranslationView)
         overlayTranslationView.addSubview(overlayContainerView)
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
@@ -191,7 +194,10 @@ public class OverlayContainerViewController: UIViewController {
     }
 
     private func loadOverlayViews() {
-        viewControllers.forEach { addChild($0, in: overlayContainerView) }
+        guard !viewControllers.isEmpty else { return }
+        var truncatedViewControllers = viewControllers
+        truncatedViewControllers.popLast().flatMap { addChild($0, in: overlayContainerView) }
+        truncatedViewControllers.forEach { addChild($0, in: groundView) }
         loadTranslationController()
         loadTranslationDrivers()
     }

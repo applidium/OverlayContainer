@@ -47,6 +47,7 @@
 		E78486522201EA9400DE64C3 /* OverlayScrollViewDelegateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485C22201E66500DE64C3 /* OverlayScrollViewDelegateTest.swift */; };
 		E78486532201EA9400DE64C3 /* OverlayInsertionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485C32201E66500DE64C3 /* OverlayInsertionTest.swift */; };
 		E78486542201EA9400DE64C3 /* OverlayNotchHeightTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485C42201E66500DE64C3 /* OverlayNotchHeightTest.swift */; };
+		E791BAA4225F284800124D27 /* GroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791BAA3225F284800124D27 /* GroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		E78485C42201E66500DE64C3 /* OverlayNotchHeightTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayNotchHeightTest.swift; sourceTree = "<group>"; };
 		E78485C52201E66500DE64C3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E78486472201EA7400DE64C3 /* OverlayContainer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OverlayContainer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E791BAA3225F284800124D27 /* GroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 			children = (
 				E78485862201E54E00DE64C3 /* OverlayTranslationView.swift */,
 				E78485872201E54E00DE64C3 /* OverlayContainerView.swift */,
+				E791BAA3225F284800124D27 /* GroundView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				E78485A42201E54E00DE64C3 /* OverlayTranslationController.swift in Sources */,
 				E78485A02201E54E00DE64C3 /* UIView+Subviews.swift in Sources */,
 				E78485982201E54E00DE64C3 /* ConcreteOverlayTranslationParameters.swift in Sources */,
+				E791BAA4225F284800124D27 /* GroundView.swift in Sources */,
 				E78485A62201E54E00DE64C3 /* PanGestureOverlayTranslationDriver.swift in Sources */,
 				E784858F2201E54E00DE64C3 /* OverlayTranslationFunction.swift in Sources */,
 				E78485992201E54E00DE64C3 /* OverlayScrollViewDelegateProxy.swift in Sources */,
