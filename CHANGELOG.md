@@ -1,6 +1,6 @@
 ## 2.0.0 (11 April 2019)
 
-- Add `canReachNotchAt` to disable or enable in-flight notches
+- Add `canReachNotchAt` to disable or enable notches on the fly
 - OverlayContainer now uses the last view controller of its viewControllers as the overlay view controller. It stacks the other view controllers on top of each other, if any, and adds them underneath the overlay view controller.
 - Handle a new edge case: the overlay container has only one notch
 

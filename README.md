@@ -300,7 +300,7 @@ func navigationController(_ navigationController: UINavigationController,
 
 ### Showing & Hiding the overlay
 
-`OverlayContainer` provides a easy way to in-flight enable & disable notches. A frequent use case is to show & hide the overlay. `ShowOverlayExampleViewController` provides a basic implementation of it:
+`OverlayContainer` provides a easy way to enable & disable notches on the fly. A frequent use case is to show & hide the overlay. `ShowOverlayExampleViewController` provides a basic implementation of it:
 
 ```swift
 var showsOverlay = false
