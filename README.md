@@ -19,27 +19,24 @@
 
 ## Features
 
-There are currently several alternatives like:
+There are alternatives like:
 
 - [Pulley](https://github.com/52inc/Pulley)
 - [FloatingPanel](https://github.com/SCENEE/FloatingPanel)
 
-`OverlayContainer` uses a different approach. The library focuses its effort on the hard part, the overlay translation. It perfectly mimics the overlay presented in the Siri Shotcuts app.
+`OverlayContainer` uses a different approach:
 
-It tries to be as lightweight and non-intrusive as possible. The layout and the UI customization are done by you to avoid to corrupt your project. `OverlayContainer` adapts to it. See the provided examples for help or feel free to ask directly.
+- It tries to be as lightweight and non-intrusive as possible. The layout and the UI customization are done by you to avoid to corrupt your project.
+- It perfectly mimics the overlay presented in the Siri Shotcuts app. See [this article](https://gaetanzanella.github.io//2018/replicate-apple-maps-overlay/) for details.
+- It provides more features:
+  - [x] Unlimited notches 
+  - [x] Notches modifiable at runtime
+  - [x] Adaptive to any custom layouts
+  - [x] Rubber band effect
+  - [x] Animations and target notch policy fully customizable
+  - [x] Unit tested
 
-
-✅ Unlimited notches
-
-✅ Adaptive to any custom layouts
-
-✅ Perfect transitions between scroll & translation
-
-✅ Rubber band effect
-
-✅ Animations and target notch policy fully customizable
-
-✅ Unit tested
+See the provided examples for help or feel free to ask directly.
 
 ---
 
@@ -309,6 +306,21 @@ func showOrHideOverlay() {
     showsOverlay.toggle()
     let targetNotch: Notch = showsOverlay ? .med : .hidden
     overlayContainerController.moveOverlay(toNotchAt: targetNotch.rawValue, animated: true)
+}
+
+// MARK: - OverlayContainerViewControllerDelegate
+
+func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                    heightForNotchAt index: Int,
+                                    availableSpace: CGFloat) -> CGFloat {
+    switch Notch.allCases[index] {
+    case .max:
+        return ...
+    case .med:
+        return ...
+    case .hidden:
+        return 0
+    }
 }
 
 
