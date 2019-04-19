@@ -29,12 +29,13 @@ There are alternatives like:
 - It tries to be as lightweight and non-intrusive as possible. The layout and the UI customization are done by you to avoid to corrupt your project.
 - It perfectly mimics the overlay presented in the Siri Shotcuts app. See [this article](https://gaetanzanella.github.io//2018/replicate-apple-maps-overlay/) for details.
 - It provides more features:
-  - [x] Unlimited notches 
-  - [x] Notches modifiable at runtime
-  - [x] Adaptive to any custom layouts
-  - [x] Rubber band effect
-  - [x] Animations and target notch policy fully customizable
-  - [x] Unit tested
+
+- [x] Unlimited notches 
+- [x] Notches modifiable at runtime
+- [x] Adaptive to any custom layouts
+- [x] Rubber band effect
+- [x] Animations and target notch policy fully customizable
+- [x] Unit tested
 
 See the provided examples for help or feel free to ask directly.
 
@@ -95,11 +96,11 @@ github "https://github.com/applidium/ADOverlayContainer"
 
 ### Setup
 
-The main component of the library is the `OverlayContainerViewController`. It defines an area where a view controller, called the overlay view controller, can be dragged up and down, hidding or revealing the content underneath it.
+The main component of the library is the `OverlayContainerViewController`. It defines an area where a view controller, called the overlay view controller, can be dragged up and down, hiding or revealing the content underneath it.
 
 `OverlayContainer` uses the last view controller of its `viewControllers` as the overlay view controller. It stacks the other view controllers on top of each other, if any, and adds them underneath the overlay view controller.
 
-A startup sequence might look like this :
+A startup sequence might look like this:
 
 ```swift
 let mapsController = MapsViewController()
@@ -177,7 +178,7 @@ The container view controller can coordinate the scrolling of a scroll view with
 
 ![scrollToTranslation](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/scrollToTranslation.gif)
 
-Use the associated delegate method :
+Use the dedicated delegate method:
 
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
@@ -186,7 +187,7 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 }
 ```
 
-Or directly set the dedicated property :
+Or directly set the dedicated property:
 
 ```swift
 let containerController = OverlayContainerViewController()
@@ -258,13 +259,13 @@ func height(forNotchAt index: Int) -> CGFloat
 
 To test the examples, open `OverlayContainer.xcworkspace` and run the `OverlayContainer_Example` target.
 
-Choose the layout you wish to display in the `AppDelegate` :
+Choose the layout you wish to display in the `AppDelegate`:
 
 * MapsLikeViewController: A custom layout which adapts its hierachy on rotations.
 
 ![Maps](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/maps.gif)
 
-* ShortcutsLikeViewController: A custom layout which adapts its hierachy on trait collection changes : Moving from a `UISplitViewController` on regular environment to a simple `StackViewController` on compact environment. Visualize it on an iPad Pro.
+* ShortcutsLikeViewController: A custom layout which adapts its hierachy on trait collection changes: Moving from a `UISplitViewController` on regular environment to a simple `StackViewController` on compact environment. Visualize it on an iPad Pro.
 
 ![Shortcuts](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/shortcuts.gif)
 
@@ -368,7 +369,7 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 
 Be careful when using safe areas. As described in the [WWDC "UIKit: Apps for Every Size and Shape" video](https://masterer.apple.com/videos/play/wwdc2018-235/?time=328), the safe area insets will not be updated if your views exceeds the screen bounds. This is specially the case when using the `OverlayStyle.flexibleHeight`.
 
-The simpliest way to handle the safe area correctly is to compute your notch heights using the `safeAreaInsets` provided by the container and avoid the `safeAreaLayoutGuide` bottom anchor in your overlay :
+The simpliest way to handle the safe area correctly is to compute your notch heights using the `safeAreaInsets` provided by the container and avoid the `safeAreaLayoutGuide` bottom anchor in your overlay:
 
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
