@@ -70,7 +70,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cocoapods (= 1.7.0.beta.2)
+  cocoapods (~> 1.6)
 
 BUNDLED WITH
    2.0.1
