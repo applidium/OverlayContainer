@@ -1,3 +1,7 @@
+## 2.0.2 (3 May 2019)
+
+- Use Cocoapods 1.6.1
+
 ## 2.0.0 (11 April 2019)
 
 - Add `canReachNotchAt` to disable or enable notches on the fly
