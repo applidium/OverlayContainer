@@ -44,10 +44,8 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     // MARK: - Life Cycle
 
     init(translationHeightConstraint: NSLayoutConstraint,
-         overlayViewController: UIViewController,
          configuration: OverlayContainerViewControllerConfiguration) {
         self.translationHeightConstraint = translationHeightConstraint
-        self.overlayViewController = overlayViewController
         self.configuration = configuration
     }
 
@@ -103,14 +101,14 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     }
 
     func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool, completion: (() -> Void)? = nil) {
-        guard let overlay = overlayViewController else { return }
+        translationEndNotchIndex = index
+        guard let overlay = overlayViewController, shouldMoveOverlay() else { return }
+        dragOverlay(toHeight: translationEndNotchHeight)
         assert(
             index < configuration.numberOfNotches(),
             "Invalid notch index (\(index)). The overlay can not be moved to an index greater or equal to the number of notches (\(configuration.numberOfNotches()))"
         )
         let height = translationHeight
-        translationEndNotchIndex = index
-        dragOverlay(toHeight: translationEndNotchHeight)
         guard animated else {
             completion?()
             return
@@ -141,7 +139,15 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         animator.startAnimation()
     }
 
+    func tracksOverlayViewController(_ viewController: UIViewController) {
+        self.overlayViewController = viewController
+    }
+
     // MARK: - Private
+
+    private func shouldMoveOverlay() -> Bool {
+        return delegate?.translationControllerShouldMoveOverlay(self) ?? false
+    }
 
     private func overlayHasAmibiguousTranslationHeight() -> Bool {
         let heights = enabledNotchIndexes().map { configuration.heightForNotch(at: $0) }

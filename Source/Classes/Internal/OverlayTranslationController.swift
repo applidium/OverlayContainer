@@ -12,6 +12,7 @@ enum OverlayTranslationPosition {
 }
 
 protocol OverlayTranslationControllerDelegate: class {
+    func translationControllerShouldMoveOverlay(_ translationController: OverlayTranslationController) -> Bool
     func translationController(_ translationController: OverlayTranslationController,
                                didDragOverlayToHeight height: CGFloat)
     func translationController(_ translationController: OverlayTranslationController,
@@ -30,4 +31,6 @@ protocol OverlayTranslationController: class {
 
     func dragOverlay(withOffset offset: CGFloat, usesFunction: Bool)
     func endOverlayTranslation(withVelocity velocity: CGPoint)
+
+    func tracksOverlayViewController(_ viewController: UIViewController)
 }

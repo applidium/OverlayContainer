@@ -81,11 +81,6 @@ public class OverlayContainerViewController: UIViewController {
     private var translationController: HeightConstraintOverlayTranslationController?
     private var translationDrivers: [OverlayTranslationDriver] = []
 
-    private var overlayContainerConstraintsAreActive: Bool {
-        return (overlayContainerViewStyleConstraint?.isActive ?? false)
-            && (translationHeightConstraint?.isActive ?? false)
-    }
-
     // MARK: - Life Cycle
 
     /// Creates an instance with the specified `style`.
@@ -107,7 +102,7 @@ public class OverlayContainerViewController: UIViewController {
 
     public override func loadView() {
         view = PassThroughView()
-        loadTranslationViews()
+        loadContainerViews()
         loadOverlayViews()
     }
 
@@ -141,10 +136,13 @@ public class OverlayContainerViewController: UIViewController {
     /// - parameter animated: Defines either the transition should be animated or not.
     ///
     public func moveOverlay(toNotchAt index: Int, animated: Bool, completion: (() -> Void)? = nil) {
-        if !overlayContainerConstraintsAreActive {
-            view.layoutIfNeeded()
-        }
-        translationController?.moveOverlay(toNotchAt: index, velocity: .zero, animated: animated, completion: completion)
+        loadViewIfNeeded()
+        translationController?.moveOverlay(
+            toNotchAt: index,
+            velocity: .zero,
+            animated: animated,
+            completion: completion
+        )
     }
 
     /// Invalidates the current container's notches.
@@ -160,7 +158,7 @@ public class OverlayContainerViewController: UIViewController {
 
     // MARK: - Private
 
-    private func loadTranslationViews() {
+    private func loadContainerViews() {
         view.addSubview(groundView)
         groundView.pinToSuperview()
         view.addSubview(overlayTranslationView)
@@ -187,22 +185,16 @@ public class OverlayContainerViewController: UIViewController {
             )
             bottomConstraint.isActive = true
         }
+        loadTranslationController()
     }
 
-    private func updateOverlayConstraints(forNew size: CGSize) {
-        guard let controller = translationController else {
-            return
-        }
-        configuration.reloadNotchHeights()
-        switch style {
-        case .flexibleHeight:
-            overlayContainerViewStyleConstraint?.constant = 0
-        case .rigid, .expandableHeight:
-            overlayContainerViewStyleConstraint?.constant = configuration.maximumNotchHeight
-        }
-        controller.moveOverlay(toNotchAt: controller.translationEndNotchIndex, velocity: .zero, animated: false)
-        translationHeightConstraint?.isActive = true
-        overlayContainerViewStyleConstraint?.isActive = true
+    private func loadTranslationController() {
+        guard let translationHeightConstraint = translationHeightConstraint else { return }
+        translationController = HeightConstraintOverlayTranslationController(
+            translationHeightConstraint: translationHeightConstraint,
+            configuration: configuration
+        )
+        translationController?.delegate = self
     }
 
     private func loadOverlayViews() {
@@ -211,21 +203,7 @@ public class OverlayContainerViewController: UIViewController {
         var truncatedViewControllers = viewControllers
         truncatedViewControllers.popLast().flatMap { addChild($0, in: overlayContainerView) }
         truncatedViewControllers.forEach { addChild($0, in: groundView) }
-        loadTranslationController()
-        loadTranslationDrivers()
-    }
-
-    private func loadTranslationController() {
-        guard let translationHeightConstraint = translationHeightConstraint,
-            let overlayController = topViewController else {
-                return
-        }
-        translationController = HeightConstraintOverlayTranslationController(
-            translationHeightConstraint: translationHeightConstraint,
-            overlayViewController: overlayController,
-            configuration: configuration
-        )
-        translationController?.delegate = self
+        translationController?.tracksOverlayViewController(viewControllers[0])
     }
 
     private func loadTranslationDrivers() {
@@ -253,6 +231,22 @@ public class OverlayContainerViewController: UIViewController {
         translationDrivers = drivers
     }
 
+    private func updateOverlayConstraints(forNew size: CGSize) {
+        guard let controller = translationController else {
+            return
+        }
+        configuration.reloadNotchHeights()
+        switch style {
+        case .flexibleHeight:
+            overlayContainerViewStyleConstraint?.constant = 0
+        case .rigid, .expandableHeight:
+            overlayContainerViewStyleConstraint?.constant = configuration.maximumNotchHeight
+        }
+        controller.moveOverlay(toNotchAt: controller.translationEndNotchIndex, velocity: .zero, animated: false)
+        translationHeightConstraint?.isActive = true
+        overlayContainerViewStyleConstraint?.isActive = true
+    }
+
     private func setUpPanGesture() {
         view.addGestureRecognizer(overlayPanGesture)
     }
@@ -268,6 +262,10 @@ public class OverlayContainerViewController: UIViewController {
 extension OverlayContainerViewController: OverlayTranslationControllerDelegate {
 
     // MARK: - HeightContrainstOverlayTranslationControllerDelegate
+
+    func translationControllerShouldMoveOverlay(_ translationController: OverlayTranslationController) -> Bool {
+        return !needsOverlayContainerHeightUpdate
+    }
 
     func translationController(_ translationController: OverlayTranslationController,
                                didDragOverlayToHeight height: CGFloat) {
