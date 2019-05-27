@@ -203,6 +203,7 @@ public class OverlayContainerViewController: UIViewController {
         var truncatedViewControllers = viewControllers
         truncatedViewControllers.popLast().flatMap { addChild($0, in: overlayContainerView) }
         truncatedViewControllers.forEach { addChild($0, in: groundView) }
+        loadTranslationDrivers()
         translationController?.tracksOverlayViewController(viewControllers[0])
     }
 
