@@ -102,7 +102,10 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
 
     func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool, completion: (() -> Void)? = nil) {
         translationEndNotchIndex = index
-        guard let overlay = overlayViewController, shouldMoveOverlay() else { return }
+        guard let overlay = overlayViewController, shouldMoveOverlay() else {
+            completion?()
+            return
+        }
         dragOverlay(toHeight: translationEndNotchHeight)
         assert(
             index < configuration.numberOfNotches(),
