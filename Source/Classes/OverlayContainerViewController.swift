@@ -20,6 +20,9 @@ public class OverlayContainerViewController: UIViewController {
         /// The overlay view controller will be constrained with a height equal to the highest notch.
         /// They will be fully visible only when the user has drag them up to this notch.
         case rigid
+        /// The overlay view controller will be constrained with a height greater or equal to the highest notch.
+        /// Its height will be expanded if the overlay goes beyond the highest notch.
+        case expandableHeight
     }
 
     /// The container's delegate.
@@ -174,6 +177,15 @@ public class OverlayContainerViewController: UIViewController {
             overlayContainerViewStyleConstraint = overlayContainerView.heightAnchor.constraint(
                 equalToConstant: 0
             )
+        case .expandableHeight:
+            overlayContainerViewStyleConstraint = overlayContainerView.heightAnchor.constraint(
+                equalToConstant: 0
+            )
+            overlayContainerViewStyleConstraint?.priority = .defaultHigh
+            let bottomConstraint = overlayContainerView.bottomAnchor.constraint(
+                greaterThanOrEqualTo: overlayTranslationView.bottomAnchor
+            )
+            bottomConstraint.isActive = true
         }
     }
 
@@ -185,7 +197,7 @@ public class OverlayContainerViewController: UIViewController {
         switch style {
         case .flexibleHeight:
             overlayContainerViewStyleConstraint?.constant = 0
-        case .rigid:
+        case .rigid, .expandableHeight:
             overlayContainerViewStyleConstraint?.constant = configuration.maximumNotchHeight
         }
         controller.moveOverlay(toNotchAt: controller.translationEndNotchIndex, velocity: .zero, animated: false)
