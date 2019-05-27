@@ -164,13 +164,19 @@ The overlay view controller will be constrained with a height equal to the highe
 
 * flexibleHeight
 
-![flexibleHeight](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/flexibleHeight.gif)
+![flexible](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/flexible.gif)
 
 The overlay view controller will not be height-constrained. It will grow and shrink as the user drags it up and down.
 
 Note though that while the user is dragging the overlay, the overlay's view may perform some extra layout computations. This is specially true for the table views or the collection views : some cells may be dequeued or removed when its frame changes. Try `.rigid` if you encounter performance issues.
 
 **Be careful to always provide a minimum height higher than the intrinsic content of your overlay.**
+
+* expandableHeight
+
+![expandable](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/expandable.gif)
+
+The overlay view controller will be constrained with a height greater or equal to the highest notch. Its height will be expanded if the overlay goes beyond the highest notch (it could happen if the translation function or the animation controller allow it).
 
 ### Scroll view support
 
