@@ -12,7 +12,8 @@ enum OverlayTranslationPosition {
 }
 
 protocol OverlayTranslationControllerDelegate: class {
-    func translationControllerShouldMoveOverlay(_ translationController: OverlayTranslationController) -> Bool
+    func overlayViewController(for translationController: OverlayTranslationController) -> UIViewController?
+    func translationControllerDidScheduleTranslations(_ translationController: OverlayTranslationController)
     func translationController(_ translationController: OverlayTranslationController,
                                didDragOverlayToHeight height: CGFloat)
     func translationController(_ translationController: OverlayTranslationController,
@@ -21,6 +22,7 @@ protocol OverlayTranslationControllerDelegate: class {
 }
 
 protocol OverlayTranslationController: class {
+    var lastTranslationEndNotchIndex: Int { get }
     var translationHeight: CGFloat { get }
     var translationPosition: OverlayTranslationPosition { get }
 
@@ -31,6 +33,4 @@ protocol OverlayTranslationController: class {
 
     func dragOverlay(withOffset offset: CGFloat, usesFunction: Bool)
     func endOverlayTranslation(withVelocity velocity: CGPoint)
-
-    func tracksOverlayViewController(_ viewController: UIViewController)
 }

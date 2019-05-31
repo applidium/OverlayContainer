@@ -7,29 +7,15 @@
 
 import UIKit
 
-class OverlayContainerViewControllerConfiguration {
+class OverlayContainerConfigurationImplementation: OverlayContainerConfiguration {
 
     private weak var overlayContainerViewController: OverlayContainerViewController?
 
     weak var delegate: OverlayContainerViewControllerDelegate?
 
-    var maximumNotchIndex: Int {
-        return  max(numberOfNotches() - 1, 0)
-    }
-
-    var minimumNotchIndex: Int {
-        return 0
-    }
-
-    var maximumNotchHeight: CGFloat {
-        return heightForNotch(at: maximumNotchIndex)
-    }
-
-    var minimumNotchHeight: CGFloat {
-        return heightForNotch(at: minimumNotchIndex)
-    }
-
     private(set) var notchHeightByIndex: [Int: CGFloat] = [:]
+
+    private var needsMetricUpdate = false
 
     // MARK: - Life Cycle
 
@@ -37,27 +23,22 @@ class OverlayContainerViewControllerConfiguration {
         self.overlayContainerViewController = overlayContainerViewController
     }
 
-    // MARK: - Public
+    // MARK: - OverlayContainerConfigurationInvalidating
 
-    func reloadNotchHeights() {
-        let numberOfNotches = requestNumberOfNotches()
-        assert(numberOfNotches >= 0, "The number of notches must be positive.")
-        let heights = (0..<numberOfNotches).map { requestHeightForNotch(at: $0) }
-        assert(heights.sorted() == heights, "The notches should be sorted by height. The notch at the first index must be the smaller one.")
-        let values = heights.enumerated().map { ($0, $1) }
-        notchHeightByIndex = Dictionary(uniqueKeysWithValues: values)
+    func invalidateOverlayMetrics() {
+        needsMetricUpdate = true
     }
 
+    // MARK: - OverlayContainerViewControllerConfiguration
+
     func numberOfNotches() -> Int {
+        requestOverlayMetricsIfNeeded()
         return notchHeightByIndex.count
     }
 
     func heightForNotch(at index: Int) -> CGFloat {
+        requestOverlayMetricsIfNeeded()
         return notchHeightByIndex[index] ?? 0
-    }
-
-    func sortedHeights() -> [CGFloat] {
-        return Array(notchHeightByIndex.values.sorted())
     }
 
     func animationController(forOverlay overlay: UIViewController) -> OverlayAnimatedTransitioning {
@@ -110,10 +91,6 @@ class OverlayContainerViewControllerConfiguration {
         ) ?? RubberBandOverlayTranslationFunction()
     }
 
-    func enabledNotchIndexes(for overlayContainer: UIViewController) -> [Int] {
-        return (0..<numberOfNotches()).filter { canReachNotch(at: $0, for: overlayContainer) }
-    }
-
     func canReachNotch(at index: Int, for overlayViewController: UIViewController) -> Bool {
         guard let containerController = overlayContainerViewController else {
             return true
@@ -126,6 +103,17 @@ class OverlayContainerViewControllerConfiguration {
     }
 
     // MARK: - Private
+
+    private func requestOverlayMetricsIfNeeded() {
+        guard needsMetricUpdate else { return }
+        needsMetricUpdate = false
+        let numberOfNotches = requestNumberOfNotches()
+        assert(numberOfNotches >= 0, "The number of notches must be positive.")
+        let heights = (0..<numberOfNotches).map { requestHeightForNotch(at: $0) }
+        assert(heights.sorted() == heights, "The notches should be sorted by height. The notch at the first index must be the smaller one.")
+        let values = heights.enumerated().map { ($0, $1) }
+        notchHeightByIndex = Dictionary(uniqueKeysWithValues: values)
+    }
 
     private func requestHeightForNotch(at index: Int) -> CGFloat {
         guard let controller = overlayContainerViewController else { return 0 }

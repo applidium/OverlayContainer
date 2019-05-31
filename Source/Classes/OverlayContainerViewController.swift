@@ -29,7 +29,8 @@ public class OverlayContainerViewController: UIViewController {
     public var delegate: OverlayContainerViewControllerDelegate? {
         set {
             configuration.delegate = newValue
-            needsOverlayContainerHeightUpdate = true
+            configuration.invalidateOverlayMetrics()
+            setNeedsOverlayContainerHeightUpdate()
         }
         get {
             return configuration.delegate
@@ -69,13 +70,9 @@ public class OverlayContainerViewController: UIViewController {
     private var overlayContainerViewStyleConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
 
-    private lazy var configuration: OverlayContainerViewControllerConfiguration = self.makeConfiguration()
+    private lazy var configuration = makeConfiguration()
 
-    private var needsOverlayContainerHeightUpdate = true {
-        didSet {
-            view.setNeedsLayout()
-        }
-    }
+    private var needsOverlayContainerHeightUpdate = true
 
     private var previousSize: CGSize = .zero
     private var translationController: HeightConstraintOverlayTranslationController?
@@ -113,8 +110,12 @@ public class OverlayContainerViewController: UIViewController {
 
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        guard needsOverlayContainerHeightUpdate || previousSize != view.bounds.size else { return }
+        let hasNewSize = previousSize != view.bounds.size
+        guard needsOverlayContainerHeightUpdate || hasNewSize else { return }
         self.previousSize = view.bounds.size
+        if hasNewSize {
+            configuration.invalidateOverlayMetrics()
+        }
         needsOverlayContainerHeightUpdate = false
         updateOverlayConstraints(forNew: view.bounds.size)
     }
@@ -122,6 +123,13 @@ public class OverlayContainerViewController: UIViewController {
     public override func viewWillTransition(to size: CGSize,
                                             with coordinator: UIViewControllerTransitionCoordinator) {
         self.previousSize = size
+        if let controller = translationController {
+            controller.moveOverlay(
+                toNotchAt: controller.lastTranslationEndNotchIndex,
+                velocity: .zero,
+                animated: true
+            )
+        }
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
             self.updateOverlayConstraints(forNew: size)
@@ -153,7 +161,8 @@ public class OverlayContainerViewController: UIViewController {
     /// - warning: Be sure to move the overlay to a correct notch if the number of notches has changed.
     ///
     public func invalidateNotchHeights() {
-        needsOverlayContainerHeightUpdate = true
+        configuration.invalidateOverlayMetrics()
+        setNeedsOverlayContainerHeightUpdate()
     }
 
     // MARK: - Private
@@ -195,6 +204,7 @@ public class OverlayContainerViewController: UIViewController {
             configuration: configuration
         )
         translationController?.delegate = self
+        translationController?.moveOverlay(toNotchAt: 0, velocity: .zero, animated: false, completion: nil)
     }
 
     private func loadOverlayViews() {
@@ -204,7 +214,6 @@ public class OverlayContainerViewController: UIViewController {
         truncatedViewControllers.popLast().flatMap { addChild($0, in: overlayContainerView) }
         truncatedViewControllers.forEach { addChild($0, in: groundView) }
         loadTranslationDrivers()
-        translationController?.tracksOverlayViewController(viewControllers[0])
     }
 
     private func loadTranslationDrivers() {
@@ -232,18 +241,22 @@ public class OverlayContainerViewController: UIViewController {
         translationDrivers = drivers
     }
 
+    private func setNeedsOverlayContainerHeightUpdate() {
+        needsOverlayContainerHeightUpdate = true
+        view.setNeedsLayout()
+    }
+
     private func updateOverlayConstraints(forNew size: CGSize) {
         guard let controller = translationController else {
             return
         }
-        configuration.reloadNotchHeights()
         switch style {
         case .flexibleHeight:
             overlayContainerViewStyleConstraint?.constant = 0
         case .rigid, .expandableHeight:
             overlayContainerViewStyleConstraint?.constant = configuration.maximumNotchHeight
         }
-        controller.moveOverlay(toNotchAt: controller.translationEndNotchIndex, velocity: .zero, animated: false)
+        controller.performDeferredTranslations()
         translationHeightConstraint?.isActive = true
         overlayContainerViewStyleConstraint?.isActive = true
     }
@@ -251,8 +264,10 @@ public class OverlayContainerViewController: UIViewController {
     private func setUpPanGesture() {
         view.addGestureRecognizer(overlayPanGesture)
     }
-    private func makeConfiguration() -> OverlayContainerViewControllerConfiguration {
-        return OverlayContainerViewControllerConfiguration(overlayContainerViewController: self)
+    private func makeConfiguration() -> OverlayContainerConfigurationImplementation {
+        return OverlayContainerConfigurationImplementation(
+            overlayContainerViewController: self
+        )
     }
 
     private func makePanGesture() -> OverlayTranslationGestureRecognizer {
@@ -262,11 +277,7 @@ public class OverlayContainerViewController: UIViewController {
 
 extension OverlayContainerViewController: OverlayTranslationControllerDelegate {
 
-    // MARK: - HeightContrainstOverlayTranslationControllerDelegate
-
-    func translationControllerShouldMoveOverlay(_ translationController: OverlayTranslationController) -> Bool {
-        return !needsOverlayContainerHeightUpdate
-    }
+    // MARK: - OverlayTranslationControllerDelegate
 
     func translationController(_ translationController: OverlayTranslationController,
                                didDragOverlayToHeight height: CGFloat) {
@@ -291,5 +302,13 @@ extension OverlayContainerViewController: OverlayTranslationControllerDelegate {
             didEndDraggingOverlay: controller,
             transitionCoordinator: transitionCoordinator
         )
+    }
+
+    func translationControllerDidScheduleTranslations(_ translationController: OverlayTranslationController) {
+        setNeedsOverlayContainerHeightUpdate()
+    }
+
+    func overlayViewController(for translationController: OverlayTranslationController) -> UIViewController? {
+        return topViewController
     }
 }

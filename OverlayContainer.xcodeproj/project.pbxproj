@@ -29,7 +29,7 @@
 		E784859F2201E54E00DE64C3 /* OverlayContainerViewControllerDelegate+Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784857B2201E54E00DE64C3 /* OverlayContainerViewControllerDelegate+Defaults.swift */; };
 		E78485A02201E54E00DE64C3 /* UIView+Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784857C2201E54E00DE64C3 /* UIView+Subviews.swift */; };
 		E78485A12201E54E00DE64C3 /* UIScrollViiew+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784857D2201E54E00DE64C3 /* UIScrollViiew+Utils.swift */; };
-		E78485A22201E54E00DE64C3 /* OverlayContainerViewControllerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784857E2201E54E00DE64C3 /* OverlayContainerViewControllerConfiguration.swift */; };
+		E78485A22201E54E00DE64C3 /* OverlayContainerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784857E2201E54E00DE64C3 /* OverlayContainerConfiguration.swift */; };
 		E78485A32201E54E00DE64C3 /* HeightContraintOverlayTranslationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784857F2201E54E00DE64C3 /* HeightContraintOverlayTranslationController.swift */; };
 		E78485A42201E54E00DE64C3 /* OverlayTranslationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485802201E54E00DE64C3 /* OverlayTranslationController.swift */; };
 		E78485A52201E54E00DE64C3 /* InterruptibleAnimatorOverlayContainerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485812201E54E00DE64C3 /* InterruptibleAnimatorOverlayContainerTransitionCoordinator.swift */; };
@@ -49,6 +49,7 @@
 		E78486542201EA9400DE64C3 /* OverlayNotchHeightTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485C42201E66500DE64C3 /* OverlayNotchHeightTest.swift */; };
 		E791BAA4225F284800124D27 /* GroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791BAA3225F284800124D27 /* GroundView.swift */; };
 		E791BAAD225F771400124D27 /* CGFloat+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791BAAC225F771400124D27 /* CGFloat+Round.swift */; };
+		E7B22ABE22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B22ABD22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +98,7 @@
 		E784857B2201E54E00DE64C3 /* OverlayContainerViewControllerDelegate+Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OverlayContainerViewControllerDelegate+Defaults.swift"; sourceTree = "<group>"; };
 		E784857C2201E54E00DE64C3 /* UIView+Subviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Subviews.swift"; sourceTree = "<group>"; };
 		E784857D2201E54E00DE64C3 /* UIScrollViiew+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollViiew+Utils.swift"; sourceTree = "<group>"; };
-		E784857E2201E54E00DE64C3 /* OverlayContainerViewControllerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayContainerViewControllerConfiguration.swift; sourceTree = "<group>"; };
+		E784857E2201E54E00DE64C3 /* OverlayContainerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayContainerConfiguration.swift; sourceTree = "<group>"; };
 		E784857F2201E54E00DE64C3 /* HeightContraintOverlayTranslationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightContraintOverlayTranslationController.swift; sourceTree = "<group>"; };
 		E78485802201E54E00DE64C3 /* OverlayTranslationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayTranslationController.swift; sourceTree = "<group>"; };
 		E78485812201E54E00DE64C3 /* InterruptibleAnimatorOverlayContainerTransitionCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterruptibleAnimatorOverlayContainerTransitionCoordinator.swift; sourceTree = "<group>"; };
@@ -119,6 +120,7 @@
 		E78486472201EA7400DE64C3 /* OverlayContainer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OverlayContainer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E791BAA3225F284800124D27 /* GroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundView.swift; sourceTree = "<group>"; };
 		E791BAAC225F771400124D27 /* CGFloat+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Round.swift"; sourceTree = "<group>"; };
+		E7B22ABD22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayContainerConfigurationImplementation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,13 +203,13 @@
 		E78485702201E54E00DE64C3 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				E7B22ABC22A182E6009392EC /* Configuration */,
+				E78485762201E54E00DE64C3 /* Extensions */,
 				E78485712201E54E00DE64C3 /* ConcreteOverlayContainerContextTransitioning.swift */,
 				E78485722201E54E00DE64C3 /* ConcreteOverlayContainerContextTargetNotchPolicy.swift */,
 				E78485732201E54E00DE64C3 /* ConcreteOverlayTranslationParameters.swift */,
 				E78485742201E54E00DE64C3 /* OverlayScrollViewDelegateProxy.swift */,
 				E78485752201E54E00DE64C3 /* OverlayTranslationDriver.swift */,
-				E78485762201E54E00DE64C3 /* Extensions */,
-				E784857E2201E54E00DE64C3 /* OverlayContainerViewControllerConfiguration.swift */,
 				E784857F2201E54E00DE64C3 /* HeightContraintOverlayTranslationController.swift */,
 				E78485802201E54E00DE64C3 /* OverlayTranslationController.swift */,
 				E78485812201E54E00DE64C3 /* InterruptibleAnimatorOverlayContainerTransitionCoordinator.swift */,
@@ -253,6 +255,15 @@
 				E78485C52201E66500DE64C3 /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		E7B22ABC22A182E6009392EC /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				E7B22ABD22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift */,
+				E784857E2201E54E00DE64C3 /* OverlayContainerConfiguration.swift */,
+			);
+			name = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,7 +389,7 @@
 				E78485A52201E54E00DE64C3 /* InterruptibleAnimatorOverlayContainerTransitionCoordinator.swift in Sources */,
 				E78485AD2201E54E00DE64C3 /* OverlayTransitioningDelegate.swift in Sources */,
 				E791BAAD225F771400124D27 /* CGFloat+Round.swift in Sources */,
-				E78485A22201E54E00DE64C3 /* OverlayContainerViewControllerConfiguration.swift in Sources */,
+				E78485A22201E54E00DE64C3 /* OverlayContainerConfiguration.swift in Sources */,
 				E78485972201E54E00DE64C3 /* ConcreteOverlayContainerContextTargetNotchPolicy.swift in Sources */,
 				E78485A82201E54E00DE64C3 /* ScrollViewOverlayTranslationDriver.swift in Sources */,
 				E784859D2201E54E00DE64C3 /* UIView+Constraints.swift in Sources */,
@@ -390,6 +401,7 @@
 				E791BAA4225F284800124D27 /* GroundView.swift in Sources */,
 				E78485A62201E54E00DE64C3 /* PanGestureOverlayTranslationDriver.swift in Sources */,
 				E784858F2201E54E00DE64C3 /* OverlayTranslationFunction.swift in Sources */,
+				E7B22ABE22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift in Sources */,
 				E78485992201E54E00DE64C3 /* OverlayScrollViewDelegateProxy.swift in Sources */,
 				E784859B2201E54E00DE64C3 /* UIPanGesture+Utils.swift in Sources */,
 				E78485942201E54E00DE64C3 /* PassThroughView.swift in Sources */,
