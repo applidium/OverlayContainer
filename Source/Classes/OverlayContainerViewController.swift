@@ -275,9 +275,9 @@ public class OverlayContainerViewController: UIViewController {
     }
 }
 
-extension OverlayContainerViewController: OverlayTranslationControllerDelegate {
+extension OverlayContainerViewController: HeightConstraintOverlayTranslationControllerDelegate {
 
-    // MARK: - OverlayTranslationControllerDelegate
+    // MARK: - HeightOverlayTranslationControllerDelegate
 
     func translationController(_ translationController: OverlayTranslationController,
                                didDragOverlayToHeight height: CGFloat) {
@@ -285,21 +285,37 @@ extension OverlayContainerViewController: OverlayTranslationControllerDelegate {
         delegate?.overlayContainerViewController(
             self,
             didDragOverlay: controller,
-            toHeight: height,
-            availableSpace: previousSize.height
+            toHeight: height
+        )
+    }
+
+    func translationControllerDidStartDraggingOverlay(_ translationController: OverlayTranslationController) {
+        guard let controller = topViewController else { return }
+        delegate?.overlayContainerViewController(
+            self,
+            willStartDraggingOverlay: controller
         )
     }
 
     func translationController(_ translationController: OverlayTranslationController,
-                               willReachNotchAt index: Int,
-                               transitionCoordinator: OverlayContainerTransitionCoordinator) {
+                               willEndDraggingToTargetIndex index: Int) {
+        guard let controller = topViewController else { return }
+        delegate?.overlayContainerViewController(
+            self,
+            willEndDraggingOverlay: controller,
+            targetNotchIndex: index
+        )
+    }
+
+    func translationController(_ translationController: OverlayTranslationController,
+                               willTranslateOverlayWith transitionCoordinator: OverlayContainerTransitionCoordinator) {
         guard let controller = topViewController else { return }
         transitionCoordinator.animate(alongsideTransition: { _ in
             self.view.layoutIfNeeded()
         }, completion: { _ in })
         delegate?.overlayContainerViewController(
             self,
-            didEndDraggingOverlay: controller,
+            willTranslateOverlay: controller,
             transitionCoordinator: transitionCoordinator
         )
     }

@@ -15,7 +15,7 @@ struct ConcreteOverlayContainerContextTransitioning:
     let overlayTranslationHeight: CGFloat
     let velocity: CGPoint
     let targetNotchIndex: Int
-    let targetNotchHeight: CGFloat
+    let targetTranslationHeight: CGFloat
     let notchHeightByIndex: [Int: CGFloat]
     let reachableIndexes: [Int]
 
@@ -25,5 +25,9 @@ struct ConcreteOverlayContainerContextTransitioning:
 
     func height(forNotchAt index: Int) -> CGFloat {
         return notchHeightByIndex[index] ?? 0
+    }
+
+    var targetNotchHeight: CGFloat {
+        return targetTranslationHeight
     }
 }

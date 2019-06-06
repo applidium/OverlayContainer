@@ -37,6 +37,10 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
 
     // MARK: - OverlayScrollViewDelegate
 
+    func overlayScrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        translationController?.startOverlayTranslation()
+    }
+
     func overlayScrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let controller = translationController else { return }
         let previousTranslation = scrollViewTranslation

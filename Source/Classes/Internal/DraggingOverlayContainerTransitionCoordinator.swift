@@ -7,15 +7,13 @@
 
 import UIKit
 
-class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContainerTransitionCoordinator {
+class DraggingOverlayContainerTransitionCoordinator: OverlayContainerTransitionCoordinator {
 
-    private let animator: UIViewImplicitlyAnimating
     private let context: OverlayContainerTransitionCoordinatorContext
 
     // MARK: - Life Cycle
 
-    init(animator: UIViewImplicitlyAnimating, context: OverlayContainerTransitionCoordinatorContext) {
-        self.animator = animator
+    init(context: OverlayContainerTransitionCoordinatorContext) {
         self.context = context
     }
 
@@ -45,12 +43,7 @@ class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContain
 
     func animate(alongsideTransition animation: ((OverlayContainerTransitionCoordinatorContext) -> Void)?,
                  completion: ((OverlayContainerTransitionCoordinatorContext) -> Void)?) {
-        let context = self.context
-        animator.addAnimations? {
-            animation?(context)
-        }
-        animator.addCompletion? { _ in
-            completion?(context)
-        }
+        animation?(context)
+        completion?(context)
     }
 }

@@ -13,13 +13,25 @@ private struct TranslationMetaData {
     let isAnimated: Bool
     let velocity: CGPoint
     let index: Int
+}
 
-    static let `default` = TranslationMetaData(isAnimated: false, velocity: .zero, index: 0)
+protocol HeightConstraintOverlayTranslationControllerDelegate: class {
+    func overlayViewController(for translationController: OverlayTranslationController) -> UIViewController?
+
+    func translationControllerDidStartDraggingOverlay(_ translationController: OverlayTranslationController)
+    func translationController(_ translationController: OverlayTranslationController,
+                               willEndDraggingToTargetIndex index: Int)
+    func translationController(_ translationController: OverlayTranslationController,
+                               didDragOverlayToHeight height: CGFloat)
+
+    func translationControllerDidScheduleTranslations(_ translationController: OverlayTranslationController)
+    func translationController(_ translationController: OverlayTranslationController,
+                               willTranslateOverlayWith transitionCoordinator: OverlayContainerTransitionCoordinator)
 }
 
 class HeightConstraintOverlayTranslationController: OverlayTranslationController {
 
-    weak var delegate: OverlayTranslationControllerDelegate?
+    weak var delegate: HeightConstraintOverlayTranslationControllerDelegate?
 
 
     private var overlayViewController: UIViewController? {
@@ -59,18 +71,19 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         self.deferredTranslation = nil
         self.deferredTranslationCompletionBlocks = []
         translationEndNotchIndex = index
-        dragOverlay(toHeight: translationEndNotchHeight)
         guard isAnimated else {
+            translateOverlayWithoutAnimation(toHeight: translationEndNotchHeight)
             completions.forEach { $0() }
             return
         }
+        updateConstraint(toHeight: translationEndNotchHeight)
         let height = translationHeight
         let context = ConcreteOverlayContainerContextTransitioning(
             overlayViewController: overlay,
             overlayTranslationHeight: height,
             velocity: velocity,
             targetNotchIndex: translationEndNotchIndex,
-            targetNotchHeight: translationEndNotchHeight,
+            targetTranslationHeight: translationEndNotchHeight,
             notchHeightByIndex: configuration.notchHeightByIndex,
             reachableIndexes: enabledNotchIndexes()
         )
@@ -80,15 +93,20 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
             animator: animator,
             context: context
         )
-        delegate?.translationController(
-            self,
-            willReachNotchAt: translationEndNotchIndex,
-            transitionCoordinator: coordinator
-        )
+        delegate?.translationController(self, willTranslateOverlayWith: coordinator)
         animator.addCompletion?({ _ in
             completions.forEach { $0() }
         })
         animator.startAnimation()
+    }
+
+    func moveOverlay(toNotchAt index: Int,
+                     velocity: CGPoint,
+                     animated: Bool,
+                     completion: (() -> Void)? = nil) {
+        deferredTranslation = TranslationMetaData(isAnimated: animated, velocity: velocity, index: index)
+        completion.flatMap { deferredTranslationCompletionBlocks.append($0) }
+        delegate?.translationControllerDidScheduleTranslations(self)
     }
 
     // MARK: - OverlayTranslationController
@@ -131,6 +149,10 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         }
     }
 
+    func startOverlayTranslation() {
+        delegate?.translationControllerDidStartDraggingOverlay(self)
+    }
+
     func dragOverlay(withOffset offset: CGFloat, usesFunction: Bool) {
         guard let viewController = overlayViewController else { return }
         let maximumHeight = maximumReachableNotchHeight()
@@ -152,23 +174,22 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     }
 
     func endOverlayTranslation(withVelocity velocity: CGPoint) {
-        guard let controller = overlayViewController, overlayHasAmibiguousTranslationHeight() else { return }
-        let context = ConcreteOverlayContainerContextTargetNotchPolicy(
-            overlayViewController: controller,
-            overlayTranslationHeight: translationHeight,
-            velocity: velocity,
-            notchHeightByIndex: configuration.notchHeightByIndex,
-            reachableIndexes: enabledNotchIndexes()
-        )
-        let policy = configuration.overlayTargetNotchPolicy(forOverlay: controller)
-        let index = policy.targetNotchIndex(using: context)
-        moveOverlay(toNotchAt: index, velocity: velocity, animated: true)
-    }
-
-    func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool, completion: (() -> Void)? = nil) {
-        deferredTranslation = TranslationMetaData(isAnimated: animated, velocity: velocity, index: index)
-        completion.flatMap { deferredTranslationCompletionBlocks.append($0) }
-        delegate?.translationControllerDidScheduleTranslations(self)
+        guard let controller = overlayViewController else { return }
+        if overlayHasAmibiguousTranslationHeight() {
+            let context = ConcreteOverlayContainerContextTargetNotchPolicy(
+                overlayViewController: controller,
+                overlayTranslationHeight: translationHeight,
+                velocity: velocity,
+                notchHeightByIndex: configuration.notchHeightByIndex,
+                reachableIndexes: enabledNotchIndexes()
+            )
+            let policy = configuration.overlayTargetNotchPolicy(forOverlay: controller)
+            let index = policy.targetNotchIndex(using: context)
+            delegate?.translationController(self, willEndDraggingToTargetIndex: index)
+            moveOverlay(toNotchAt: index, velocity: velocity, animated: true)
+        } else {
+            delegate?.translationController(self, willEndDraggingToTargetIndex: translationEndNotchIndex)
+        }
     }
 
     // MARK: - Private
@@ -181,9 +202,29 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         return configuration.heightForNotch(at: index) != translationEndNotchHeight
     }
 
-    private func dragOverlay(toHeight height: CGFloat) {
+    private func updateConstraint(toHeight height: CGFloat) {
         guard translationHeightConstraint.constant != height else { return }
         translationHeightConstraint.constant = height
+    }
+
+    private func translateOverlayWithoutAnimation(toHeight height: CGFloat) {
+        guard let overlay = overlayViewController else { return }
+        let context = ConcreteOverlayContainerContextTransitioning(
+            overlayViewController: overlay,
+            overlayTranslationHeight: height,
+            velocity: .zero,
+            targetNotchIndex: 0,
+            targetTranslationHeight: height,
+            notchHeightByIndex: configuration.notchHeightByIndex,
+            reachableIndexes: enabledNotchIndexes()
+        )
+        let coordinator = DraggingOverlayContainerTransitionCoordinator(context: context)
+        updateConstraint(toHeight: height)
+        delegate?.translationController(self, willTranslateOverlayWith: coordinator)
+    }
+
+    private func dragOverlay(toHeight height: CGFloat) {
+        translateOverlayWithoutAnimation(toHeight: height)
         delegate?.translationController(self, didDragOverlayToHeight: height)
     }
 

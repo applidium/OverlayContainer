@@ -10,10 +10,9 @@ import UIKit
 /// A protocol that provides information about an in-progress translation end.
 /// Do not adopt this protocol in your own classes. Use the one provided by the `OverlayContainerTransitionCoordinator`.
 public protocol OverlayContainerTransitionCoordinatorContext {
-    /// The notch's index the container expects to reach.
-    var targetNotchIndex: Int { get }
+
     /// The notch's height the container expects to reach.
-    var targetNotchHeight: CGFloat { get }
+    var targetTranslationHeight: CGFloat { get }
     /// The current translation height.
     var overlayTranslationHeight: CGFloat { get }
     /// The notch indexes.
