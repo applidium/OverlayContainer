@@ -11,6 +11,7 @@ struct ConcreteOverlayContainerContextTransitioning:
     OverlayContainerContextTransitioning,
     OverlayContainerTransitionCoordinatorContext {
 
+    let isAnimated: Bool
     let overlayViewController: UIViewController
     let overlayTranslationHeight: CGFloat
     let velocity: CGPoint

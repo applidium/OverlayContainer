@@ -21,6 +21,10 @@ class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContain
 
     // MARK: - OverlayContainerTransitionCoordinatorContext
 
+    var isAnimated: Bool {
+        return context.isAnimated
+    }
+
     var targetTranslationHeight: CGFloat {
         return context.targetTranslationHeight
     }

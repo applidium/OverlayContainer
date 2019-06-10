@@ -36,11 +36,7 @@ public extension OverlayContainerViewControllerDelegate {
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         willEndDraggingOverlay overlayViewController: UIViewController,
-                                        targetNotchIndex: Int) {}
-
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        didDragOverlay overlayViewController: UIViewController,
-                                        toHeight height: CGFloat) {}
+                                        atVelocity velocity: CGPoint) {}
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         willTranslateOverlay overlayViewController: UIViewController,

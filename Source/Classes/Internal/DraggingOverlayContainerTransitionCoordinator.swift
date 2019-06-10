@@ -7,9 +7,13 @@
 
 import UIKit
 
+private typealias Completion = (OverlayContainerTransitionCoordinatorContext) -> Void
+
 class DraggingOverlayContainerTransitionCoordinator: OverlayContainerTransitionCoordinator {
 
     private let context: OverlayContainerTransitionCoordinatorContext
+
+    private var completions: [Completion] = []
 
     // MARK: - Life Cycle
 
@@ -17,7 +21,18 @@ class DraggingOverlayContainerTransitionCoordinator: OverlayContainerTransitionC
         self.context = context
     }
 
+    // MARK: - Public
+
+    func performCompletions(with context: OverlayContainerTransitionCoordinatorContext) {
+        completions.forEach { $0(context) }
+        completions = []
+    }
+
     // MARK: - OverlayContainerTransitionCoordinatorContext
+
+    var isAnimated: Bool {
+        return context.isAnimated
+    }
 
     var targetTranslationHeight: CGFloat {
         return context.targetTranslationHeight
@@ -44,6 +59,6 @@ class DraggingOverlayContainerTransitionCoordinator: OverlayContainerTransitionC
     func animate(alongsideTransition animation: ((OverlayContainerTransitionCoordinatorContext) -> Void)?,
                  completion: ((OverlayContainerTransitionCoordinatorContext) -> Void)?) {
         animation?(context)
-        completion?(context)
+        completion.flatMap { completions.append($0) }
     }
 }

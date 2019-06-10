@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OverlayContainerConfigurationImplementation: OverlayContainerConfiguration {
+class OverlayContainerConfigurationImplementation: OverlayContainerConfigurationInvalidating {
 
     private weak var overlayContainerViewController: OverlayContainerViewController?
 
@@ -29,15 +29,24 @@ class OverlayContainerConfigurationImplementation: OverlayContainerConfiguration
         needsMetricUpdate = true
     }
 
+    func requestOverlayMetricsIfNeeded() {
+        guard needsMetricUpdate else { return }
+        needsMetricUpdate = false
+        let numberOfNotches = requestNumberOfNotches()
+        assert(numberOfNotches >= 0, "The number of notches must be positive.")
+        let heights = (0..<numberOfNotches).map { requestHeightForNotch(at: $0) }
+        assert(heights.sorted() == heights, "The notches should be sorted by height. The notch at the first index must be the smaller one.")
+        let values = heights.enumerated().map { ($0, $1) }
+        notchHeightByIndex = Dictionary(uniqueKeysWithValues: values)
+    }
+
     // MARK: - OverlayContainerViewControllerConfiguration
 
     func numberOfNotches() -> Int {
-        requestOverlayMetricsIfNeeded()
         return notchHeightByIndex.count
     }
 
     func heightForNotch(at index: Int) -> CGFloat {
-        requestOverlayMetricsIfNeeded()
         return notchHeightByIndex[index] ?? 0
     }
 
@@ -103,17 +112,6 @@ class OverlayContainerConfigurationImplementation: OverlayContainerConfiguration
     }
 
     // MARK: - Private
-
-    private func requestOverlayMetricsIfNeeded() {
-        guard needsMetricUpdate else { return }
-        needsMetricUpdate = false
-        let numberOfNotches = requestNumberOfNotches()
-        assert(numberOfNotches >= 0, "The number of notches must be positive.")
-        let heights = (0..<numberOfNotches).map { requestHeightForNotch(at: $0) }
-        assert(heights.sorted() == heights, "The notches should be sorted by height. The notch at the first index must be the smaller one.")
-        let values = heights.enumerated().map { ($0, $1) }
-        notchHeightByIndex = Dictionary(uniqueKeysWithValues: values)
-    }
 
     private func requestHeightForNotch(at index: Int) -> CGFloat {
         guard let controller = overlayContainerViewController else { return 0 }
