@@ -32,6 +32,14 @@ public extension OverlayContainerViewControllerDelegate {
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        willMove overlayViewController: UIViewController,
+                                        toNotchAt index: Int) {}
+
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        didMove overlayViewController: UIViewController,
+                                        toNotchAt index: Int) {}
+
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         willStartDraggingOverlay overlayViewController: UIViewController) {}
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,

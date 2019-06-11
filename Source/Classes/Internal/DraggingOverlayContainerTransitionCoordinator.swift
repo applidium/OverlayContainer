@@ -30,6 +30,10 @@ class DraggingOverlayContainerTransitionCoordinator: OverlayContainerTransitionC
 
     // MARK: - OverlayContainerTransitionCoordinatorContext
 
+    var isCancelled: Bool {
+        return context.isCancelled
+    }
+
     var isAnimated: Bool {
         return context.isAnimated
     }

@@ -290,6 +290,18 @@ extension OverlayContainerViewController: HeightConstraintOverlayTranslationCont
 
     // MARK: - HeightOverlayTranslationControllerDelegate
 
+    func translationController(_ translationController: OverlayTranslationController,
+                               didMoveOverlayToNotchAt index: Int) {
+        guard let controller = topViewController else { return }
+        delegate?.overlayContainerViewController(self, didMove: controller, toNotchAt: index)
+    }
+
+    func translationController(_ translationController: OverlayTranslationController,
+                               willMoveOverlayToNotchAt index: Int) {
+        guard let controller = topViewController else { return }
+        delegate?.overlayContainerViewController(self, willMove: controller, toNotchAt: index)
+    }
+
     func translationControllerWillStartDraggingOverlay(_ translationController: OverlayTranslationController) {
         guard let controller = topViewController else { return }
         delegate?.overlayContainerViewController(

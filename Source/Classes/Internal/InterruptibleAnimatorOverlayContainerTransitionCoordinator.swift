@@ -19,7 +19,15 @@ class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContain
         self.context = context
     }
 
+    // MARK: - Public
+
+    func markAsCancelled() {
+        isCancelled = true
+    }
+
     // MARK: - OverlayContainerTransitionCoordinatorContext
+
+    private(set) var isCancelled = false
 
     var isAnimated: Bool {
         return context.isAnimated

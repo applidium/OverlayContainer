@@ -13,6 +13,8 @@ public protocol OverlayContainerTransitionCoordinatorContext {
 
     /// A Boolean value indicating whether the transition is explicitly animated.
     var isAnimated: Bool { get }
+    /// A Boolean value indicating whether the transition was cancelled.
+    var isCancelled: Bool { get }
     /// The notch's height the container expects to reach.
     var targetTranslationHeight: CGFloat { get }
     /// The current translation height.
