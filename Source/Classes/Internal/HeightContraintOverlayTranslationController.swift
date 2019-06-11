@@ -45,7 +45,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         return delegate?.overlayViewController(for: self)
     }
 
-    private var inProgressAnimators: [UIViewImplicitlyAnimating] = []
+    private var lastScheduledTranslationAnimator: UIViewImplicitlyAnimating?
 
     private var translationEndNotchIndex = 0
     private var deferredTranslation: TranslationMetaData?
@@ -121,19 +121,19 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
                 animator: animator,
                 context: context
             )
-            delegate?.translationController(self, willTranslateOverlayWith: coordinator)
             animator.addCompletion?({ [weak self] _ in
                 guard let self = self else { return }
-                if self.inProgressAnimators.last === animator {
+                if self.lastScheduledTranslationAnimator === animator {
                     self.delegate?.translationController(self, didMoveOverlayToNotchAt: targetIndex)
+                    self.lastScheduledTranslationAnimator = nil
                 } else {
                     coordinator.markAsCancelled()
                 }
                 completions.forEach { $0() }
-                self.inProgressAnimators.removeAll(where: { $0 === animator })
             })
             animator.startAnimation()
-            inProgressAnimators.append(animator)
+            delegate?.translationController(self, willTranslateOverlayWith: coordinator)
+            lastScheduledTranslationAnimator = animator
         } else {
             translateOverlayWithoutAnimation(toHeight: translationEndNotchHeight)
             completions.forEach { $0() }

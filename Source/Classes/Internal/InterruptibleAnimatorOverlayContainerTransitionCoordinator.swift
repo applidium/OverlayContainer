@@ -57,12 +57,11 @@ class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContain
 
     func animate(alongsideTransition animation: ((OverlayContainerTransitionCoordinatorContext) -> Void)?,
                  completion: ((OverlayContainerTransitionCoordinatorContext) -> Void)?) {
-        let context = self.context
-        animator.addAnimations? {
-            animation?(context)
+        animator.addAnimations? { [weak self] in
+            self.flatMap { animation?($0) }
         }
-        animator.addCompletion? { _ in
-            completion?(context)
+        animator.addCompletion? { [weak self] _ in
+            self.flatMap { completion?($0) }
         }
     }
 }
