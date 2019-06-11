@@ -113,7 +113,7 @@ public class OverlayContainerViewController: UIViewController {
     public override func viewWillLayoutSubviews() {
         // (gz) 2019-06-10 According to the documentation, the default implementation of
         // `viewWillLayoutSubviews` does nothing.
-        // Nethertheless in its `Changing Constraints` Guide, Apple recommends to do it.
+        // Nethertheless in its `Changing Constraints` Guide, Apple recommends to call it.
         defer {
             super.viewWillLayoutSubviews()
         }
