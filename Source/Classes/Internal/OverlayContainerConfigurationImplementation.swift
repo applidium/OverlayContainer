@@ -58,7 +58,8 @@ class OverlayContainerConfigurationImplementation: OverlayContainerConfiguration
             controller,
             transitioningDelegateForOverlay: overlay
         )
-        return transitioningDelegate?.animationController(for: overlay) ?? SpringOverlayTranslationAnimationController()
+        let defaultController = SpringOverlayTranslationAnimationController(style: controller.style)
+        return transitioningDelegate?.animationController(for: overlay) ?? defaultController
     }
 
     func overlayTargetNotchPolicy(forOverlay overlay: UIViewController) -> OverlayTranslationTargetNotchPolicy {
