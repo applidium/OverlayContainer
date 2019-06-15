@@ -151,6 +151,7 @@ The overlay style defines how the overlay view controller will be constrained in
 enum OverlayStyle {
     case flexibleHeight // default
     case rigid
+    case expandableHeight
 }
 
 let overlayContainer = OverlayContainerViewController(style: .rigid)
