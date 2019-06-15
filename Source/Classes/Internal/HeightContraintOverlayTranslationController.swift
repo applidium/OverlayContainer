@@ -103,7 +103,6 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         let isAnimated = deferredTranslation.isAnimated
         translationEndNotchIndex = targetIndex
         if isAnimated {
-            updateConstraint(toHeight: translationEndNotchHeight)
             let height = translationHeight
             let context = ConcreteOverlayContainerContextTransitioning(
                 isCancelled: false,
@@ -132,6 +131,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
                 }
                 completions.forEach { $0() }
             })
+            updateConstraint(toHeight: translationEndNotchHeight)
             delegate?.translationController(self, willTranslateOverlayWith: coordinator)
             animator.startAnimation()
             lastScheduledTranslationAnimator = animator
