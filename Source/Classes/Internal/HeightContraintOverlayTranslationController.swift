@@ -57,6 +57,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
 
     private let configuration: OverlayContainerConfiguration
     private let translationHeightConstraint: NSLayoutConstraint
+    private var isDragging = false
 
     // MARK: - Life Cycle
 
@@ -196,7 +197,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     }
 
     func startOverlayTranslation() {
-        delegate?.translationControllerWillStartDraggingOverlay(self)
+        isDragging = false
     }
 
     func dragOverlay(withOffset offset: CGFloat, usesFunction: Bool) {
@@ -216,11 +217,17 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         } else {
             height = max(minimumHeight, min(maximumHeight, translation))
         }
+        if height != translationHeightConstraint.constant, !isDragging {
+            delegate?.translationControllerWillStartDraggingOverlay(self)
+            isDragging = true
+        }
         translateOverlayWithoutAnimation(toHeight: max(height.oc_rounded(), 0))
     }
 
     func endOverlayTranslation(withVelocity velocity: CGPoint) {
-        delegate?.translationController(self, willEndDraggingAtVelocity: velocity)
+        if isDragging {
+            delegate?.translationController(self, willEndDraggingAtVelocity: velocity)
+        }
         guard overlayHasAmibiguousTranslationHeight() else { return }
         scheduleOverlayTranslation(.basedOnTargetPolicy, velocity: velocity, animated: true)
         delegate?.translationControllerDidScheduleTranslations(self)
