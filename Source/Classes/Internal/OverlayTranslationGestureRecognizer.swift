@@ -31,12 +31,12 @@ class OverlayTranslationGestureRecognizer: UIPanGestureRecognizer {
 
     override func shouldRequireFailure(of otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let gestures = drivingScrollView?.gestureRecognizers else {
-            return super.shouldBeRequiredToFail(by: otherGestureRecognizer)
+            return super.shouldRequireFailure(of: otherGestureRecognizer)
         }
         if gestures.contains(otherGestureRecognizer) {
             return true
         } else {
-            return super.shouldBeRequiredToFail(by: otherGestureRecognizer)
+            return super.shouldRequireFailure(of: otherGestureRecognizer)
         }
     }
 }

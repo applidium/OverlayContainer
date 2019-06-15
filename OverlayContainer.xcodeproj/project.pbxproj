@@ -50,6 +50,8 @@
 		E791BAA4225F284800124D27 /* GroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791BAA3225F284800124D27 /* GroundView.swift */; };
 		E791BAAD225F771400124D27 /* CGFloat+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791BAAC225F771400124D27 /* CGFloat+Round.swift */; };
 		E7B22ABE22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B22ABD22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift */; };
+		E7C6C4ED22AEB4E200808C01 /* OverlayTranslationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C6C4EC22AEB4E200808C01 /* OverlayTranslationContainerView.swift */; };
+		E7FD265422A801A100CC4A8F /* DraggingOverlayContainerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD265322A801A100CC4A8F /* DraggingOverlayContainerTransitionCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +123,8 @@
 		E791BAA3225F284800124D27 /* GroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundView.swift; sourceTree = "<group>"; };
 		E791BAAC225F771400124D27 /* CGFloat+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Round.swift"; sourceTree = "<group>"; };
 		E7B22ABD22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayContainerConfigurationImplementation.swift; sourceTree = "<group>"; };
+		E7C6C4EC22AEB4E200808C01 /* OverlayTranslationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayTranslationContainerView.swift; sourceTree = "<group>"; };
+		E7FD265322A801A100CC4A8F /* DraggingOverlayContainerTransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggingOverlayContainerTransitionCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +217,7 @@
 				E784857F2201E54E00DE64C3 /* HeightContraintOverlayTranslationController.swift */,
 				E78485802201E54E00DE64C3 /* OverlayTranslationController.swift */,
 				E78485812201E54E00DE64C3 /* InterruptibleAnimatorOverlayContainerTransitionCoordinator.swift */,
+				E7FD265322A801A100CC4A8F /* DraggingOverlayContainerTransitionCoordinator.swift */,
 				E78485822201E54E00DE64C3 /* PanGestureOverlayTranslationDriver.swift */,
 				E78485832201E54E00DE64C3 /* OverlayTranslationGestureRecognizer.swift */,
 				E78485842201E54E00DE64C3 /* ScrollViewOverlayTranslationDriver.swift */,
@@ -240,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				E78485862201E54E00DE64C3 /* OverlayTranslationView.swift */,
+				E7C6C4EC22AEB4E200808C01 /* OverlayTranslationContainerView.swift */,
 				E78485872201E54E00DE64C3 /* OverlayContainerView.swift */,
 				E791BAA3225F284800124D27 /* GroundView.swift */,
 			);
@@ -379,6 +385,7 @@
 				E784859C2201E54E00DE64C3 /* CGGeometry+Utils.swift in Sources */,
 				E784859E2201E54E00DE64C3 /* UIViewController+Children.swift in Sources */,
 				E78485AC2201E54E00DE64C3 /* OverlayContainerTransitionCoordinator.swift in Sources */,
+				E7FD265422A801A100CC4A8F /* DraggingOverlayContainerTransitionCoordinator.swift in Sources */,
 				E784859F2201E54E00DE64C3 /* OverlayContainerViewControllerDelegate+Defaults.swift in Sources */,
 				E78485A12201E54E00DE64C3 /* UIScrollViiew+Utils.swift in Sources */,
 				E78485A72201E54E00DE64C3 /* OverlayTranslationGestureRecognizer.swift in Sources */,
@@ -404,6 +411,7 @@
 				E7B22ABE22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift in Sources */,
 				E78485992201E54E00DE64C3 /* OverlayScrollViewDelegateProxy.swift in Sources */,
 				E784859B2201E54E00DE64C3 /* UIPanGesture+Utils.swift in Sources */,
+				E7C6C4ED22AEB4E200808C01 /* OverlayTranslationContainerView.swift in Sources */,
 				E78485942201E54E00DE64C3 /* PassThroughView.swift in Sources */,
 				E78485932201E54E00DE64C3 /* SpringOverlayTranslationAnimationController.swift in Sources */,
 				E784859A2201E54E00DE64C3 /* OverlayTranslationDriver.swift in Sources */,

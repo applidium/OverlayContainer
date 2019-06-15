@@ -222,31 +222,60 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 
 You can track the overlay motions using the dedicated delegate methods.
 
-`didDragOverlay` is called each time the overlay is dragged by the user to the specified height.
+Tells the delegate when the user is about to start dragging the overlay view controller.
 
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                    didDragOverlay overlayViewController: UIViewController,
-                                    toHeight height: CGFloat,
-                                    availableSpace: CGFloat)
+                                    willStartDraggingOverlay overlayViewController: UIViewController)
+```
+Tells the delegate when the user finishs dragging the overlay view controller with the specified velocity.
+
+```swift
+func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                    willEndDraggingOverlay overlayViewController: UIViewController,
+                                    atVelocity velocity: CGPoint)
 ```
 
-`didEndDraggingOverlay` is called when the user has finished dragging the overlay. The container is about to move the overlay to the specified notch.
+Tells the delegate when the container is about to move the overlay view controller to the specified notch.
+
+In some cases, the overlay view controller may not successfully reach the specified notch.
+If the user cancels the translation for instance. Use `overlayContainerViewController(_:didMove:toNotchAt:)` if you need to be notified each time the translation succeeds.
 
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                    didEndDraggingOverlay overlayViewController: UIViewController,
+                                    willMoveOverlay overlayViewController: UIViewController,
+                                    toNotchAt index: Int)
+```
+
+Tells the delegate when the container has moved the overlay view controller to the specified notch.
+
+```swift
+func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                    didMoveOverlay overlayViewController: UIViewController,
+                                    toNotchAt index: Int)
+```
+
+Tells the delegate whenever the overlay view controller is about to be translated.
+
+The delegate typically implements this method to coordinate changes alongside the overlay view controller's translation.
+
+```swift
+func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                    willTranslateOverlay overlayViewController: UIViewController,
                                     transitionCoordinator: OverlayContainerTransitionCoordinator)
 ```
 
 The `transition coordinator` provides information about the animation that is about to start:
 
 ```swift
-/// The notch's index the container expects to reach.
-var targetNotchIndex: Int { get }
+/// A Boolean value indicating whether the transition is explicitly animated.
+var isAnimated: Bool { get }
 
-/// The notch's height the container expects to reach.
-var targetNotchHeight: CGFloat { get }
+/// A Boolean value indicating whether the transition was cancelled.
+var isCancelled: Bool { get }
+
+/// The height the container expects to reach.
+var targetTranslationHeight: CGFloat { get }
 
 /// The current translation height.
 var overlayTranslationHeight: CGFloat { get }
@@ -254,7 +283,7 @@ var overlayTranslationHeight: CGFloat { get }
 /// The notch indexes.
 var notchIndexes: Range<Int> { get }
 
-/// The reachables indexes.
+/// The reachable indexes ie the indexes not disabled by the `canReachNotchAt` delegate's method.
 var reachableIndexes: [Int] { get }
 
 /// Returns the height of the specified notch.
@@ -355,18 +384,13 @@ Coordinate the overlay movements to the aspect of a view using the dedicated del
 
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                    didDragOverlay overlayViewController: UIViewController,
-                                    toHeight height: CGFloat,
-                                    availableSpace: CGFloat) {
-    backdropView.alpha = // compute alpha based on height
-}
-
-func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                    didEndDraggingOverlay overlayViewController: UIViewController,
+                                    willTranslateOverlay overlayViewController: UIViewController,
                                     transitionCoordinator: OverlayContainerTransitionCoordinator) {
-    backdropView.alpha = // compute alpha based on the transitionCoordinator
-    transitionCoordinator.animate(alongsideTransition: { context in
-        self.backdropView.alpha =  // compute the final alpha value on the transitionCoordinator
+    transitionCoordinator.animate(alongsideTransition: { [weak self] context in
+        let translation = context.targetTranslationHeight
+        let maximum = context.height(forNotchAt: OverlayNotch.maximum.rawValue)
+        let minimum = context.height(forNotchAt: OverlayNotch.minimum.rawValue)
+        self?.backdropViewController.view.alpha = 1 - (maximum - translation) / (maximum - minimum)
     }, completion: nil)
 }
 ```
@@ -444,7 +468,8 @@ You can reload all the data that is used to construct the notches using the dedi
 func invalidateNotchHeights()
 ```
 
-This method does not reload the notch heights immediately. It only clears the current container's state. Call `moveOverlay(toNotchAt:animated:)` to perform the change immediately or to move the overlay to a correct notch if the number of notches has changed.
+This method does not reload the notch heights immediately. It only clears the current container's state. Because the number of notches may change, the container will use its target notch policy to determine where to go. 
+Call `moveOverlay(toNotchAt:animated:)` to override this behavior.
 
 ## Author
 

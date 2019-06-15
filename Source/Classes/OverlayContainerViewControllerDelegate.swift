@@ -33,7 +33,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
                                         heightForNotchAt index: Int,
                                         availableSpace: CGFloat) -> CGFloat
 
-    /// Asks the delegate for a scroll view driving the current top overlay view controller translation.
+    /// Asks the delegate for a scroll view driving the overlay view controller's translation.
     ///
     /// The container view controller can coordinate the scrolling of a scroll view
     /// to the child view controllers translation. The children will be moved up & down as the user scrolls.
@@ -46,7 +46,8 @@ public protocol OverlayContainerViewControllerDelegate: class {
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView?
 
-    /// Asks the delegate if the container should drag its children when the user starts a pan gesture at the specified location.
+    /// Asks the delegate if the container should drag the overlay view controller
+    /// when the user starts a pan gesture at the specified location.
     ///
     /// The container view controller detects pan gestures on its own view.
     /// It calls this method each time a pan gesture is detected.
@@ -64,30 +65,66 @@ public protocol OverlayContainerViewControllerDelegate: class {
                                         at point: CGPoint,
                                         in coordinateSpace: UICoordinateSpace) -> Bool
 
-    /// Tells the delegate when the user drags its children to the specified height.
+    /// Tells the delegate when the user is about to start dragging the overlay view controller.
     ///
     /// - parameter containerViewController: The container requesting this information.
-    /// - parameter overlayViewController: The current top overlay view controller.
-    /// - parameter height: The height of the translation.
-    /// - parameter availableSpace: The height of the zone defined by the overlay.
+    /// - parameter overlayViewController: The current overlay view controller.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        didDragOverlay overlayViewController: UIViewController,
-                                        toHeight height: CGFloat,
-                                        availableSpace: CGFloat)
+                                        willStartDraggingOverlay overlayViewController: UIViewController)
 
-    /// Tells the delegate when the user finishs dragging its children. The container is about to
-    /// animate the translation end to the specified notch.
+    /// Tells the delegate when the user finishs dragging the overlay view controller with the specified velocity.
     ///
     /// - parameter containerViewController: The container requesting this information.
     /// - parameter overlayViewController: The current top overlay view controller.
     /// - parameter transitionCoordinator: The transition coordinator object associated with the translation end.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        didEndDraggingOverlay overlayViewController: UIViewController,
+                                        willEndDraggingOverlay overlayViewController: UIViewController,
+                                        atVelocity velocity: CGPoint)
+
+    /// Tells the delegate when the container is about to move the overlay view controller to the specified notch.
+    ///
+    /// In some cases, the overlay view controller may not successfully reach the specified notch.
+    /// If the user cancels the translation for instance. Use `overlayContainerViewController(_:didMove:toNotchAt:)`
+    /// if you need to be notified each time the translation succeeds.
+    ///
+    /// - parameter containerViewController: The container requesting this information.
+    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter index: The notch index the overlay view controller is about to reach.
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        willMoveOverlay overlayViewController: UIViewController,
+                                        toNotchAt index: Int)
+
+    /// Tells the delegate when the container has moved the overlay view controller to the specified notch.
+    ///
+    /// - parameter containerViewController: The container requesting this information.
+    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter index: The notch index the overlay view controller has reached.
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        didMoveOverlay overlayViewController: UIViewController,
+                                        toNotchAt index: Int)
+
+    /// Tells the delegate whenever the overlay view controller is about to be translated.
+    ///
+    /// The delegate typically implements this method to coordinate changes alongside
+    /// the overlay view controller's translation.
+    ///
+    /// For instance, the container may call this method for the following reasons:
+    ///
+    /// - The user is dragging the overlay view controller
+    /// - The user finishs dragging the overlay view controller and the container is about to move
+    /// it to the notch specified by the current target notch policy
+    /// - You called `moveOverlay(toNotchAt:animated:completion:)`
+    ///
+    /// - parameter containerViewController: The container requesting this information.
+    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter transitionCoordinator: The transition coordinator object associated with the translation.
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        willTranslateOverlay overlayViewController: UIViewController,
                                         transitionCoordinator: OverlayContainerTransitionCoordinator)
 
     /// Asks the delegate for a translation function when dragging the specified view controller.
     ///
-    /// The function is only used for translation based on the container pan gesture recognizer.
+    /// The function is only used for translation based on the container's pan gesture recognizer.
     ///
     /// - parameter containerViewController: The container requesting this information.
     /// - parameter overlayViewController: The current top overlay view controller.
@@ -96,7 +133,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         overlayTranslationFunctionForOverlay overlayViewController: UIViewController) -> OverlayTranslationFunction?
 
-    /// Asks the delegate for a object providing the translation end animator.
+    /// Asks the delegate for an object providing the translation end animator.
     ///
     /// - parameter containerViewController: The container requesting this information.
     /// - parameter overlayViewController: The current top overlay view controller.

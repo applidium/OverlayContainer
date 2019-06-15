@@ -8,6 +8,7 @@
 import UIKit
 
 protocol OverlayScrollViewDelegate: class {
+    func overlayScrollViewWillBeginDragging(_ scrollView: UIScrollView)
     func overlayScrollViewDidScroll(_ scrollView: UIScrollView)
     func overlayScrollView(_ scrollView: UIScrollView,
                            willEndDraggingwithVelocity velocity: CGPoint,

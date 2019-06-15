@@ -21,8 +21,6 @@ class MapsLikeViewController: UIViewController {
     @IBOutlet private var widthConstraint: NSLayoutConstraint!
     @IBOutlet private var trailingConstraint: NSLayoutConstraint!
 
-    private var needsSetup = true
-
     // MARK: - UIViewController
 
     override func viewDidLoad() {
@@ -35,18 +33,8 @@ class MapsLikeViewController: UIViewController {
     }
 
     override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        guard needsSetup else { return }
-        needsSetup = false
         setUpConstraints(for: view.bounds.size)
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        guard size != view.bounds.size else { return }
-        coordinator.animate(alongsideTransition: { _ in
-            self.setUpConstraints(for: size)
-        }, completion: nil)
+        super.viewWillLayoutSubviews()
     }
 
     // MARK: - Private
@@ -56,8 +44,8 @@ class MapsLikeViewController: UIViewController {
             trailingConstraint.isActive = false
             widthConstraint.isActive = true
         } else {
-            widthConstraint.isActive = false
             trailingConstraint.isActive = true
+            widthConstraint.isActive = false
         }
     }
 

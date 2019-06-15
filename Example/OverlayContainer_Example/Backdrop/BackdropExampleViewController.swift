@@ -96,28 +96,13 @@ extension BackdropExampleViewController: OverlayContainerViewControllerDelegate 
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        didDragOverlay overlayViewController: UIViewController,
-                                        toHeight height: CGFloat,
-                                        availableSpace: CGFloat) {
-        backdropViewController.view.alpha = alpha(
-            forTranslation: height,
-            maximumHeight: notchHeight(for: .maximum, availableSpace: availableSpace),
-            minimumHeight: notchHeight(for: .minimum, availableSpace: availableSpace)
-        )
-    }
-
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        didEndDraggingOverlay overlayViewController: UIViewController,
+                                        willTranslateOverlay overlayViewController: UIViewController,
                                         transitionCoordinator: OverlayContainerTransitionCoordinator) {
-        backdropViewController.view.alpha = alpha(
-            forTranslation: transitionCoordinator.overlayTranslationHeight,
-            coordinator: transitionCoordinator
-        )
-        transitionCoordinator.animate(alongsideTransition: { context in
-            self.backdropViewController.view.alpha = self.alpha(
-                forTranslation: context.targetNotchHeight,
-                coordinator: transitionCoordinator
-            )
+        transitionCoordinator.animate(alongsideTransition: { [weak self] context in
+            let translation = context.targetTranslationHeight
+            let maximum = context.height(forNotchAt: OverlayNotch.maximum.rawValue)
+            let minimum = context.height(forNotchAt: OverlayNotch.minimum.rawValue)
+            self?.backdropViewController.view.alpha = 1 - (maximum - translation) / (maximum - minimum)
         }, completion: nil)
     }
 }

@@ -7,27 +7,32 @@
 
 import UIKit
 
-class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContainerTransitionCoordinator {
+private typealias Completion = (OverlayContainerTransitionCoordinatorContext) -> Void
 
-    private let animator: UIViewImplicitlyAnimating
+class DraggingOverlayContainerTransitionCoordinator: OverlayContainerTransitionCoordinator {
+
     private let context: OverlayContainerTransitionCoordinatorContext
+
+    private var completions: [Completion] = []
 
     // MARK: - Life Cycle
 
-    init(animator: UIViewImplicitlyAnimating, context: OverlayContainerTransitionCoordinatorContext) {
-        self.animator = animator
+    init(context: OverlayContainerTransitionCoordinatorContext) {
         self.context = context
     }
 
     // MARK: - Public
 
-    func markAsCancelled() {
-        isCancelled = true
+    func performCompletions(with context: OverlayContainerTransitionCoordinatorContext) {
+        completions.forEach { $0(context) }
+        completions = []
     }
 
     // MARK: - OverlayContainerTransitionCoordinatorContext
 
-    private(set) var isCancelled = false
+    var isCancelled: Bool {
+        return context.isCancelled
+    }
 
     var isAnimated: Bool {
         return context.isAnimated
@@ -57,11 +62,7 @@ class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContain
 
     func animate(alongsideTransition animation: ((OverlayContainerTransitionCoordinatorContext) -> Void)?,
                  completion: ((OverlayContainerTransitionCoordinatorContext) -> Void)?) {
-        animator.addAnimations? { [weak self] in
-            self.flatMap { animation?($0) }
-        }
-        animator.addCompletion? { [weak self] _ in
-            self.flatMap { completion?($0) }
-        }
+        animation?(context)
+        completion.flatMap { completions.append($0) }
     }
 }

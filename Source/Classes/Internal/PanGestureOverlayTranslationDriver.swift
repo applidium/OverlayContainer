@@ -35,6 +35,7 @@ class PanGestureOverlayTranslationDriver: NSObject, OverlayTranslationDriver {
         let translation = sender.translation(in: nil)
         switch sender.state {
         case .began:
+            controller.startOverlayTranslation()
             if controller.isDraggable(at: sender.startingLocation, in: view) {
                 controller.dragOverlay(withOffset: translation.y, usesFunction: true)
             } else {
@@ -42,10 +43,10 @@ class PanGestureOverlayTranslationDriver: NSObject, OverlayTranslationDriver {
             }
         case .changed:
             controller.dragOverlay(withOffset: translation.y, usesFunction: true)
-        case .failed, .ended, .cancelled:
+        case .failed, .ended:
             let velocity = sender.velocity(in: nil)
             controller.endOverlayTranslation(withVelocity: velocity)
-        case .possible:
+        case .cancelled, .possible:
             break
         }
     }

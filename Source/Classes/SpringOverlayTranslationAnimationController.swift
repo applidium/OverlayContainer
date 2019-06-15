@@ -9,7 +9,8 @@ import UIKit
 
 private struct Constant {
     static let defaultMass: CGFloat = 1
-    static let defaultDamping: CGFloat = 0.6
+    static let defaultDamping: CGFloat = 0.7
+    static let defaultRigidDamping: CGFloat = 0.9
     static let defaultResponse: CGFloat = 0.3
     static let minimumDamping: CGFloat = 1
     static let minimumVelocityConsideration: CGFloat = 150
@@ -26,6 +27,17 @@ public class SpringOverlayTranslationAnimationController: OverlayAnimatedTransit
     // MARK: - Life Cycle
 
     public init() {}
+
+    public init(style: OverlayContainerViewController.OverlayStyle) {
+        switch style {
+        case .expandableHeight, .rigid:
+            // (gz) 2019-06-15 We also nullify the damping value when using rigid styles
+            // to avoid the panel to be lifted above the bottom of the screen.
+            damping = Constant.defaultRigidDamping
+        case .flexibleHeight:
+            damping = Constant.defaultDamping
+        }
+    }
 
     // MARK: - OverlayAnimatedTransitioning
 

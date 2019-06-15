@@ -83,6 +83,11 @@ class OverlayScrollViewDelegateProxy: NSObject, UIScrollViewDelegate {
         )
     }
 
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        delegate?.overlayScrollViewWillBeginDragging(scrollView)
+        originalDelegate?.scrollViewWillBeginDragging?(scrollView)
+    }
+
     private func cancelForwarding(restoresDelegate: Bool) {
         scrollViewObservation?.invalidate()
         guard restoresDelegate else { return }

@@ -9,7 +9,7 @@ import Foundation
 
 extension CGFloat {
     func oc_rounded(_ rule: FloatingPointRoundingRule = .down, toDecimals decimals: Int = 2) -> CGFloat {
-        let multiplier = CGFloat(10 ^ decimals)
+        let multiplier = CGFloat(pow(Double(decimals), 2))
         return (self * multiplier).rounded(.down) / multiplier
     }
 }

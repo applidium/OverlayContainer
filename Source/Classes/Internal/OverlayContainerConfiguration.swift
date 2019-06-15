@@ -27,6 +27,7 @@ protocol OverlayContainerConfiguration {
 
 protocol OverlayContainerConfigurationInvalidating: OverlayContainerConfiguration {
     func invalidateOverlayMetrics()
+    func requestOverlayMetricsIfNeeded()
 }
 
 extension OverlayContainerConfiguration {

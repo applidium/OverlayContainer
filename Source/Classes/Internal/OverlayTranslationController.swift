@@ -11,26 +11,16 @@ enum OverlayTranslationPosition {
     case top, bottom, inFlight, stationary
 }
 
-protocol OverlayTranslationControllerDelegate: class {
-    func overlayViewController(for translationController: OverlayTranslationController) -> UIViewController?
-    func translationControllerDidScheduleTranslations(_ translationController: OverlayTranslationController)
-    func translationController(_ translationController: OverlayTranslationController,
-                               didDragOverlayToHeight height: CGFloat)
-    func translationController(_ translationController: OverlayTranslationController,
-                               willReachNotchAt index: Int,
-                               transitionCoordinator: OverlayContainerTransitionCoordinator)
-}
-
 protocol OverlayTranslationController: class {
     var lastTranslationEndNotchIndex: Int { get }
     var translationHeight: CGFloat { get }
     var translationPosition: OverlayTranslationPosition { get }
 
     func isDraggable(at point: CGPoint, in coordinateSpace: UICoordinateSpace) -> Bool
+
     func overlayHasReachedANotch() -> Bool
 
-    func moveOverlay(toNotchAt index: Int, velocity: CGPoint, animated: Bool, completion: (() -> Void)?)
-
+    func startOverlayTranslation()
     func dragOverlay(withOffset offset: CGFloat, usesFunction: Bool)
     func endOverlayTranslation(withVelocity velocity: CGPoint)
 }
