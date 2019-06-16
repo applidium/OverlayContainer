@@ -23,6 +23,7 @@ class ShowOverlayExampleViewController: UIViewController,
     private let overlayContainerController = OverlayContainerViewController()
 
     var showsOverlay = false
+    var lastKnownOverlayHeight: CGFloat = 0
 
     // MARK: - UIViewController
 
@@ -62,6 +63,24 @@ class ShowOverlayExampleViewController: UIViewController,
         case .min:
             return 0
         }
+    }
+
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        willTranslateOverlay overlayViewController: UIViewController,
+                                        transitionCoordinator: OverlayContainerTransitionCoordinator) {
+        transitionCoordinator.animate(alongsideTransition: nil) { [weak self] context in
+            self?.lastKnownOverlayHeight = context.targetTranslationHeight
+        }
+    }
+
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        willEndDraggingOverlay overlayViewController: UIViewController,
+                                        atVelocity velocity: CGPoint) {
+        let availableSpace = containerViewController.view.bounds.height
+        let medHeight = availableSpace / 2
+        let isUnderMedNotch = lastKnownOverlayHeight < medHeight
+        let goesFast = velocity.y > 1200
+        showsOverlay = !(isUnderMedNotch || goesFast)
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
