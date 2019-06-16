@@ -142,6 +142,8 @@ public class OverlayContainerViewController: UIViewController {
     ///
     /// - parameter index: The index of the target notch.
     /// - parameter animated: Defines either the transition should be animated or not.
+    /// - parameter completion: The block to execute after the translation finishes.
+    ///   This block has no return value and takes no parameters. You may specify nil for this parameter.
     ///
     public func moveOverlay(toNotchAt index: Int, animated: Bool, completion: (() -> Void)? = nil) {
         loadViewIfNeeded()
@@ -157,7 +159,8 @@ public class OverlayContainerViewController: UIViewController {
     /// Invalidates the current container's notches.
     ///
     /// This method does not reload the notch heights immediately. The changes are scheduled to the next layout pass.
-    /// By default, the overlay container will use its target notch policy to determine where to go.
+    /// By default, the overlay container will use its target notch policy to determine where to go
+    /// and animates the translation.
     /// Use `moveOverlay(toNotchAt:animated:completion:)` to override this behavior.
     ///
     public func invalidateNotchHeights() {
