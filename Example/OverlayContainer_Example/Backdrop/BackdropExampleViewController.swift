@@ -84,7 +84,6 @@ extension BackdropExampleViewController: OverlayContainerViewControllerDelegate 
                                         willTranslateOverlay overlayViewController: UIViewController,
                                         transitionCoordinator: OverlayContainerTransitionCoordinator) {
         transitionCoordinator.animate(alongsideTransition: { [weak self] context in
-            print(context.translationProgress())
             self?.backdropViewController.view.alpha = context.translationProgress()
         }, completion: nil)
     }
