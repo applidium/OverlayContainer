@@ -388,10 +388,7 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
                                     willTranslateOverlay overlayViewController: UIViewController,
                                     transitionCoordinator: OverlayContainerTransitionCoordinator) {
     transitionCoordinator.animate(alongsideTransition: { [weak self] context in
-        let translation = context.targetTranslationHeight
-        let maximum = context.height(forNotchAt: OverlayNotch.maximum.rawValue)
-        let minimum = context.height(forNotchAt: OverlayNotch.minimum.rawValue)
-        self?.backdropViewController.view.alpha = 1 - (maximum - translation) / (maximum - minimum)
+        self?.backdropViewController.view.alpha = context.translationProgress()
     }, completion: nil)
 }
 ```
