@@ -21,7 +21,7 @@ public protocol OverlayContainerTransitionCoordinatorContext {
     var overlayTranslationHeight: CGFloat { get }
     /// The notch indexes.
     var notchIndexes: Range<Int> { get }
-    /// The reachable indexes.
+    /// The reachable indexes. Some indexes might be disabled by the `canReachNotchAt` delegate method.
     var reachableIndexes: [Int] { get }
     /// Returns the height of the specified notch.
     func height(forNotchAt index: Int) -> CGFloat
@@ -35,4 +35,35 @@ public protocol OverlayContainerTransitionCoordinator: OverlayContainerTransitio
     /// Runs the specified animations at the same time as overlay translation end animations.
     func animate(alongsideTransition animation: ((OverlayContainerTransitionCoordinatorContext) -> Void)?,
                  completion: ((OverlayContainerTransitionCoordinatorContext) -> Void)?)
+}
+
+public extension OverlayContainerTransitionCoordinatorContext {
+
+    func minimumReachableHeight() -> CGFloat {
+        return reachableIndexes.first.flatMap { height(forNotchAt: $0) } ?? 0
+    }
+
+    func maximumReachableHeight() -> CGFloat {
+        return reachableIndexes.last.flatMap { height(forNotchAt: $0) } ?? 0
+    }
+
+    func minimumHeight() -> CGFloat {
+        return notchIndexes.first.flatMap { height(forNotchAt: $0) } ?? 0
+    }
+
+    func maximumHeight() -> CGFloat {
+        return notchIndexes.last.flatMap { height(forNotchAt: $0) } ?? 0
+    }
+
+    func translationProgress() -> CGFloat {
+        let maximum = maximumReachableHeight()
+        let minimum = minimumReachableHeight()
+        return maximum != minimum ? (targetTranslationHeight - minimum) / (maximum - minimum) : 0
+    }
+
+    func overallTranslationProgress() -> CGFloat {
+        let maximum = maximumHeight()
+        let minimum = minimumHeight()
+        return maximum != minimum ? (targetTranslationHeight - minimum) / (maximum - minimum) : 0
+    }
 }
