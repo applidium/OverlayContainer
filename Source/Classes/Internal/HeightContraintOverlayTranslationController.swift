@@ -221,7 +221,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
             delegate?.translationControllerWillStartDraggingOverlay(self)
             isDragging = true
         }
-        translateOverlayWithoutAnimation(toHeight: max(height.oc_rounded(), 0))
+        translateOverlayWithoutAnimation(toHeight: max(height, 0))
     }
 
     func endOverlayTranslation(withVelocity velocity: CGPoint) {

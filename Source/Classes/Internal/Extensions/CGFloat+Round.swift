@@ -8,8 +8,8 @@
 import Foundation
 
 extension CGFloat {
-    func oc_rounded(_ rule: FloatingPointRoundingRule = .down, toDecimals decimals: Int = 2) -> CGFloat {
-        let multiplier = CGFloat(pow(Double(decimals), 2))
-        return (self * multiplier).rounded(.down) / multiplier
+    func oc_rounded(toDecimals decimals: Int = 2) -> CGFloat {
+        let multiplier = CGFloat(pow(Double(10), Double(decimals)))
+        return (self * multiplier).rounded() / multiplier
     }
 }
