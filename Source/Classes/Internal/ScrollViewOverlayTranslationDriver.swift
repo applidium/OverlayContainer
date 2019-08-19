@@ -68,10 +68,10 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
         scrollView.panGestureRecognizer.setTranslation(.zero, in: nil)
         // (gz) 2018-01-24 We adjust the content offset and the velocity only if the overlay will be dragged.
         switch controller.translationPosition {
-        case .bottom where targetContentOffset.pointee.y > -scrollView.contentInset.top:
+        case .bottom where targetContentOffset.pointee.y > -scrollView.oc_adjustedContentInset.top:
             // (gz) 2018-11-26 The user raises its finger in the bottom position
             // and the content offset will exceed the top content inset.
-            targetContentOffset.pointee.y = -scrollView.contentInset.top
+            targetContentOffset.pointee.y = -scrollView.oc_adjustedContentInset.top
         case .inFlight where !controller.overlayHasReachedANotch():
             targetContentOffset.pointee.y = lastContentOffsetWhileScrolling.y
         case .top, .bottom, .inFlight, .stationary:
@@ -109,7 +109,7 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
     private func adjustedContentOffset(dragging scrollView: UIScrollView) -> CGPoint {
         guard let controller = translationController else { return .zero }
         var contentOffset = lastContentOffsetWhileScrolling
-        let topInset = -scrollView.contentInset.top
+        let topInset = -scrollView.oc_adjustedContentInset.top
         switch controller.translationPosition {
         case .inFlight, .top:
             // (gz) 2018-11-26 The user raised its finger in the top or in flight positions while scrolling bottom.
