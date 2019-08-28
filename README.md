@@ -9,6 +9,7 @@
 <p align="center">
   <a href="https://developer.apple.com/"><img alt="Platform" src="https://img.shields.io/badge/platform-iOS-green.svg"/></a>
   <a href="https://developer.apple.com/swift"><img alt="Swift4" src="https://img.shields.io/badge/language-Swift%204.2-orange.svg"/></a>
+  <a href="https://developer.apple.com/swift"><img alt="Swift5" src="https://img.shields.io/badge/language-Swift%205.0-orange.svg"/></a>
   <a href="https://cocoapods.org/pods/OverlayContainer"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/OverlayContainer.svg?style=flat"/></a>
   <a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"/></a>
   <a href="https://travis-ci.org/applidium/ADOverlayContainer"><img alt="Build Status" src="https://api.travis-ci.org/applidium/ADOverlayContainer.svg?branch=master"/></a>
@@ -89,7 +90,7 @@ pod 'OverlayContainer'
 Add the following to your Cartfile:
 
 ```ruby
-github "https://github.com/applidium/ADOverlayContainer"
+github "https://github.com/applidium/OverlayContainer"
 ```
 
 ## Usage
