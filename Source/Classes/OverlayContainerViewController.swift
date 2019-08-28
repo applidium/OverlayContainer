@@ -8,8 +8,13 @@
 import UIKit
 
 /// A `OverlayContainerViewController` is a container view controller that manages one or more
-/// child view controllers in an overlay interface. It defines an area where its children can be dragged up and down
-/// hidding or revealing the content underneath it. The container does not contain this underlying content.
+/// child view controllers in an overlay interface.
+///
+/// It defines an area where a view controller, called the overlay view controller,
+/// can be dragged up and down, hiding or revealing the content underneath it.
+///
+/// OverlayContainer uses the last view controller of its viewControllers as the overlay view controller.
+/// It stacks the other view controllers on top of each other, if any, and adds them underneath the overlay view controller.
 public class OverlayContainerViewController: UIViewController {
 
     /// `OverlayStyle` defines how the overlay view controllers will be constrained in the container.
