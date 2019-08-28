@@ -72,6 +72,8 @@ class ShortcutsLikeViewController: UIViewController {
             addChild(splitController, in: view)
         case .unspecified:
             break
+        @unknown default:
+            break
         }
     }
 }

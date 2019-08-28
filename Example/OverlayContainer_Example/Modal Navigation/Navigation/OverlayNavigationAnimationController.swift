@@ -61,6 +61,8 @@ class OverlayNavigationAnimationController: NSObject, UIViewControllerAnimatedTr
                 width: finalFrame.width,
                 height: finalFrame.height
             )
+        @unknown default:
+            return
         }
         animatedViewController.view.frame = initialFrame
         UIView.animate(

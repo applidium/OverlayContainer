@@ -48,6 +48,8 @@ class PanGestureOverlayTranslationDriver: NSObject, OverlayTranslationDriver {
             controller.endOverlayTranslation(withVelocity: velocity)
         case .cancelled, .possible:
             break
+        @unknown default:
+            break
         }
     }
 }

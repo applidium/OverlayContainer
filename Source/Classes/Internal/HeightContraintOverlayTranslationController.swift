@@ -237,7 +237,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
 
     private func overlayHasAmibiguousTranslationHeight() -> Bool {
         let heights = enabledNotchIndexes().map { configuration.heightForNotch(at: $0) }
-        guard let index = heights.index(where: { $0 == translationHeight }) else {
+        guard let index = heights.firstIndex(where: { $0 == translationHeight }) else {
             return true
         }
         return configuration.heightForNotch(at: index) != translationEndNotchHeight
