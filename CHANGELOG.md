@@ -1,3 +1,9 @@
+## 3.1.0 (28 August 2019)
+
+- Support Swift 4.2 & 5
+- Merge PR #34
+- Use cocoapods 1.7 podspec format
+
 ## 3.0.0-a (15 June 2019)
 
 - All the translations are now deferred to the next layout pass. The translations can now be scheduled right after the initialization of the container. 
