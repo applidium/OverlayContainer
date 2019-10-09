@@ -53,7 +53,7 @@ See the provided examples for help or feel free to ask directly.
   - [CocoaPods](#cocoapods)
   - [Carthage](#carthage)
 - [Usage](#usage)
-  - [Setup](#mininim-setup)
+  - [Setup](#setup)
   - [Overlay style](#overlay-style)
   - [Scroll view support](#scroll-view-support)
   - [Pan gesture support](#pan-gesture-support)
@@ -61,8 +61,8 @@ See the provided examples for help or feel free to ask directly.
   - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
   - [Multiple overlays](#multiple-overlays)
-  - [Showing & Hiding the overlay](#show-&-hide-the-overlay)
-  - [Backdrop view](#backdrop-usage)
+  - [Showing & Hiding the overlay](#showing--hiding-the-overlay)
+  - [Backdrop view](#backdrop-view)
   - [Safe Area](#safe-area)
   - [Custom Translation](#custom-translation)
   - [Custom Translation Animations](#custom-translation-animations)
@@ -117,7 +117,7 @@ containerController.viewControllers = [
 window?.rootViewController = containerController
 ```
 
-Specifing only one view controller is absolutely valid. For instance, in [MapsLikeViewController](https://github.com/applidium/ADOverlayContainer/blob/master/Example/OverlayContainer_Example/Maps/MapsLikeViewController.swift) the overlay only covers partially its content.
+Specifing only one view controller is absolutely valid. For instance, in [MapsLikeViewController](https://github.com/applidium/OverlayContainer/blob/master/Example/OverlayContainer_Example/Maps/MapsLikeViewController.swift) the overlay only covers partially its content.
 
 The overlay container view controller needs at least one notch. Implement `OverlayContainerViewControllerDelegate` to specify the number of notches wished:
 
@@ -222,7 +222,9 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 
 ### Tracking the overlay
 
-You can track the overlay motions using the dedicated delegate methods.
+You can track the overlay motions using the dedicated delegate methods:
+
+- Translation Start
 
 Tells the delegate when the user is about to start dragging the overlay view controller.
 
@@ -230,6 +232,9 @@ Tells the delegate when the user is about to start dragging the overlay view con
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                     willStartDraggingOverlay overlayViewController: UIViewController)
 ```
+
+- Translation End
+
 Tells the delegate when the user finishs dragging the overlay view controller with the specified velocity.
 
 ```swift
@@ -237,6 +242,8 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
                                     willEndDraggingOverlay overlayViewController: UIViewController,
                                     atVelocity velocity: CGPoint)
 ```
+
+- Translation In Progress
 
 Tells the delegate when the container is about to move the overlay view controller to the specified notch.
 
@@ -267,7 +274,7 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
                                     transitionCoordinator: OverlayContainerTransitionCoordinator)
 ```
 
-The `transition coordinator` provides information about the animation that is about to start:
+The `transition coordinator` provides information about the translation that is about to start:
 
 ```swift
 /// A Boolean value indicating whether the transition is explicitly animated.
@@ -290,6 +297,13 @@ var reachableIndexes: [Int] { get }
 
 /// Returns the height of the specified notch.
 func height(forNotchAt index: Int) -> CGFloat
+```
+and allows you to add animations alongside it:
+
+```swift
+transitionCoordinator.animate(alongsideTransition: { context in
+    // ...
+}, completion: nil)
 ```
 
 ### Examples
@@ -380,7 +394,7 @@ Make sure to use the `rigid` overlay style if the content can not be flattened.
 
 ### Backdrop view
 
-Coordinate the overlay movements to the aspect of a view using the dedicated delegate methods. See the [backdrop view example](https://github.com/applidium/ADOverlayContainer/blob/master/Example/OverlayContainer/BackdropExampleViewController.swift).
+Coordinate the overlay movements to the aspect of a view using the dedicated delegate methods. See the [backdrop view example](https://github.com/applidium/OverlayContainer/blob/master/Example/OverlayContainer_Example/Backdrop/BackdropExampleViewController.swift).
 
 ![backdrop](https://github.com/applidium/ADOverlayContainer/blob/master/Assets/backdropView.gif)
 
@@ -472,7 +486,7 @@ Call `moveOverlay(toNotchAt:animated:)` to override this behavior.
 
 ## Author
 
-gaetanzanella, gaetan.zanella@fabernovel.com
+[@gaetanzanella](https://twitter.com/gaetanzanella), gaetan.zanella@fabernovel.com
 
 ## License
 
