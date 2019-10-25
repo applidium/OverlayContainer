@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 extension CGFloat {
     func oc_rounded(toDecimals decimals: Int = 2) -> CGFloat {
