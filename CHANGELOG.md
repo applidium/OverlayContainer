@@ -1,3 +1,7 @@
+## 3.2.0 (28 October 2019)
+
+- Swift Package Manager support
+
 ## 3.1.0 (28 August 2019)
 
 - Support Swift 4.2 & 5
