@@ -31,7 +31,7 @@ There are alternatives like:
 - It perfectly mimics the overlay presented in the Siri Shotcuts app. See [this article](https://gaetanzanella.github.io//2018/replicate-apple-maps-overlay/) for details.
 - It provides more features:
 
-- [x] Unlimited notches 
+- [x] Unlimited notches
 - [x] Notches modifiable at runtime
 - [x] Adaptive to any custom layouts
 - [x] Rubber band effect
@@ -91,6 +91,20 @@ Add the following to your Cartfile:
 
 ```ruby
 github "https://github.com/applidium/OverlayContainer"
+```
+
+### Swift Package Manager
+
+OverlayContainer can be installed as a Swift Package with Xcode 11 or higher. To install it, add a package using Xcode or a dependency to your Package.swift file:
+
+```swift
+.package(url: "https://github.com/applidium/OverlayContainer.git", from: "3.2.0")
+```
+
+Or to track the latest version:
+
+```swift
+.package(url: "https://github.com/applidium/OverlayContainer.git", .branch("master"))
 ```
 
 ## Usage
@@ -204,7 +218,7 @@ containerController.drivingScrollView = myScrollView
 
 ### Pan gesture support
 
-The container view controller detects pan gestures on its own view. 
+The container view controller detects pan gestures on its own view.
 Use the dedicated delegate method to check that the specified starting pan gesture location corresponds to a grabbable view in your custom overlay.
 
 ```swift
@@ -451,7 +465,7 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 
 Adopt `OverlayTranslationTargetNotchPolicy` & `OverlayAnimatedTransitioning` protocols to define where the overlay should go once the user's touch is released and how to animate the translation.
 
-By default, the overlay container uses a `SpringOverlayTranslationAnimationController` that mimics the behavior of a spring. 
+By default, the overlay container uses a `SpringOverlayTranslationAnimationController` that mimics the behavior of a spring.
 The associated target notch policy `RushingForwardTargetNotchPolicy` will always try to go forward if the user's finger reachs a certain velocity. It might also decide to skip some notches if the user goes too fast.
 
 Tweak the provided implementations or implement our own objects to modify the overlay translation behavior.
@@ -481,7 +495,7 @@ You can reload all the data that is used to construct the notches using the dedi
 func invalidateNotchHeights()
 ```
 
-This method does not reload the notch heights immediately. It only clears the current container's state. Because the number of notches may change, the container will use its target notch policy to determine where to go. 
+This method does not reload the notch heights immediately. It only clears the current container's state. Because the number of notches may change, the container will use its target notch policy to determine where to go.
 Call `moveOverlay(toNotchAt:animated:)` to override this behavior.
 
 ## Author
