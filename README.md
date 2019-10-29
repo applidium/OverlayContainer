@@ -52,6 +52,7 @@ See the provided examples for help or feel free to ask directly.
 - [Installation](#installation)
   - [CocoaPods](#cocoapods)
   - [Carthage](#carthage)
+  - [Swift Package Manager](#swift-package-manager)
 - [Usage](#usage)
   - [Setup](#setup)
   - [Overlay style](#overlay-style)
