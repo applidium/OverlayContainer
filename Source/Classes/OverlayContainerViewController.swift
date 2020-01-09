@@ -56,6 +56,10 @@ public class OverlayContainerViewController: UIViewController {
         return viewControllers.last
     }
 
+    public override var childForStatusBarStyle: UIViewController? {
+        return topViewController
+    }
+
     /// The scroll view managing the overlay translation.
     public weak var drivingScrollView: UIScrollView? {
         didSet {
