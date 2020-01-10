@@ -48,12 +48,17 @@ public class OverlayContainerViewController: UIViewController {
             guard isViewLoaded else { return }
             oldValue.forEach { removeChild($0) }
             loadOverlayViews()
+            setNeedsStatusBarAppearanceUpdate()
         }
     }
 
     /// The visible overlay view controller.
     public var topViewController: UIViewController? {
         return viewControllers.last
+    }
+
+    public override var childForStatusBarStyle: UIViewController? {
+        return topViewController
     }
 
     /// The scroll view managing the overlay translation.
