@@ -48,6 +48,7 @@ public class OverlayContainerViewController: UIViewController {
             guard isViewLoaded else { return }
             oldValue.forEach { removeChild($0) }
             loadOverlayViews()
+            setNeedsStatusBarAppearanceUpdate()
         }
     }
 
