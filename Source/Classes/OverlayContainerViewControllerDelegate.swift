@@ -76,7 +76,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
     ///
     /// - parameter containerViewController: The container requesting this information.
     /// - parameter overlayViewController: The current top overlay view controller.
-    /// - parameter transitionCoordinator: The transition coordinator object associated with the translation end.
+    /// - parameter velocity: The overlay velocity at the moment the touch was released.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         willEndDraggingOverlay overlayViewController: UIViewController,
                                         atVelocity velocity: CGPoint)
