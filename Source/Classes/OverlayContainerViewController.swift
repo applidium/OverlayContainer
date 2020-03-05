@@ -31,7 +31,7 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     /// The container's delegate.
-    public var delegate: OverlayContainerViewControllerDelegate? {
+    public weak var delegate: OverlayContainerViewControllerDelegate? {
         set {
             configuration.delegate = newValue
             configuration.invalidateOverlayMetrics()
