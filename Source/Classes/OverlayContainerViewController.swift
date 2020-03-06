@@ -57,7 +57,7 @@ open class OverlayContainerViewController: UIViewController {
         return viewControllers.last
     }
 
-    public override var childForStatusBarStyle: UIViewController? {
+    open override var childForStatusBarStyle: UIViewController? {
         return topViewController
     }
 
