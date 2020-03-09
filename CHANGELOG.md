@@ -1,3 +1,8 @@
+## 3.3.0 (09 March 2020)
+
+- `OverlayContainer` class is now open
+- `PassThroughView` class is now open
+
 ## 3.2.1 (10 January 2020)
 
 - The status bar style derives from the overlay controller
