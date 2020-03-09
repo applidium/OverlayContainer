@@ -10,11 +10,11 @@ import UIKit
 /// A view which removes itself from the responder chain.
 ///
 /// Use `PassThroughView` whenever you need to provide a backdrop view to an `OverlayContainerViewController`.
-public class PassThroughView: UIView {
+open class PassThroughView: UIView {
 
     // MARK: - UIView
 
-    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let view = super.hitTest(point, with: event)
         if view == self {
             return nil

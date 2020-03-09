@@ -31,7 +31,7 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     /// The container's delegate.
-    public weak var delegate: OverlayContainerViewControllerDelegate? {
+    open var delegate: OverlayContainerViewControllerDelegate? {
         set {
             configuration.delegate = newValue
             configuration.invalidateOverlayMetrics()
@@ -43,7 +43,7 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     /// The overlay view controllers.
-    public var viewControllers: [UIViewController] = [] {
+    open var viewControllers: [UIViewController] = [] {
         didSet {
             guard isViewLoaded else { return }
             oldValue.forEach { removeChild($0) }
@@ -53,7 +53,7 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     /// The visible overlay view controller.
-    public var topViewController: UIViewController? {
+    open var topViewController: UIViewController? {
         return viewControllers.last
     }
 
@@ -62,7 +62,7 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     /// The scroll view managing the overlay translation.
-    public weak var drivingScrollView: UIScrollView? {
+    weak open var drivingScrollView: UIScrollView? {
         didSet {
             guard drivingScrollView !== oldValue else { return }
             guard isViewLoaded else { return }
