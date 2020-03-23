@@ -36,11 +36,11 @@ public protocol OverlayContainerViewControllerDelegate: class {
     /// Asks the delegate for a scroll view driving the overlay view controller's translation.
     ///
     /// The container view controller can coordinate the scrolling of a scroll view
-    /// to the child view controllers translation. The children will be moved up & down as the user scrolls.
+    /// to the overlay view controller translation. The overlay will be moved up & down as the user scrolls.
     /// The content offset of the scroll view will be adjusted accordingly.
     ///
     /// - parameter containerViewController: The container requesting this information.
-    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter overlayViewController: The overlay view controller.
     ///
     /// - returns: A scroll view to use as a translation driver.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
@@ -55,7 +55,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
     /// the gesture is aborted and this method is not called.
     ///
     /// - parameter containerViewController: The container requesting this information.
-    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter overlayViewController: The overlay view controller.
     /// - parameter point: The starting point of the gesture.
     /// - parameter coordinateSpace: The coordinate space of point.
     ///
@@ -68,14 +68,14 @@ public protocol OverlayContainerViewControllerDelegate: class {
     /// Tells the delegate when the user is about to start dragging the overlay view controller.
     ///
     /// - parameter containerViewController: The container requesting this information.
-    /// - parameter overlayViewController: The current overlay view controller.
+    /// - parameter overlayViewController: The overlay view controller.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         willStartDraggingOverlay overlayViewController: UIViewController)
 
     /// Tells the delegate when the user finishs dragging the overlay view controller with the specified velocity.
     ///
     /// - parameter containerViewController: The container requesting this information.
-    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter overlayViewController: The overlay view controller.
     /// - parameter velocity: The overlay velocity at the moment the touch was released.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         willEndDraggingOverlay overlayViewController: UIViewController,
@@ -88,7 +88,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
     /// if you need to be notified each time the translation succeeds.
     ///
     /// - parameter containerViewController: The container requesting this information.
-    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter overlayViewController: The overlay view controller.
     /// - parameter index: The notch index the overlay view controller is about to reach.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         willMoveOverlay overlayViewController: UIViewController,
@@ -97,7 +97,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
     /// Tells the delegate when the container has moved the overlay view controller to the specified notch.
     ///
     /// - parameter containerViewController: The container requesting this information.
-    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter overlayViewController: The overlay view controller.
     /// - parameter index: The notch index the overlay view controller has reached.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         didMoveOverlay overlayViewController: UIViewController,
@@ -116,7 +116,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
     /// - You called `moveOverlay(toNotchAt:animated:completion:)`
     ///
     /// - parameter containerViewController: The container requesting this information.
-    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter overlayViewController: The overlay view controller.
     /// - parameter transitionCoordinator: The transition coordinator object associated with the translation.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         willTranslateOverlay overlayViewController: UIViewController,
@@ -127,7 +127,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
     /// The function is only used for translation based on the container's pan gesture recognizer.
     ///
     /// - parameter containerViewController: The container requesting this information.
-    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter overlayViewController: The overlay view controller.
     ///
     /// - returns: A overlay translation function.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
@@ -136,7 +136,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
     /// Asks the delegate for an object providing the translation end animator.
     ///
     /// - parameter containerViewController: The container requesting this information.
-    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter overlayViewController: The overlay view controller.
     ///
     /// - returns: A object implementing the `OverlayTransitioningDelegate` protocol.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
@@ -146,7 +146,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
     ///
     /// - parameter containerViewController: The container requesting this information.
     /// - parameter index: The index locating the notch.
-    /// - parameter overlayViewController: The current top overlay view controller.
+    /// - parameter overlayViewController: The overlay view controller.
     ///
     /// - returns: `true` if the overlay is allowed to reach the specified notch index or `false` if it should not.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,

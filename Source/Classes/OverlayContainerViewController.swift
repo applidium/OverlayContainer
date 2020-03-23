@@ -17,13 +17,13 @@ import UIKit
 /// It stacks the other view controllers on top of each other, if any, and adds them underneath the overlay view controller.
 open class OverlayContainerViewController: UIViewController {
 
-    /// `OverlayStyle` defines how the overlay view controllers will be constrained in the container.
+    /// `OverlayStyle` defines how the overlay view controller will be constrained in the container.
     public enum OverlayStyle {
-        /// The overlay view controller will not be height-constrained. They will grow and shrink
+        /// The overlay view controller will not be height-constrained. It will grow and shrink
         /// as the user drags them up and down.
         case flexibleHeight
         /// The overlay view controller will be constrained with a height equal to the highest notch.
-        /// They will be fully visible only when the user has drag them up to this notch.
+        /// It will be fully visible only when the user has drag them up to this notch.
         case rigid
         /// The overlay view controller will be constrained with a height greater or equal to the highest notch.
         /// Its height will be expanded if the overlay goes beyond the highest notch.
@@ -42,7 +42,7 @@ open class OverlayContainerViewController: UIViewController {
         }
     }
 
-    /// The overlay view controllers.
+    /// The view controllers displayed.
     open var viewControllers: [UIViewController] = [] {
         didSet {
             guard isViewLoaded else { return }
@@ -52,7 +52,7 @@ open class OverlayContainerViewController: UIViewController {
         }
     }
 
-    /// The visible overlay view controller.
+    /// The overlay view controller
     open var topViewController: UIViewController? {
         return viewControllers.last
     }
@@ -148,7 +148,7 @@ open class OverlayContainerViewController: UIViewController {
 
     // MARK: - Public
 
-    /// Moves the overlay view controllers to the specified notch.
+    /// Moves the overlay view controller to the specified notch.
     ///
     /// - parameter index: The index of the target notch.
     /// - parameter animated: Defines either the transition should be animated or not.
