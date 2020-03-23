@@ -1,3 +1,7 @@
+## 3.3.1 (23 March 2020)
+
+- Mark delegate as weak
+
 ## 3.3.0 (09 March 2020)
 
 - `OverlayContainer` class is now open
