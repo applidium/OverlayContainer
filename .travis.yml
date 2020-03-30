@@ -1,5 +1,5 @@
 os: osx
-osx_image: xcode11.4
+osx_image: xcode11.3
 language: swift
 
 branches:
@@ -13,7 +13,7 @@ env:
   global:
   - LANG=en_US.UTF-8
   - LC_ALL=en_US.UTF-8
-  - DESTINATION="OS=12.2,name=iPhone XS"
+  - DESTINATION="OS=13.3,name=iPhone 11 Pro"
   - SCHEME="OverlayContainer"
   - WORKSPACE="OverlayContainer.xcworkspace"
 skip_cleanup: true
@@ -23,7 +23,7 @@ jobs:
 
   - stage: podspec
     script:
-    - pod spec lint
+    - bundle exec pod spec lint --verbose
 
   - stage: Build
     script:
