@@ -336,6 +336,9 @@ extension OverlayContainerViewController: HeightConstraintOverlayTranslationCont
     func translationController(_ translationController: OverlayTranslationController,
                                willTranslateOverlayWith transitionCoordinator: OverlayContainerTransitionCoordinator) {
         guard let controller = topViewController else { return }
+        if transitionCoordinator.isAnimated {
+            overlayTranslationContainerView.layoutIfNeeded()
+        }
         transitionCoordinator.animate(alongsideTransition: { [weak self] context in
             self?.updateOverlayContainerConstraints()
             self?.overlayTranslationContainerView.layoutIfNeeded()

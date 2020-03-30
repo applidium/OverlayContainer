@@ -131,8 +131,8 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
                 }
                 completions.forEach { $0() }
             })
-            updateConstraint(toHeight: translationEndNotchHeight)
             delegate?.translationController(self, willTranslateOverlayWith: coordinator)
+            updateConstraint(toHeight: translationEndNotchHeight)
             animator.startAnimation()
             lastScheduledTranslationAnimator = animator
         } else {
