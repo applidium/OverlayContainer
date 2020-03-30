@@ -1,3 +1,8 @@
+## 3.4.0 (30 March 2020)
+
+- Add `availableSpace` property
+- Fix #49: Lay out the view before animating the view
+
 ## 3.3.1 (23 March 2020)
 
 - Mark delegate as weak
