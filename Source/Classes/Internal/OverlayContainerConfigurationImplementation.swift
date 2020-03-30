@@ -119,7 +119,7 @@ class OverlayContainerConfigurationImplementation: OverlayContainerConfiguration
         return delegate?.overlayContainerViewController(
             controller,
             heightForNotchAt: index,
-            availableSpace: overlayContainerViewController?.view.frame.height ?? 0
+            availableSpace: controller.availableSpace
         ) ?? 0
     }
 

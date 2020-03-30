@@ -70,6 +70,12 @@ open class OverlayContainerViewController: UIViewController {
         }
     }
 
+    /// The height of the area where the overlay view controller can be dragged up and down.
+    /// It will only be valid once the container view is laid out or in the delegate callbacks.
+    open var availableSpace: CGFloat {
+        return view.frame.height
+    }
+
     /// The overlay container's style.
     public let style: OverlayStyle
 
@@ -174,6 +180,7 @@ open class OverlayContainerViewController: UIViewController {
     /// Use `moveOverlay(toNotchAt:animated:completion:)` to override this behavior.
     ///
     open func invalidateNotchHeights() {
+        guard isViewLoaded else { return }
         configuration.invalidateOverlayMetrics()
         translationController?.scheduleOverlayTranslation(
             .basedOnTargetPolicy,
@@ -288,6 +295,7 @@ open class OverlayContainerViewController: UIViewController {
     private func setUpPanGesture() {
         view.addGestureRecognizer(overlayPanGesture)
     }
+
     private func makeConfiguration() -> OverlayContainerConfigurationImplementation {
         return OverlayContainerConfigurationImplementation(
             overlayContainerViewController: self
