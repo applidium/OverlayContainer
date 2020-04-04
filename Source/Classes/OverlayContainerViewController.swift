@@ -274,7 +274,7 @@ open class OverlayContainerViewController: UIViewController {
 
     private func setNeedsOverlayContainerHeightUpdate() {
         needsOverlayContainerHeightUpdate = true
-        view.setNeedsLayout()
+        viewIfLoaded?.setNeedsLayout()
     }
 
     private func updateOverlayContainerConstraints() {
