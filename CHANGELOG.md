@@ -1,3 +1,7 @@
+## 3.4.1 (6 April 2020)
+
+- Avoid view loading when setting delegate
+
 ## 3.4.0 (30 March 2020)
 
 - Add `availableSpace` property
