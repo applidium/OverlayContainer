@@ -3,7 +3,7 @@
 </p>
 
 <H4 align="center">
-  OverlayContainer is a UI library written in Swift. It makes it easier to develop overlay based interfaces, such as the one presented in the Apple Maps, Stocks or Shortcuts apps
+  OverlayContainer is a UI library written in Swift. It makes easier to develop overlay based interfaces, such as the one presented in the Apple Maps, Stocks or Shortcuts apps
 </H4>
 
 <p align="center">
@@ -74,7 +74,7 @@ See the provided examples for help or feel free to ask directly.
 
 ## Requirements
 
-OverlayContainer is written in Swift 4.2. Compatible with iOS 10.0+.
+OverlayContainer is written in Swift 5. Compatible with iOS 10.0+.
 
 ## Installation
 
