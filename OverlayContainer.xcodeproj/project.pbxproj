@@ -11,9 +11,9 @@
 		E701831C2226A98700433BB6 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E701831A2226A98700433BB6 /* Nimble.framework */; };
 		E70183202226ABDE00433BB6 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E701831A2226A98700433BB6 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E70183212226ABDE00433BB6 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E70183192226A98700433BB6 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E783A4B7243CB5C0002C0B93 /* OverlayScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E783A4B6243CB5C0002C0B93 /* OverlayScrollViewDelegate.swift */; };
 		E784858F2201E54E00DE64C3 /* OverlayTranslationFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485692201E54E00DE64C3 /* OverlayTranslationFunction.swift */; };
 		E78485902201E54E00DE64C3 /* RushingForwardTargetNotchPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784856A2201E54E00DE64C3 /* RushingForwardTargetNotchPolicy.swift */; };
-		E78485912201E54E00DE64C3 /* OverlayScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784856B2201E54E00DE64C3 /* OverlayScrollViewDelegate.swift */; };
 		E78485922201E54E00DE64C3 /* OverlayContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784856C2201E54E00DE64C3 /* OverlayContainerViewController.swift */; };
 		E78485932201E54E00DE64C3 /* SpringOverlayTranslationAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784856D2201E54E00DE64C3 /* SpringOverlayTranslationAnimationController.swift */; };
 		E78485942201E54E00DE64C3 /* PassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784856E2201E54E00DE64C3 /* PassThroughView.swift */; };
@@ -81,10 +81,10 @@
 /* Begin PBXFileReference section */
 		E70183192226A98700433BB6 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		E701831A2226A98700433BB6 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		E783A4B6243CB5C0002C0B93 /* OverlayScrollViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScrollViewDelegate.swift; sourceTree = "<group>"; };
 		E784855C2201E4F700DE64C3 /* OverlayContainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OverlayContainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E78485692201E54E00DE64C3 /* OverlayTranslationFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayTranslationFunction.swift; sourceTree = "<group>"; };
 		E784856A2201E54E00DE64C3 /* RushingForwardTargetNotchPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RushingForwardTargetNotchPolicy.swift; sourceTree = "<group>"; };
-		E784856B2201E54E00DE64C3 /* OverlayScrollViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScrollViewDelegate.swift; sourceTree = "<group>"; };
 		E784856C2201E54E00DE64C3 /* OverlayContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayContainerViewController.swift; sourceTree = "<group>"; };
 		E784856D2201E54E00DE64C3 /* SpringOverlayTranslationAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringOverlayTranslationAnimationController.swift; sourceTree = "<group>"; };
 		E784856E2201E54E00DE64C3 /* PassThroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassThroughView.swift; sourceTree = "<group>"; };
@@ -191,7 +191,6 @@
 			children = (
 				E78485692201E54E00DE64C3 /* OverlayTranslationFunction.swift */,
 				E784856A2201E54E00DE64C3 /* RushingForwardTargetNotchPolicy.swift */,
-				E784856B2201E54E00DE64C3 /* OverlayScrollViewDelegate.swift */,
 				E784856C2201E54E00DE64C3 /* OverlayContainerViewController.swift */,
 				E784856D2201E54E00DE64C3 /* SpringOverlayTranslationAnimationController.swift */,
 				E784856E2201E54E00DE64C3 /* PassThroughView.swift */,
@@ -210,6 +209,7 @@
 				E7B22ABC22A182E6009392EC /* Configuration */,
 				E78485762201E54E00DE64C3 /* Extensions */,
 				E78485712201E54E00DE64C3 /* ConcreteOverlayContainerContextTransitioning.swift */,
+				E783A4B6243CB5C0002C0B93 /* OverlayScrollViewDelegate.swift */,
 				E78485722201E54E00DE64C3 /* ConcreteOverlayContainerContextTargetNotchPolicy.swift */,
 				E78485732201E54E00DE64C3 /* ConcreteOverlayTranslationParameters.swift */,
 				E78485742201E54E00DE64C3 /* OverlayScrollViewDelegateProxy.swift */,
@@ -403,13 +403,13 @@
 				E78485A82201E54E00DE64C3 /* ScrollViewOverlayTranslationDriver.swift in Sources */,
 				E784859D2201E54E00DE64C3 /* UIView+Constraints.swift in Sources */,
 				E78485902201E54E00DE64C3 /* RushingForwardTargetNotchPolicy.swift in Sources */,
-				E78485912201E54E00DE64C3 /* OverlayScrollViewDelegate.swift in Sources */,
 				E78485A42201E54E00DE64C3 /* OverlayTranslationController.swift in Sources */,
 				E78485A02201E54E00DE64C3 /* UIView+Subviews.swift in Sources */,
 				E78485982201E54E00DE64C3 /* ConcreteOverlayTranslationParameters.swift in Sources */,
 				E791BAA4225F284800124D27 /* GroundView.swift in Sources */,
 				E78485A62201E54E00DE64C3 /* PanGestureOverlayTranslationDriver.swift in Sources */,
 				E784858F2201E54E00DE64C3 /* OverlayTranslationFunction.swift in Sources */,
+				E783A4B7243CB5C0002C0B93 /* OverlayScrollViewDelegate.swift in Sources */,
 				E7B22ABE22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift in Sources */,
 				E78485992201E54E00DE64C3 /* OverlayScrollViewDelegateProxy.swift in Sources */,
 				E784859B2201E54E00DE64C3 /* UIPanGesture+Utils.swift in Sources */,
