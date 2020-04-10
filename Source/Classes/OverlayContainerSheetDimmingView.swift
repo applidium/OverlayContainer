@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// An interface that enables a view to coordinate its appearance alongside the container presentation and the presented overlay translations.
+/// An interface that enables a view to coordinate its appearance change alongside the container presentation animations and the presented overlay translations.
 public protocol OverlayContainerSheetDimmingView: UIView {
     /// Notifies the view that the presentation animations are about to start.
     func presentationTransitionWillBegin()
@@ -19,6 +19,8 @@ public protocol OverlayContainerSheetDimmingView: UIView {
     /// Notifies the view that the dismissal animations starts. This method is called in an animation block.
     func dismissalTransitionDidBegin()
     /// Notifies the view that a presented overlay is about to be moved. This method is called in an animation block.
+    ///
+    /// - parameter context: The context object containing information about the current overlay container state.
     func overlayControllerWillTranslate(context: OverlayContainerTransitionCoordinatorContext)
 }
 
@@ -30,7 +32,7 @@ public extension OverlayContainerSheetDimmingView {
     func overlayControllerWillTranslate(context: OverlayContainerTransitionCoordinatorContext) {}
 }
 
-/// An `OverlayContainerSheetDimmingView` class which coordinate its alpha alongside the container presentation
+/// An `OverlayContainerSheetDimmingView` class that coordinates its alpha value alongside the container presentation animations
 /// and the presented overlay translations.
 open class TransparentOverlayContainerSheetDimmingView: UIView, OverlayContainerSheetDimmingView {
 

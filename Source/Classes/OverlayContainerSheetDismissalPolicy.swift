@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// A protocol that provides contextual information on the drag-to-dismiss gesture state.
 public protocol OverlayContainerSheetDismissalPolicyContext: OverlayContainerTransitionContext {
     /// The overlay velocity at the moment the touch was released.
     var velocity: CGPoint { get }
