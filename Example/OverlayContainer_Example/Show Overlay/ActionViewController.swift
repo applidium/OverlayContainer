@@ -16,7 +16,7 @@ class ActionViewController: UIViewController {
 
     weak var delegate: ActionViewControllerDelegate?
 
-    private lazy var button = UIButton()
+    private lazy var button = UIButton(type: .system)
 
     override func loadView() {
         view = UIView()

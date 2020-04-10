@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E7022C91222699BD00AD86B5 /* ModalNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7022C90222699BD00AD86B5 /* ModalNavigationViewController.swift */; };
+		E7397E7E244079C200AAAD57 /* ActivityControllerPresentationLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7397E7D244079C200AAAD57 /* ActivityControllerPresentationLikeViewController.swift */; };
 		E78485DB2201E8E900DE64C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485DA2201E8E900DE64C3 /* AppDelegate.swift */; };
 		E78486022201E95E00DE64C3 /* MapsLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485EE2201E95E00DE64C3 /* MapsLikeViewController.swift */; };
 		E78486032201E95E00DE64C3 /* MapsLikeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E78485EF2201E95E00DE64C3 /* MapsLikeViewController.xib */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		E7022C90222699BD00AD86B5 /* ModalNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationViewController.swift; sourceTree = "<group>"; };
+		E7397E7D244079C200AAAD57 /* ActivityControllerPresentationLikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityControllerPresentationLikeViewController.swift; sourceTree = "<group>"; };
 		E78485D72201E8E900DE64C3 /* OverlayContainer_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OverlayContainer_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E78485DA2201E8E900DE64C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E78485E62201E8EA00DE64C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,6 +89,14 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		E7397E7C2440798400AAAD57 /* ActivityController */ = {
+			isa = PBXGroup;
+			children = (
+				E7397E7D244079C200AAAD57 /* ActivityControllerPresentationLikeViewController.swift */,
+			);
+			path = ActivityController;
+			sourceTree = "<group>";
+		};
 		E78485CE2201E8E900DE64C3 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +117,7 @@
 		E78485D92201E8E900DE64C3 /* OverlayContainer_Example */ = {
 			isa = PBXGroup;
 			children = (
+				E7397E7C2440798400AAAD57 /* ActivityController */,
 				E791BAA5225F5E8800124D27 /* Show Overlay */,
 				E7C4C67722256D93009AD786 /* Modal Navigation */,
 				E78485ED2201E95E00DE64C3 /* Maps */,
@@ -258,6 +269,7 @@
 			files = (
 				E78486022201E95E00DE64C3 /* MapsLikeViewController.swift in Sources */,
 				E784860C2201E95E00DE64C3 /* UIViewController+Children.swift in Sources */,
+				E7397E7E244079C200AAAD57 /* ActivityControllerPresentationLikeViewController.swift in Sources */,
 				E78486042201E95E00DE64C3 /* BackdropExampleViewController.swift in Sources */,
 				E791BAA7225F5ECB00124D27 /* ActionViewController.swift in Sources */,
 				E78486052201E95E00DE64C3 /* SearchViewController.swift in Sources */,
