@@ -32,10 +32,12 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
         let container = OverlayContainerViewController()
         container.viewControllers = [ColoredViewController()]
         container.delegate = self
-        container.transitioningDelegate = self
-        container.modalPresentationStyle = .custom
         container.moveOverlay(toNotchAt: Notch.medium.rawValue, animated: false)
-        present(container, animated: true, completion: nil)
+        let root = UIViewController()
+        root.addChild(container, in: root.view)
+        root.transitioningDelegate = self
+        root.modalPresentationStyle = .custom
+        present(root, animated: true, completion: nil)
     }
 
     // MARK: - UIViewControllerTransitioningDelegate

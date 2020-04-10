@@ -367,7 +367,7 @@ func navigationController(_ navigationController: UINavigationController,
 
 The translation of an overlay view controller can be coupled with the presentation state of its container. Subclass `OverlayContainerPresentationController` to be notified any time an overlay translation occurs in the presented content or use the built-in `OverlayContainerSheetPresentationController` class.
 
-A frequent use case is to reproduce the presentation style of an `UIActivityViewController`. `ActivityControllerPresentationLikeViewController` provides a basic implementation of it:
+A frequent use case is to reproduce the presentation style of an `UIActivityViewController`. [ActivityControllerPresentationLikeViewController](https://github.com/applidium/OverlayContainer/blob/master/Example/OverlayContainer_Example/Present%20Overlay/ActivityControllerPresentationLikeViewController.swift) provides a basic implementation of it:
 
 ```swift
 func displayActivityLikeViewController() {
@@ -394,7 +394,7 @@ If the user taps the background content or drags the overlay down fastly, the co
 
 ### Enabling & disabling notches
 
-`OverlayContainer` provides a easy way to enable & disable notches on the fly. A frequent use case is to show & hide the overlay. `ShowOverlayExampleViewController` provides a basic implementation of it:
+`OverlayContainer` provides a easy way to enable & disable notches on the fly. A frequent use case is to show & hide the overlay. [ShowOverlayExampleViewController](https://github.com/applidium/OverlayContainer/blob/master/Example/OverlayContainer_Example/Disable%20Notch/ShowOverlayExampleViewController.swift) provides a basic implementation of it:
 
 ```swift
 var showsOverlay = false

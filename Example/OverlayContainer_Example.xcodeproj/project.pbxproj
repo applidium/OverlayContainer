@@ -89,12 +89,12 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		E7397E7C2440798400AAAD57 /* ActivityController */ = {
+		E7397E7C2440798400AAAD57 /* Present Overlay */ = {
 			isa = PBXGroup;
 			children = (
 				E7397E7D244079C200AAAD57 /* ActivityControllerPresentationLikeViewController.swift */,
 			);
-			path = ActivityController;
+			path = "Present Overlay";
 			sourceTree = "<group>";
 		};
 		E78485CE2201E8E900DE64C3 = {
@@ -117,8 +117,8 @@
 		E78485D92201E8E900DE64C3 /* OverlayContainer_Example */ = {
 			isa = PBXGroup;
 			children = (
-				E7397E7C2440798400AAAD57 /* ActivityController */,
-				E791BAA5225F5E8800124D27 /* Show Overlay */,
+				E7397E7C2440798400AAAD57 /* Present Overlay */,
+				E791BAA5225F5E8800124D27 /* Disable Notch */,
 				E7C4C67722256D93009AD786 /* Modal Navigation */,
 				E78485ED2201E95E00DE64C3 /* Maps */,
 				E78485F02201E95E00DE64C3 /* Backdrop */,
@@ -178,13 +178,13 @@
 			path = Shortcuts;
 			sourceTree = "<group>";
 		};
-		E791BAA5225F5E8800124D27 /* Show Overlay */ = {
+		E791BAA5225F5E8800124D27 /* Disable Notch */ = {
 			isa = PBXGroup;
 			children = (
 				E791BAA6225F5ECB00124D27 /* ActionViewController.swift */,
 				E791BAA8225F5F6500124D27 /* ShowOverlayExampleViewController.swift */,
 			);
-			path = "Show Overlay";
+			path = "Disable Notch";
 			sourceTree = "<group>";
 		};
 		E7C4C67722256D93009AD786 /* Modal Navigation */ = {
