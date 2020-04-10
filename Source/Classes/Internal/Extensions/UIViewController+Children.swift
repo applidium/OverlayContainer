@@ -21,4 +21,12 @@ extension UIViewController {
         child.view.removeFromSuperview()
         child.removeFromParent()
     }
+
+
+    func oc_findPresentationController<Controller: UIPresentationController>(_ type: Controller.Type) -> Controller? {
+        if let controller = presentationController as? Controller {
+            return controller
+        }
+        return parent?.oc_findPresentationController(Controller.self)
+    }
 }

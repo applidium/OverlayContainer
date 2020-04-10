@@ -310,7 +310,7 @@ open class OverlayContainerViewController: UIViewController {
 extension OverlayContainerViewController: HeightConstraintOverlayTranslationControllerDelegate {
 
     private var overlayPresentationController: OverlayContainerPresentationController? {
-        presentationController as? OverlayContainerPresentationController
+        oc_findPresentationController(OverlayContainerPresentationController.self)
     }
 
     // MARK: - HeightOverlayTranslationControllerDelegate
