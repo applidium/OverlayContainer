@@ -13,6 +13,8 @@
 		E70183212226ABDE00433BB6 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E70183192226A98700433BB6 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E783A4B7243CB5C0002C0B93 /* OverlayScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E783A4B6243CB5C0002C0B93 /* OverlayScrollViewDelegate.swift */; };
 		E783A4B9243CB65A002C0B93 /* OverlayContainerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E783A4B8243CB659002C0B93 /* OverlayContainerPresentationController.swift */; };
+		E783A4BB243CCBBF002C0B93 /* OverlayContainerSheetDismissalPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E783A4BA243CCBBF002C0B93 /* OverlayContainerSheetDismissalPolicy.swift */; };
+		E783A4BD243CCC01002C0B93 /* ConcreteOverlayContainerDimissingPolicyContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E783A4BC243CCC01002C0B93 /* ConcreteOverlayContainerDimissingPolicyContext.swift */; };
 		E784858F2201E54E00DE64C3 /* OverlayTranslationFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485692201E54E00DE64C3 /* OverlayTranslationFunction.swift */; };
 		E78485902201E54E00DE64C3 /* RushingForwardTargetNotchPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784856A2201E54E00DE64C3 /* RushingForwardTargetNotchPolicy.swift */; };
 		E78485922201E54E00DE64C3 /* OverlayContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784856C2201E54E00DE64C3 /* OverlayContainerViewController.swift */; };
@@ -51,7 +53,10 @@
 		E791BAA4225F284800124D27 /* GroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791BAA3225F284800124D27 /* GroundView.swift */; };
 		E791BAAD225F771400124D27 /* CGFloat+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791BAAC225F771400124D27 /* CGFloat+Round.swift */; };
 		E7B22ABE22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B22ABD22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift */; };
+		E7B56C8B243DDEFE00763452 /* OverlayContainerSheetDimmingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B56C8A243DDEFE00763452 /* OverlayContainerSheetDimmingView.swift */; };
 		E7C6C4ED22AEB4E200808C01 /* OverlayTranslationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C6C4EC22AEB4E200808C01 /* OverlayTranslationContainerView.swift */; };
+		E7C839A6243E20E300AE4567 /* OverlayContainerSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C839A5243E20E300AE4567 /* OverlayContainerSheetPresentationController.swift */; };
+		E7C839A8243E235700AE4567 /* OverlayContainerSheetPresentationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C839A7243E235700AE4567 /* OverlayContainerSheetPresentationControllerDelegate.swift */; };
 		E7FD265422A801A100CC4A8F /* DraggingOverlayContainerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD265322A801A100CC4A8F /* DraggingOverlayContainerTransitionCoordinator.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +89,8 @@
 		E701831A2226A98700433BB6 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		E783A4B6243CB5C0002C0B93 /* OverlayScrollViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayScrollViewDelegate.swift; sourceTree = "<group>"; };
 		E783A4B8243CB659002C0B93 /* OverlayContainerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayContainerPresentationController.swift; sourceTree = "<group>"; };
+		E783A4BA243CCBBF002C0B93 /* OverlayContainerSheetDismissalPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContainerSheetDismissalPolicy.swift; sourceTree = "<group>"; };
+		E783A4BC243CCC01002C0B93 /* ConcreteOverlayContainerDimissingPolicyContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreteOverlayContainerDimissingPolicyContext.swift; sourceTree = "<group>"; };
 		E784855C2201E4F700DE64C3 /* OverlayContainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OverlayContainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E78485692201E54E00DE64C3 /* OverlayTranslationFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayTranslationFunction.swift; sourceTree = "<group>"; };
 		E784856A2201E54E00DE64C3 /* RushingForwardTargetNotchPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RushingForwardTargetNotchPolicy.swift; sourceTree = "<group>"; };
@@ -125,7 +132,10 @@
 		E791BAA3225F284800124D27 /* GroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundView.swift; sourceTree = "<group>"; };
 		E791BAAC225F771400124D27 /* CGFloat+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Round.swift"; sourceTree = "<group>"; };
 		E7B22ABD22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayContainerConfigurationImplementation.swift; sourceTree = "<group>"; };
+		E7B56C8A243DDEFE00763452 /* OverlayContainerSheetDimmingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContainerSheetDimmingView.swift; sourceTree = "<group>"; };
 		E7C6C4EC22AEB4E200808C01 /* OverlayTranslationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayTranslationContainerView.swift; sourceTree = "<group>"; };
+		E7C839A5243E20E300AE4567 /* OverlayContainerSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContainerSheetPresentationController.swift; sourceTree = "<group>"; };
+		E7C839A7243E235700AE4567 /* OverlayContainerSheetPresentationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContainerSheetPresentationControllerDelegate.swift; sourceTree = "<group>"; };
 		E7FD265322A801A100CC4A8F /* DraggingOverlayContainerTransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggingOverlayContainerTransitionCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,6 +211,10 @@
 				E784858A2201E54E00DE64C3 /* OverlayTransitioningDelegate.swift */,
 				E784858B2201E54E00DE64C3 /* OverlayContainerViewControllerDelegate.swift */,
 				E783A4B8243CB659002C0B93 /* OverlayContainerPresentationController.swift */,
+				E7C839A5243E20E300AE4567 /* OverlayContainerSheetPresentationController.swift */,
+				E7C839A7243E235700AE4567 /* OverlayContainerSheetPresentationControllerDelegate.swift */,
+				E783A4BA243CCBBF002C0B93 /* OverlayContainerSheetDismissalPolicy.swift */,
+				E7B56C8A243DDEFE00763452 /* OverlayContainerSheetDimmingView.swift */,
 				E78485702201E54E00DE64C3 /* Internal */,
 			);
 			path = Classes;
@@ -212,6 +226,7 @@
 				E7B22ABC22A182E6009392EC /* Configuration */,
 				E78485762201E54E00DE64C3 /* Extensions */,
 				E78485712201E54E00DE64C3 /* ConcreteOverlayContainerContextTransitioning.swift */,
+				E783A4BC243CCC01002C0B93 /* ConcreteOverlayContainerDimissingPolicyContext.swift */,
 				E783A4B6243CB5C0002C0B93 /* OverlayScrollViewDelegate.swift */,
 				E78485722201E54E00DE64C3 /* ConcreteOverlayContainerContextTargetNotchPolicy.swift */,
 				E78485732201E54E00DE64C3 /* ConcreteOverlayTranslationParameters.swift */,
@@ -400,6 +415,7 @@
 				E78485AA2201E54E00DE64C3 /* OverlayContainerView.swift in Sources */,
 				E78485A52201E54E00DE64C3 /* InterruptibleAnimatorOverlayContainerTransitionCoordinator.swift in Sources */,
 				E78485AD2201E54E00DE64C3 /* OverlayTransitioningDelegate.swift in Sources */,
+				E7C839A6243E20E300AE4567 /* OverlayContainerSheetPresentationController.swift in Sources */,
 				E791BAAD225F771400124D27 /* CGFloat+Round.swift in Sources */,
 				E78485A22201E54E00DE64C3 /* OverlayContainerConfiguration.swift in Sources */,
 				E78485972201E54E00DE64C3 /* ConcreteOverlayContainerContextTargetNotchPolicy.swift in Sources */,
@@ -412,14 +428,18 @@
 				E78485982201E54E00DE64C3 /* ConcreteOverlayTranslationParameters.swift in Sources */,
 				E791BAA4225F284800124D27 /* GroundView.swift in Sources */,
 				E78485A62201E54E00DE64C3 /* PanGestureOverlayTranslationDriver.swift in Sources */,
+				E7B56C8B243DDEFE00763452 /* OverlayContainerSheetDimmingView.swift in Sources */,
 				E784858F2201E54E00DE64C3 /* OverlayTranslationFunction.swift in Sources */,
 				E783A4B7243CB5C0002C0B93 /* OverlayScrollViewDelegate.swift in Sources */,
 				E7B22ABE22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift in Sources */,
+				E783A4BB243CCBBF002C0B93 /* OverlayContainerSheetDismissalPolicy.swift in Sources */,
 				E78485992201E54E00DE64C3 /* OverlayScrollViewDelegateProxy.swift in Sources */,
 				E784859B2201E54E00DE64C3 /* UIPanGesture+Utils.swift in Sources */,
+				E7C839A8243E235700AE4567 /* OverlayContainerSheetPresentationControllerDelegate.swift in Sources */,
 				E7C6C4ED22AEB4E200808C01 /* OverlayTranslationContainerView.swift in Sources */,
 				E78485942201E54E00DE64C3 /* PassThroughView.swift in Sources */,
 				E78485932201E54E00DE64C3 /* SpringOverlayTranslationAnimationController.swift in Sources */,
+				E783A4BD243CCC01002C0B93 /* ConcreteOverlayContainerDimissingPolicyContext.swift in Sources */,
 				E784859A2201E54E00DE64C3 /* OverlayTranslationDriver.swift in Sources */,
 				E78485922201E54E00DE64C3 /* OverlayContainerViewController.swift in Sources */,
 				E78485AB2201E54E00DE64C3 /* RubberBandOverlayTranslationFunction.swift in Sources */,
