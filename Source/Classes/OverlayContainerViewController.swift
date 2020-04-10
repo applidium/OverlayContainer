@@ -309,23 +309,41 @@ open class OverlayContainerViewController: UIViewController {
 
 extension OverlayContainerViewController: HeightConstraintOverlayTranslationControllerDelegate {
 
+    private var overlayPresentationController: OverlayContainerPresentationController? {
+        presentationController as? OverlayContainerPresentationController
+    }
+
     // MARK: - HeightOverlayTranslationControllerDelegate
 
     func translationController(_ translationController: OverlayTranslationController,
                                didMoveOverlayToNotchAt index: Int) {
         guard let controller = topViewController else { return }
         delegate?.overlayContainerViewController(self, didMoveOverlay: controller, toNotchAt: index)
+        overlayPresentationController?.overlayContainerViewController(
+            self,
+            didMoveOverlay: controller,
+            toNotchAt: index
+        )
     }
 
     func translationController(_ translationController: OverlayTranslationController,
                                willMoveOverlayToNotchAt index: Int) {
         guard let controller = topViewController else { return }
         delegate?.overlayContainerViewController(self, willMoveOverlay: controller, toNotchAt: index)
+        overlayPresentationController?.overlayContainerViewController(
+            self,
+            willMoveOverlay: controller,
+            toNotchAt: index
+        )
     }
 
     func translationControllerWillStartDraggingOverlay(_ translationController: OverlayTranslationController) {
         guard let controller = topViewController else { return }
         delegate?.overlayContainerViewController(
+            self,
+            willStartDraggingOverlay: controller
+        )
+        overlayPresentationController?.overlayContainerViewController(
             self,
             willStartDraggingOverlay: controller
         )
@@ -335,6 +353,11 @@ extension OverlayContainerViewController: HeightConstraintOverlayTranslationCont
                                willEndDraggingAtVelocity velocity: CGPoint) {
         guard let controller = topViewController else { return }
         delegate?.overlayContainerViewController(
+            self,
+            willEndDraggingOverlay: controller,
+            atVelocity: velocity
+        )
+        overlayPresentationController?.overlayContainerViewController(
             self,
             willEndDraggingOverlay: controller,
             atVelocity: velocity
@@ -352,6 +375,11 @@ extension OverlayContainerViewController: HeightConstraintOverlayTranslationCont
             self?.overlayTranslationContainerView.layoutIfNeeded()
         }, completion: nil)
         delegate?.overlayContainerViewController(
+            self,
+            willTranslateOverlay: controller,
+            transitionCoordinator: transitionCoordinator
+        )
+        overlayPresentationController?.overlayContainerViewController(
             self,
             willTranslateOverlay: controller,
             transitionCoordinator: transitionCoordinator
