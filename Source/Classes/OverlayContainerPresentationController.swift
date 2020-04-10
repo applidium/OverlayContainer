@@ -9,7 +9,7 @@ import UIKit
 
 /// An abstract class that can be used to manage the transition animations and the presentation of overlay containers onscreen.
 ///
-/// Any overlay containers currently in the presented view controller hierarchy will be tightly coupled to it.
+/// Any overlay containers currently in the presented view controller hierarchy will be coupled with it.
 /// It lets you add custom presentation behaviors based on the current state of the presented overlay containers.
 ///
 /// This class is meant to be subclassed. Before you consider subclassing, though, you should look at
