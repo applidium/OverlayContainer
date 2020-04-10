@@ -33,6 +33,8 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
 
     private var dismissalContext = ConcreteOverlayContainerDismissalPolicyContext()
 
+    private lazy var tapGestureRecognizerView: UIView = self.makeTapGestureRecognizerView()
+
     // MARK: - Life Cycle
 
     /// Initializes and returns a presentation controller for transitioning between the specified view controllers.
@@ -77,8 +79,8 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
 
     open override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
-        setUpTapGesture()
         startDimmingViewPresentationTransition()
+        setUpTapGesture()
     }
 
     open override func dismissalTransitionWillBegin() {
@@ -103,7 +105,11 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
 
     private func setUpTapGesture() {
         guard dismissingTapGestureRecognizer.view == nil else { return }
-        containerView?.addGestureRecognizer(dismissingTapGestureRecognizer)
+        if tapGestureRecognizerView.superview == nil {
+            containerView?.addSubview(tapGestureRecognizerView)
+            tapGestureRecognizerView.pinToSuperview()
+        }
+        tapGestureRecognizerView.addGestureRecognizer(dismissingTapGestureRecognizer)
     }
 
     private func startDimmingViewPresentationTransition() {
@@ -129,6 +135,10 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
 
     private func makeDismissalPolicy() -> OverlayContainerSheetDismissalPolicy {
         sheetDelegate?.overlayContainerSheetDismissalPolicy(for: self) ?? DefaultOverlayContainerSheetDismissalPolicy()
+    }
+
+    private func makeTapGestureRecognizerView() -> UIView {
+        UIView()
     }
 
     private func makeTapGestureRecognizer() -> UITapGestureRecognizer {
