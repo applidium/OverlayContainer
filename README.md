@@ -62,7 +62,8 @@ See the provided examples for help or feel free to ask directly.
   - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
   - [Multiple overlays](#multiple-overlays)
-  - [Showing & Hiding the overlay](#showing--hiding-the-overlay)
+  - [Presenting an overlay container](#presenting-an-overlay-container)
+  - [Enabling & disabling notches](#enabling--disabling-notches)
   - [Backdrop view](#backdrop-view)
   - [Safe Area](#safe-area)
   - [Custom Translation](#custom-translation)
@@ -362,7 +363,36 @@ func navigationController(_ navigationController: UINavigationController,
 
 `OverlayNavigationAnimationController` tweaks the native behavior of the `UINavigationController`: it slides the pushed view controllers up from the bottom of the screen. Feel free to add shadows and modify the animation curve depending on your needs. The only restriction is that you can not push an `UINavigationController` inside another `UINavigationController`.
 
-### Showing & Hiding the overlay
+### Presenting an overlay container
+
+The translation of an overlay view controller can be coupled with the presentation state of its container. Subclass `OverlayContainerPresentationController` to be notified any time an overlay translation occurs in the presented content or use the built-in `OverlayContainerSheetPresentationController` class.
+
+A frequent use case is to reproduce the presentation style of an `UIActivityViewController`. `ActivityControllerPresentationLikeViewController` provides a basic implementation of it:
+
+```swift
+func displayActivityLikeViewController() {
+    let container = OverlayContainerViewController()
+    container.viewControllers = [MyActivityViewController()]
+    container.transitioningDelegate = self
+    container.modalPresentationStyle = .custom
+    present(container, animated: true, completion: nil)
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+
+func presentationController(forPresented presented: UIViewController,
+                            presenting: UIViewController?,
+                            source: UIViewController) -> UIPresentationController? {
+    return OverlayContainerSheetPresentationController(
+        presentedViewController: presented,
+        presenting: presenting
+    )
+}
+```
+
+If the user taps the background content or drags the overlay down fastly, the container controller will be automatically dismissed.
+
+### Enabling & disabling notches
 
 `OverlayContainer` provides a easy way to enable & disable notches on the fly. A frequent use case is to show & hide the overlay. `ShowOverlayExampleViewController` provides a basic implementation of it:
 
@@ -389,7 +419,6 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
         return 0
     }
 }
-
 
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                     canReachNotchAt index: Int,
