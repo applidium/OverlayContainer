@@ -7,23 +7,17 @@
 
 import UIKit
 
-/// A protocol that provides contextual information on the current overlay's translation.
+/// A protocol that provides contextual information on the current overlay translation.
 ///
 /// Do not adopt this protocol in your own classes, use the one provided in `OverlayTranslationTargetNotchPolicy`.
-public protocol OverlayContainerContextTargetNotchPolicy {
+public protocol OverlayContainerContextTargetNotchPolicy: OverlayContainerTransitionContext {
     /// The manipulated child view controller.
     var overlayViewController: UIViewController { get }
-    /// The current translation height.
-    var overlayTranslationHeight: CGFloat { get }
     /// The overlay velocity at the moment the touch was released.
     var velocity: CGPoint { get }
-    /// The indexes considered as reachable by the container.
-    var reachableIndexes: [Int] { get }
-    /// Returns the height of the specified notch.
-    func height(forNotchAt index: Int) -> CGFloat
 }
 
-/// A protocol that provides contextual information on the current overlay's translation.
+/// A protocol that provides contextual information on the current overlay translation.
 ///
 /// Do not adopt this protocol in your own classes, use the one provided in `OverlayAnimatedTransitioning`.
 public protocol OverlayContainerContextTransitioning {
@@ -45,7 +39,7 @@ public protocol OverlayContainerContextTransitioning {
     func height(forNotchAt index: Int) -> CGFloat
 }
 
-/// A protocol that manages the container's behavior once the user finishes dragging.
+/// A protocol that manages the container behavior once the user finishes dragging.
 ///
 /// Adopt this protocol to provide your own translation behavior.
 public protocol OverlayTransitioningDelegate: class {

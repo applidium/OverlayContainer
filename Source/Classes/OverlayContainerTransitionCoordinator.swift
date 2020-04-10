@@ -7,16 +7,8 @@
 
 import UIKit
 
-/// A protocol that provides information about an in-progress translation.
-/// Do not adopt this protocol in your own classes. Use the one provided by the `OverlayContainerTransitionCoordinator`.
-public protocol OverlayContainerTransitionCoordinatorContext {
-
-    /// A Boolean value indicating whether the transition is explicitly animated.
-    var isAnimated: Bool { get }
-    /// A Boolean value indicating whether the transition was cancelled.
-    var isCancelled: Bool { get }
-    /// The notch's height the container expects to reach.
-    var targetTranslationHeight: CGFloat { get }
+/// A protocol that provides information about the current overlay translation.
+public protocol OverlayContainerTransitionContext {
     /// The current translation height.
     var overlayTranslationHeight: CGFloat { get }
     /// The notch indexes.
@@ -27,17 +19,7 @@ public protocol OverlayContainerTransitionCoordinatorContext {
     func height(forNotchAt index: Int) -> CGFloat
 }
 
-/// A protocol that provides support for animations associated with a overlay translation.
-///
-/// Do not adopt this procotol in your own classes. Use the one provided by the `OverlayContainerDelegate` to
-/// add any extra animations alongside the translation animations.
-public protocol OverlayContainerTransitionCoordinator: OverlayContainerTransitionCoordinatorContext {
-    /// Runs the specified animations at the same time as overlay translation end animations.
-    func animate(alongsideTransition animation: ((OverlayContainerTransitionCoordinatorContext) -> Void)?,
-                 completion: ((OverlayContainerTransitionCoordinatorContext) -> Void)?)
-}
-
-public extension OverlayContainerTransitionCoordinatorContext {
+public extension OverlayContainerTransitionContext {
 
     func minimumReachableHeight() -> CGFloat {
         return reachableIndexes.first.flatMap { height(forNotchAt: $0) } ?? 0
@@ -54,6 +36,31 @@ public extension OverlayContainerTransitionCoordinatorContext {
     func maximumHeight() -> CGFloat {
         return notchIndexes.last.flatMap { height(forNotchAt: $0) } ?? 0
     }
+}
+
+
+/// A protocol that provides information about an in-progress translation.
+/// Do not adopt this protocol in your own classes. Use the one provided by the `OverlayContainerTransitionCoordinator`.
+public protocol OverlayContainerTransitionCoordinatorContext: OverlayContainerTransitionContext {
+    /// A Boolean value indicating whether the transition is explicitly animated.
+    var isAnimated: Bool { get }
+    /// A Boolean value indicating whether the transition was cancelled.
+    var isCancelled: Bool { get }
+    /// The notch height the container expects to reach.
+    var targetTranslationHeight: CGFloat { get }
+}
+
+/// A protocol that provides support for animations associated with a overlay translation.
+///
+/// Do not adopt this procotol in your own classes. Use the one provided by the `OverlayContainerDelegate` to
+/// add any extra animations alongside the translation animations.
+public protocol OverlayContainerTransitionCoordinator: OverlayContainerTransitionCoordinatorContext {
+    /// Runs the specified animations at the same time as overlay translation end animations.
+    func animate(alongsideTransition animation: ((OverlayContainerTransitionCoordinatorContext) -> Void)?,
+                 completion: ((OverlayContainerTransitionCoordinatorContext) -> Void)?)
+}
+
+public extension OverlayContainerTransitionCoordinatorContext {
 
     func translationProgress() -> CGFloat {
         let maximum = maximumReachableHeight()
