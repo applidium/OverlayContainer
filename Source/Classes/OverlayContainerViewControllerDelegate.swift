@@ -33,7 +33,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
                                         heightForNotchAt index: Int,
                                         availableSpace: CGFloat) -> CGFloat
 
-    /// Asks the delegate for a scroll view driving the overlay view controller's translation.
+    /// Asks the delegate for a scroll view driving the overlay view controller translation.
     ///
     /// The container view controller can coordinate the scrolling of a scroll view
     /// to the overlay view controller translation. The overlay will be moved up & down as the user scrolls.
@@ -106,13 +106,13 @@ public protocol OverlayContainerViewControllerDelegate: class {
     /// Tells the delegate whenever the overlay view controller is about to be translated.
     ///
     /// The delegate typically implements this method to coordinate changes alongside
-    /// the overlay view controller's translation.
+    /// the overlay view controller translation.
     ///
     /// For instance, the container may call this method for the following reasons:
     ///
     /// - The user is dragging the overlay view controller
     /// - The user finishs dragging the overlay view controller and the container is about to move
-    /// it to the notch specified by the current target notch policy
+    /// to the notch specified by the current target notch policy
     /// - You called `moveOverlay(toNotchAt:animated:completion:)`
     ///
     /// - parameter containerViewController: The container requesting this information.
@@ -124,7 +124,7 @@ public protocol OverlayContainerViewControllerDelegate: class {
 
     /// Asks the delegate for a translation function when dragging the specified view controller.
     ///
-    /// The function is only used for translation based on the container's pan gesture recognizer.
+    /// The function is only used for translation based on the container pan gesture recognizer.
     ///
     /// - parameter containerViewController: The container requesting this information.
     /// - parameter overlayViewController: The overlay view controller.

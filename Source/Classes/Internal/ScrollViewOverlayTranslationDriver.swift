@@ -14,7 +14,7 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
 
     private let scrollViewDelegateProxy = OverlayScrollViewDelegateProxy()
 
-    // (gz) 2018-11-27 The overlay's transaction is not always equal to the scroll view translation.
+    // (gz) 2018-11-27 The overlay transaction is not always equal to the scroll view translation.
     // The user can scroll bottom then drag the overlay up repeatedly in a single gesture.
     private var overlayTranslation: CGFloat = 0
     private var scrollViewTranslation: CGFloat = 0
@@ -113,7 +113,7 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
         switch controller.translationPosition {
         case .inFlight, .top:
             // (gz) 2018-11-26 The user raised its finger in the top or in flight positions while scrolling bottom.
-            // If the scroll's animation did not finish when the user translates the overlay,
+            // If the scroll animation did not finish when the user translates the overlay,
             // the content offset may have exceeded the top inset. We adjust it.
             if contentOffset.y < topInset {
                 contentOffset.y = topInset
@@ -122,7 +122,7 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
             break
         }
         // (gz) 2018-11-26 Between two `overlayScrollViewDidScroll:` calls,
-        // the scrollView exceeds the top's contentInset. We adjust the target.
+        // the scrollView exceeds the top contentInset. We adjust the target.
         if (contentOffset.y - topInset) * (scrollView.contentOffset.y - topInset) < 0 {
             contentOffset.y = topInset
         }

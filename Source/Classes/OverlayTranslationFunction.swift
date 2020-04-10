@@ -14,11 +14,11 @@ public protocol OverlayTranslationParameters {
     var minimumHeight: CGFloat { get }
     /// The maximum translation height
     var maximumHeight: CGFloat { get }
-    /// The user's finger translation
+    /// The user finger translation
     var translation: CGFloat { get }
 }
 
-/// A `OverlayTranslationFunction` defines the relation between the user's finger translation
+/// A `OverlayTranslationFunction` defines the relation between the user finger translation
 /// and the actual overlay translation.
 ///
 /// Adopt this protocol to tweak the native translation behavior. You can also use the provided

@@ -30,7 +30,7 @@ open class OverlayContainerViewController: UIViewController {
         case expandableHeight
     }
 
-    /// The container's delegate.
+    /// The delegate of the container.
     open weak var delegate: OverlayContainerViewControllerDelegate? {
         set {
             configuration.delegate = newValue
@@ -76,7 +76,7 @@ open class OverlayContainerViewController: UIViewController {
         return view.frame.height
     }
 
-    /// The overlay container's style.
+    /// The style of the container.
     public let style: OverlayStyle
 
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
@@ -100,7 +100,7 @@ open class OverlayContainerViewController: UIViewController {
 
     /// Creates an instance with the specified `style`.
     ///
-    /// - parameter style: The style uses by the container. The default value is `flexibleHeight`.
+    /// - parameter style: The style used by the container. The default value is `flexibleHeight`.
     ///
     /// - returns: The new `OverlayContainerViewController` instance.
     public init(style: OverlayStyle = .flexibleHeight) {
@@ -172,7 +172,7 @@ open class OverlayContainerViewController: UIViewController {
         setNeedsOverlayContainerHeightUpdate()
     }
 
-    /// Invalidates the current container's notches.
+    /// Invalidates the current container notches.
     ///
     /// This method does not reload the notch heights immediately. The changes are scheduled to the next layout pass.
     /// By default, the overlay container will use its target notch policy to determine where to go
