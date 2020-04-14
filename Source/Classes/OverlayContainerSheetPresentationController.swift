@@ -10,7 +10,7 @@ import UIKit
 
 /// An `OverlayContainerPresentationController` subclass that can be used to manage the transition animations and the presentation of overlay containers onscreen.
 ///
-/// It adds a dimming layer over the presenting content and change its appearance based on the current container translations.
+/// It adds a dimming layer over the presenting content and changes its appearance based on the current container translations.
 /// It also includes two dismissal gestures: tap-to-dismiss and drag-to-dismiss.
 ///
 /// You can subclass this class if you need an extra level of customization.
