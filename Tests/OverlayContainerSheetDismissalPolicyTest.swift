@@ -53,54 +53,53 @@ class OverlayContainerSheetDismissalPolicyTest: QuickSpec {
 
         it("should dismiss if the translation reaches the threshold") {
             context.overlayTranslationHeight = 190
-            policy.ignoresTranslationVelocity = true
-            policy.threshold = .translationHeight(200)
+            policy.velocityThreshold = .none
+            policy.positionThreshold = .translationHeight(200)
             expect(policy.shouldDismiss(using: context)).to(beTrue())
         }
 
         it("should not dismiss if the translation does not reach the threshold") {
             context.overlayTranslationHeight = 200
-            policy.ignoresTranslationVelocity = true
-            policy.threshold = .translationHeight(100)
+            policy.velocityThreshold = .none
+            policy.positionThreshold = .translationHeight(100)
             expect(policy.shouldDismiss(using: context)).to(beFalse())
         }
 
         it("should dismiss if the translation reaches the threshold notch") {
             context.overlayTranslationHeight = context.height(forNotchAt: Notch.med.rawValue) - 1
-            policy.ignoresTranslationVelocity = true
-            policy.threshold = .notch(index: Notch.med.rawValue)
+            policy.velocityThreshold = .none
+            policy.positionThreshold = .notch(index: Notch.med.rawValue)
             expect(policy.shouldDismiss(using: context)).to(beTrue())
         }
 
         it("should not dismiss if the translation does not reach the threshold notch") {
             context.overlayTranslationHeight = context.height(forNotchAt: Notch.med.rawValue) + 1
-            policy.ignoresTranslationVelocity = true
-            policy.threshold = .notch(index: Notch.med.rawValue)
+            policy.velocityThreshold = .none
+            policy.positionThreshold = .notch(index: Notch.med.rawValue)
             expect(policy.shouldDismiss(using: context)).to(beFalse())
         }
 
         it("should ignore the notch height if threashold is none") {
             context.overlayTranslationHeight = 0
-            policy.ignoresTranslationVelocity = true
-            policy.threshold = .none
+            context.velocity.y = 100000
+            policy.velocityThreshold = .none
+            policy.positionThreshold = .none
             expect(policy.shouldDismiss(using: context)).to(beFalse())
         }
 
         it("should dismiss if the translation velocity reaches the threshold") {
             context.overlayTranslationHeight = 0
             context.velocity.y = 1000
-            policy.ignoresTranslationVelocity = false
-            policy.triggeringVelocity = 900
-            policy.threshold = .none
+            policy.velocityThreshold = .value(900)
+            policy.positionThreshold = .none
             expect(policy.shouldDismiss(using: context)).to(beTrue())
         }
 
         it("should not dismiss if the translation velocity does not reach the threshold") {
             context.overlayTranslationHeight = 0
             context.velocity.y = 900
-            policy.ignoresTranslationVelocity = false
-            policy.triggeringVelocity = 1000
-            policy.threshold = .none
+            policy.velocityThreshold = .value(1000)
+            policy.positionThreshold = .none
             expect(policy.shouldDismiss(using: context)).to(beFalse())
         }
     }

@@ -24,25 +24,11 @@ public protocol OverlayContainerSheetDismissalPolicy {
     func shouldDismiss(using context: OverlayContainerSheetDismissalPolicyContext) -> Bool
 }
 
-/// A policy that disables the drag-to-dismiss gesture.
-public struct DisabledOverlayContainerSheetDismissalPolicy: OverlayContainerSheetDismissalPolicy {
-
-    // MARK: - Life Cycle
-
-    public init() {}
-
-    // MARK: - OverlayContainerDismissalPolicy
-
-    public func shouldDismiss(using context: OverlayContainerSheetDismissalPolicyContext) -> Bool {
-        return false
-    }
-}
-
 /// The policy used by the sheet presentation controller by default.
 public struct DefaultOverlayContainerSheetDismissalPolicy: OverlayContainerSheetDismissalPolicy {
 
-    /// `DismissingThreshold` defines a threshold from which the overlay container will be dismissed.
-    public enum DismissingThreshold {
+    /// `PositionThreshold` defines a position threshold from which the overlay container will be dismissed.
+    public enum PositionThreshold {
         /// The policy ignores the overlay translation height
         case none
         /// If the overlay goes under the specified notch, the policy dismisses it.
@@ -51,34 +37,38 @@ public struct DefaultOverlayContainerSheetDismissalPolicy: OverlayContainerSheet
         case translationHeight(CGFloat)
     }
 
-    /// A boolean indicating whether the policy should ignore the current velocity of the drag gesture.
-    public var ignoresTranslationVelocity: Bool
-    /// The velocity that could trigger a dismissal.
-    public var triggeringVelocity: CGFloat
-    /// The threshold that could trigger a dismissal.
-    public var threshold: DismissingThreshold
+    /// `VelocityThreshold` defines a velocity threshold from which the overlay container will be dismissed.
+    public enum VelocityThreshold {
+        /// The policy ignores the overlay translation velocity
+        case none
+        /// If the overlay goes faster than the specified value, the policy dismisses the container.
+        case value(CGFloat)
+    }
+
+    /// A velocity threshold that can trigger a dismissal.
+    public var velocityThreshold: VelocityThreshold
+
+    /// A position threshold that can trigger a dismissal.
+    public var positionThreshold: PositionThreshold
 
     // MARK: - Life Cycle
 
     /// Creates a `DefaultOverlayContainerSheetDismissalPolicy` instance.
     ///
-    /// - parameter ignoresTranslationVelocity: A boolean indicating whether the policy should ignore the current velocity of the drag gesture. The default value is `false`.
-    /// - parameter triggeringVelocity:  The velocity that could trigger a dismissal in pts/s. The default value is `2000.0` pts/s.
-    /// - parameter threshold: The threshold that could trigger a dismissal. The default value is the first container notch.
+    /// - parameter velocityThreshold: The velocity threshold that can trigger a dismissal. The default value is `2000.0` pts/s.
+    /// - parameter positionThreshold: The position threshold that can trigger a dismissal. The default value is the first container notch.
     ///
     /// - returns: The new`DefaultOverlayContainerSheetDismissalPolicy` instance.
-    public init(ignoresTranslationVelocity: Bool = false,
-                triggeringVelocity: CGFloat = 2000.0,
-                threshold: DismissingThreshold = .notch(index: 0)) {
-        self.ignoresTranslationVelocity = ignoresTranslationVelocity
-        self.triggeringVelocity = triggeringVelocity
-        self.threshold = threshold
+    public init(velocityThreshold: VelocityThreshold = .value(2000.0),
+                positionThreshold: PositionThreshold = .notch(index: 0)) {
+        self.velocityThreshold = velocityThreshold
+        self.positionThreshold = positionThreshold
     }
 
     // MARK: - OverlayContainerDimissingPolicy
 
     public func shouldDismiss(using context: OverlayContainerSheetDismissalPolicyContext) -> Bool {
-        switch threshold {
+        switch positionThreshold {
         case .none:
             break
         case let .notch(index):
@@ -90,6 +80,11 @@ public struct DefaultOverlayContainerSheetDismissalPolicy: OverlayContainerSheet
                 return true
             }
         }
-        return context.velocity.y > triggeringVelocity && !ignoresTranslationVelocity
+        switch velocityThreshold {
+        case .none:
+            return false
+        case let .value(value):
+            return context.velocity.y > value
+        }
     }
 }
