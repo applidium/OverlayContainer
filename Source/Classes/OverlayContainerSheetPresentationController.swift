@@ -72,7 +72,9 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
                                                       willTranslateOverlay overlayViewController: UIViewController,
                                                       transitionCoordinator: OverlayContainerTransitionCoordinator) {
         dismissalContext.complete(with: transitionCoordinator)
-        dimmingView?.overlayControllerWillTranslate(context: transitionCoordinator)
+        transitionCoordinator.animate(alongsideTransition: { [weak self] context in
+            self?.dimmingView?.overlayControllerWillTranslate(context: context)
+        }, completion: nil)
     }
 
     // MARK: - UIPresentationController
