@@ -104,7 +104,10 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     // MARK: - Private
 
     private func setUpTapGesture() {
-        guard dismissingTapGestureRecognizer.view == nil else { return }
+        guard dismissingTapGestureRecognizer.view == nil,
+            dismissingTapGestureRecognizer.isEnabled else {
+                return
+        }
         if tapGestureRecognizerView.superview == nil {
             containerView?.addSubview(tapGestureRecognizerView)
             tapGestureRecognizerView.pinToSuperview()
