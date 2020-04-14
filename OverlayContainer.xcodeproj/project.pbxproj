@@ -52,6 +52,7 @@
 		E78486542201EA9400DE64C3 /* OverlayNotchHeightTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78485C42201E66500DE64C3 /* OverlayNotchHeightTest.swift */; };
 		E791BAA4225F284800124D27 /* GroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791BAA3225F284800124D27 /* GroundView.swift */; };
 		E791BAAD225F771400124D27 /* CGFloat+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791BAAC225F771400124D27 /* CGFloat+Round.swift */; };
+		E7A6A3AC24460D1A00E51F7A /* OverlayContainerSheetDismissalPolicyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A6A3AA24460B5E00E51F7A /* OverlayContainerSheetDismissalPolicyTest.swift */; };
 		E7B22ABE22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B22ABD22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift */; };
 		E7B56C8B243DDEFE00763452 /* OverlayContainerSheetDimmingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B56C8A243DDEFE00763452 /* OverlayContainerSheetDimmingView.swift */; };
 		E7C6C4ED22AEB4E200808C01 /* OverlayTranslationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C6C4EC22AEB4E200808C01 /* OverlayTranslationContainerView.swift */; };
@@ -131,6 +132,7 @@
 		E78486472201EA7400DE64C3 /* OverlayContainer_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OverlayContainer_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E791BAA3225F284800124D27 /* GroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundView.swift; sourceTree = "<group>"; };
 		E791BAAC225F771400124D27 /* CGFloat+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Round.swift"; sourceTree = "<group>"; };
+		E7A6A3AA24460B5E00E51F7A /* OverlayContainerSheetDismissalPolicyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContainerSheetDismissalPolicyTest.swift; sourceTree = "<group>"; };
 		E7B22ABD22A182F4009392EC /* OverlayContainerConfigurationImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayContainerConfigurationImplementation.swift; sourceTree = "<group>"; };
 		E7B56C8A243DDEFE00763452 /* OverlayContainerSheetDimmingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContainerSheetDimmingView.swift; sourceTree = "<group>"; };
 		E7C6C4EC22AEB4E200808C01 /* OverlayTranslationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayTranslationContainerView.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				E78485C22201E66500DE64C3 /* OverlayScrollViewDelegateTest.swift */,
 				E78485C32201E66500DE64C3 /* OverlayInsertionTest.swift */,
 				E78485C42201E66500DE64C3 /* OverlayNotchHeightTest.swift */,
+				E7A6A3AA24460B5E00E51F7A /* OverlayContainerSheetDismissalPolicyTest.swift */,
 				E78485C52201E66500DE64C3 /* Info.plist */,
 			);
 			path = Tests;
@@ -451,6 +454,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7A6A3AC24460D1A00E51F7A /* OverlayContainerSheetDismissalPolicyTest.swift in Sources */,
 				E78486522201EA9400DE64C3 /* OverlayScrollViewDelegateTest.swift in Sources */,
 				E78486532201EA9400DE64C3 /* OverlayInsertionTest.swift in Sources */,
 				E78486542201EA9400DE64C3 /* OverlayNotchHeightTest.swift in Sources */,
