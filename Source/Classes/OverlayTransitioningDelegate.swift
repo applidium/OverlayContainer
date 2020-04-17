@@ -56,3 +56,14 @@ public protocol OverlayAnimatedTransitioning {
     /// Returns the animator that will animate the end of the translation.
     func interruptibleAnimator(using context: OverlayContainerContextTransitioning) -> UIViewImplicitlyAnimating
 }
+
+public extension OverlayTransitioningDelegate {
+
+    func overlayTargetNotchPolicy(for overlayViewController: UIViewController) -> OverlayTranslationTargetNotchPolicy? {
+        nil
+    }
+
+    func animationController(for overlayViewController: UIViewController) -> OverlayAnimatedTransitioning? {
+        nil
+    }
+}
