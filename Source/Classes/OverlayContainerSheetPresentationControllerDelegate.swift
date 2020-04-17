@@ -13,7 +13,7 @@ public protocol OverlayContainerSheetPresentationControllerDelegate: AnyObject {
 
     /// Asks the delegate for the dismissal policy associated to the specified presentation controller.
     ///
-    /// The default implementation of this method returns a `DefaultOverlayContainerSheetDismissalPolicy` instance.
+    /// The default implementation of this method returns a `ThresholdOverlayContainerSheetDismissalPolicy` instance.
     ///
     /// - parameter presentationController: The presentation controller requesting this information.
     func overlayContainerSheetDismissalPolicy(for presentationController: OverlayContainerSheetPresentationController) -> OverlayContainerSheetDismissalPolicy

@@ -44,62 +44,62 @@ class OverlayContainerSheetDismissalPolicyTest: QuickSpec {
     override func spec() {
 
         var context: FakeOverlayContainerSheetDismissalPolicyContext!
-        var policy: DefaultOverlayContainerSheetDismissalPolicy!
+        var policy: ThresholdOverlayContainerSheetDismissalPolicy!
 
         beforeEach {
-            policy = DefaultOverlayContainerSheetDismissalPolicy()
+            policy = ThresholdOverlayContainerSheetDismissalPolicy()
             context = FakeOverlayContainerSheetDismissalPolicyContext()
         }
 
         it("should dismiss if the translation reaches the threshold") {
             context.overlayTranslationHeight = 190
-            policy.velocityThreshold = .none
-            policy.positionThreshold = .translationHeight(200)
+            policy.dismissingVelocity = .none
+            policy.dismissingPosition = .translationHeight(200)
             expect(policy.shouldDismiss(using: context)).to(beTrue())
         }
 
         it("should not dismiss if the translation does not reach the threshold") {
             context.overlayTranslationHeight = 200
-            policy.velocityThreshold = .none
-            policy.positionThreshold = .translationHeight(100)
+            policy.dismissingVelocity = .none
+            policy.dismissingPosition = .translationHeight(100)
             expect(policy.shouldDismiss(using: context)).to(beFalse())
         }
 
         it("should dismiss if the translation reaches the threshold notch") {
             context.overlayTranslationHeight = context.height(forNotchAt: Notch.med.rawValue) - 1
-            policy.velocityThreshold = .none
-            policy.positionThreshold = .notch(index: Notch.med.rawValue)
+            policy.dismissingVelocity = .none
+            policy.dismissingPosition = .notch(index: Notch.med.rawValue)
             expect(policy.shouldDismiss(using: context)).to(beTrue())
         }
 
         it("should not dismiss if the translation does not reach the threshold notch") {
             context.overlayTranslationHeight = context.height(forNotchAt: Notch.med.rawValue) + 1
-            policy.velocityThreshold = .none
-            policy.positionThreshold = .notch(index: Notch.med.rawValue)
+            policy.dismissingVelocity = .none
+            policy.dismissingPosition = .notch(index: Notch.med.rawValue)
             expect(policy.shouldDismiss(using: context)).to(beFalse())
         }
 
         it("should ignore the notch height if threashold is none") {
             context.overlayTranslationHeight = 0
             context.velocity.y = 100000
-            policy.velocityThreshold = .none
-            policy.positionThreshold = .none
+            policy.dismissingVelocity = .none
+            policy.dismissingPosition = .none
             expect(policy.shouldDismiss(using: context)).to(beFalse())
         }
 
         it("should dismiss if the translation velocity reaches the threshold") {
             context.overlayTranslationHeight = 0
             context.velocity.y = 1000
-            policy.velocityThreshold = .value(900)
-            policy.positionThreshold = .none
+            policy.dismissingVelocity = .value(900)
+            policy.dismissingPosition = .none
             expect(policy.shouldDismiss(using: context)).to(beTrue())
         }
 
         it("should not dismiss if the translation velocity does not reach the threshold") {
             context.overlayTranslationHeight = 0
             context.velocity.y = 900
-            policy.velocityThreshold = .value(1000)
-            policy.positionThreshold = .none
+            policy.dismissingVelocity = .value(1000)
+            policy.dismissingPosition = .none
             expect(policy.shouldDismiss(using: context)).to(beFalse())
         }
     }

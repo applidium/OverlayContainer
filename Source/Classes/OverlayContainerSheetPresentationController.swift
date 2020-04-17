@@ -139,7 +139,7 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     }
 
     private func makeDismissalPolicy() -> OverlayContainerSheetDismissalPolicy {
-        sheetDelegate?.overlayContainerSheetDismissalPolicy(for: self) ?? DefaultOverlayContainerSheetDismissalPolicy()
+        sheetDelegate?.overlayContainerSheetDismissalPolicy(for: self) ?? ThresholdOverlayContainerSheetDismissalPolicy()
     }
 
     private func makeTapGestureRecognizerView() -> UIView {
@@ -158,6 +158,6 @@ public extension OverlayContainerSheetPresentationControllerDelegate {
     }
 
     func overlayContainerSheetDismissalPolicy(for presentationController: OverlayContainerSheetPresentationController) -> OverlayContainerSheetDismissalPolicy {
-        DefaultOverlayContainerSheetDismissalPolicy()
+        ThresholdOverlayContainerSheetDismissalPolicy()
     }
 }

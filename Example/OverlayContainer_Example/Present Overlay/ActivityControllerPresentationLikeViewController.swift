@@ -60,8 +60,8 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
     // MARK: - OverlayContainerSheetPresentationControllerDelegate
 
     func overlayContainerSheetDismissalPolicy(for presentationController: OverlayContainerSheetPresentationController) -> OverlayContainerSheetDismissalPolicy {
-        var policy = DefaultOverlayContainerSheetDismissalPolicy()
-        policy.positionThreshold = .notch(index: Notch.medium.rawValue)
+        var policy = ThresholdOverlayContainerSheetDismissalPolicy()
+        policy.dismissingPosition = .notch(index: Notch.medium.rawValue)
         return policy
     }
 
