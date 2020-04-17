@@ -30,6 +30,14 @@ class DraggingOverlayContainerTransitionCoordinator: OverlayContainerTransitionC
 
     // MARK: - OverlayContainerTransitionCoordinatorContext
 
+    var isDragging: Bool {
+        return context.isDragging
+    }
+
+    var velocity: CGPoint {
+        return context.velocity
+    }
+
     var isCancelled: Bool {
         return context.isCancelled
     }

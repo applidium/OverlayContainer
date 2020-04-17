@@ -11,6 +11,7 @@ struct ConcreteOverlayContainerContextTransitioning:
     OverlayContainerContextTransitioning,
     OverlayContainerTransitionCoordinatorContext {
 
+    let isDragging: Bool
     let isCancelled: Bool
     let isAnimated: Bool
     let overlayViewController: UIViewController

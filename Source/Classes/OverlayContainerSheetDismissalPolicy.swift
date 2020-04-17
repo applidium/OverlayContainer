@@ -10,8 +10,8 @@ import UIKit
 
 /// A protocol that provides contextual information on the drag-to-dismiss gesture state.
 public protocol OverlayContainerSheetDismissalPolicyContext: OverlayContainerTransitionContext {
-    /// The overlay velocity at the moment the touch was released.
-    var velocity: CGPoint { get }
+    /// The expected translation height once the animation ended.
+    var targetTranslationHeight: CGFloat { get }
 }
 
 /// A protocol that defines the dismissal policy associated to an overlay container sheet controller.
@@ -68,15 +68,17 @@ public struct ThresholdOverlayContainerSheetDismissalPolicy: OverlayContainerShe
     // MARK: - OverlayContainerDimissingPolicy
 
     public func shouldDismiss(using context: OverlayContainerSheetDismissalPolicyContext) -> Bool {
+        guard !context.isDragging else { return false  }
+        let translationHeight = min(context.targetTranslationHeight, context.overlayTranslationHeight)
         switch dismissingPosition {
         case .none:
             break
         case let .notch(index):
-            if context.overlayTranslationHeight < context.height(forNotchAt: index) {
+            if translationHeight < context.height(forNotchAt: index) {
                 return true
             }
         case let .translationHeight(height):
-            if context.overlayTranslationHeight < height {
+            if translationHeight < height {
                 return true
             }
         }

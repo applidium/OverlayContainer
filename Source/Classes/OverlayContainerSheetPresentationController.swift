@@ -31,8 +31,6 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
 
     // MARK: - Private properties
 
-    private var dismissalContext = ConcreteOverlayContainerDismissalPolicyContext()
-
     private lazy var tapGestureRecognizerView: UIView = self.makeTapGestureRecognizerView()
 
     // MARK: - Life Cycle
@@ -59,22 +57,18 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     // MARK: - OverlayContainerPresentationController
 
     open override func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                                      willEndDraggingOverlay overlayViewController: UIViewController,
-                                                      atVelocity velocity: CGPoint) {
-        dismissalContext.velocity = velocity
+                                                      willTranslateOverlay overlayViewController: UIViewController,
+                                                      transitionCoordinator: OverlayContainerTransitionCoordinator) {
+        let dismissalContext = ConcreteOverlayContainerDismissalPolicyContext(
+            context: transitionCoordinator
+        )
+        transitionCoordinator.animate(alongsideTransition: { [weak self] context in
+            self?.dimmingView?.overlayControllerWillTranslate(context: context)
+        }, completion: nil)
         let policy = makeDismissalPolicy()
         if policy.shouldDismiss(using: dismissalContext) {
             presentingViewController.dismiss(animated: true, completion: nil)
         }
-    }
-
-    open override func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                                      willTranslateOverlay overlayViewController: UIViewController,
-                                                      transitionCoordinator: OverlayContainerTransitionCoordinator) {
-        dismissalContext.complete(with: transitionCoordinator)
-        transitionCoordinator.animate(alongsideTransition: { [weak self] context in
-            self?.dimmingView?.overlayControllerWillTranslate(context: context)
-        }, completion: nil)
     }
 
     // MARK: - UIPresentationController

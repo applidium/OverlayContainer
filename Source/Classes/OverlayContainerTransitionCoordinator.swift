@@ -9,6 +9,10 @@ import UIKit
 
 /// A protocol that provides information about the current overlay translation.
 public protocol OverlayContainerTransitionContext {
+    /// A Boolean value that indicates whether the user is current dragging the overlay.
+    var isDragging: Bool { get }
+    /// The overlay velocity at the moment the touch was released.
+    var velocity: CGPoint { get }
     /// The current translation height.
     var overlayTranslationHeight: CGFloat { get }
     /// The notch indexes.

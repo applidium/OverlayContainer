@@ -9,23 +9,34 @@
 import Foundation
 
 struct ConcreteOverlayContainerDismissalPolicyContext: OverlayContainerSheetDismissalPolicyContext {
-    var heightByNotch: [Int: CGFloat] = [:]
-    var velocity: CGPoint = .zero
-    var overlayTranslationHeight: CGFloat = 0.0
-    var notchIndexes = 0..<1
-    var reachableIndexes: [Int] = []
+
+    var isDragging: Bool {
+        context.isDragging
+    }
+
+    var targetTranslationHeight: CGFloat {
+        context.targetTranslationHeight
+    }
+
+    var velocity: CGPoint {
+        context.velocity
+    }
+
+    var overlayTranslationHeight: CGFloat {
+        context.overlayTranslationHeight
+    }
+
+    var notchIndexes: Range<Int> {
+        context.notchIndexes
+    }
+
+    var reachableIndexes: [Int] {
+        context.reachableIndexes
+    }
 
     func height(forNotchAt index: Int) -> CGFloat {
-        return heightByNotch[index] ?? 0
+        context.height(forNotchAt: index)
     }
 
-    mutating func complete(with context: OverlayContainerTransitionContext) {
-        overlayTranslationHeight = context.overlayTranslationHeight
-        notchIndexes = context.notchIndexes
-        reachableIndexes = context.reachableIndexes
-        heightByNotch = [:]
-        notchIndexes.forEach { notch in
-            heightByNotch[notch] = context.height(forNotchAt: notch)
-        }
-    }
+    let context: OverlayContainerTransitionCoordinatorContext
 }
