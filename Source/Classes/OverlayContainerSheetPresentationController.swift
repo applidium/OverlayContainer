@@ -66,7 +66,7 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
             self?.dimmingView?.overlayControllerWillTranslate(context: context)
         }, completion: nil)
         let policy = makeDismissalPolicy()
-        if policy.shouldDismiss(using: dismissalContext) {
+        if !presentedViewController.isBeingDismissed && policy.shouldDismiss(using: dismissalContext) {
             presentingViewController.dismiss(animated: true, completion: nil)
         }
     }
