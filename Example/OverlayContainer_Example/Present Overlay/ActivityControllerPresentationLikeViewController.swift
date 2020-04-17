@@ -11,6 +11,7 @@ import OverlayContainer
 
 class ActivityControllerPresentationLikeViewController: UIViewController,
     UIViewControllerTransitioningDelegate,
+    OverlayTransitioningDelegate,
     OverlayContainerViewControllerDelegate,
     OverlayContainerSheetPresentationControllerDelegate,
     ActionViewControllerDelegate {
@@ -61,7 +62,16 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
 
     func overlayContainerSheetDismissalPolicy(for presentationController: OverlayContainerSheetPresentationController) -> OverlayContainerSheetDismissalPolicy {
         var policy = ThresholdOverlayContainerSheetDismissalPolicy()
+        policy.dismissingVelocity = .value(2400)
         policy.dismissingPosition = .notch(index: Notch.medium.rawValue)
+        return policy
+    }
+
+    // MARK: - OverlayTransitioningDelegate
+
+    func overlayTargetNotchPolicy(for overlayViewController: UIViewController) -> OverlayTranslationTargetNotchPolicy? {
+        let policy = RushingForwardTargetNotchPolicy()
+        policy.minimumVelocity = 2400
         return policy
     }
 
@@ -69,6 +79,11 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
 
     func numberOfNotches(in containerViewController: OverlayContainerViewController) -> Int {
         Notch.allCases.count
+    }
+
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        transitioningDelegateForOverlay overlayViewController: UIViewController) -> OverlayTransitioningDelegate? {
+        self
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
