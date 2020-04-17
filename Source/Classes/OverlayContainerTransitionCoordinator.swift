@@ -11,7 +11,7 @@ import UIKit
 public protocol OverlayContainerTransitionContext {
     /// A Boolean value that indicates whether the user is current dragging the overlay.
     var isDragging: Bool { get }
-    /// The overlay velocity at the moment the touch was released.
+    /// The overlay velocity.
     var velocity: CGPoint { get }
     /// The current translation height.
     var overlayTranslationHeight: CGFloat { get }
@@ -50,7 +50,7 @@ public protocol OverlayContainerTransitionCoordinatorContext: OverlayContainerTr
     var isAnimated: Bool { get }
     /// A Boolean value indicating whether the transition was cancelled.
     var isCancelled: Bool { get }
-    /// The notch height the container expects to reach.
+    /// The overlay height the container expects to reach.
     var targetTranslationHeight: CGFloat { get }
 }
 
