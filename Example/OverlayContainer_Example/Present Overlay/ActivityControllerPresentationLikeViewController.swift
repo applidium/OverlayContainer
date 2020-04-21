@@ -70,9 +70,7 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
     // MARK: - OverlayTransitioningDelegate
 
     func overlayTargetNotchPolicy(for overlayViewController: UIViewController) -> OverlayTranslationTargetNotchPolicy? {
-        let policy = RushingForwardTargetNotchPolicy()
-        policy.minimumVelocity = 2400
-        return policy
+        ActivityControllerLikeTargetNotchPolicy()
     }
 
     // MARK: - OverlayContainerViewControllerDelegate
@@ -105,5 +103,21 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
         let action = ActionViewController()
         action.delegate = self
         addChild(action, in: view)
+    }
+}
+
+struct ActivityControllerLikeTargetNotchPolicy: OverlayTranslationTargetNotchPolicy {
+
+    func targetNotchIndex(using context: OverlayContainerContextTargetNotchPolicy) -> Int {
+        let movesUp = context.velocity.y < 0
+        if movesUp {
+            // (gz) The container can easily move up
+            return RushingForwardTargetNotchPolicy().targetNotchIndex(using: context)
+        } else {
+            // (gz) The container can not easily move down
+            let defaultPolicy = RushingForwardTargetNotchPolicy()
+            defaultPolicy.minimumVelocity = 2400
+            return defaultPolicy.targetNotchIndex(using: context)
+        }
     }
 }
