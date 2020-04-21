@@ -13,8 +13,6 @@ import UIKit
 public protocol OverlayContainerContextTargetNotchPolicy: OverlayContainerTransitionContext {
     /// The manipulated child view controller.
     var overlayViewController: UIViewController { get }
-    /// The overlay velocity at the moment the touch was released.
-    var velocity: CGPoint { get }
 }
 
 /// A protocol that provides contextual information on the current overlay translation.

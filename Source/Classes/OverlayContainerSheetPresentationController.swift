@@ -63,7 +63,7 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
             context: transitionCoordinator
         )
         transitionCoordinator.animate(alongsideTransition: { [weak self] context in
-            self?.dimmingView?.overlayControllerWillTranslate(context: context)
+            self?.dimmingView?.overlayViewControllerWillTranslate(context: context)
         }, completion: nil)
         let policy = makeDismissalPolicy()
         if !presentedViewController.isBeingDismissed && policy.shouldDismiss(using: dismissalContext) {
@@ -87,6 +87,7 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     open override func presentationTransitionDidEnd(_ completed: Bool) {
         guard !completed else { return }
         dimmingView?.removeFromSuperview()
+        tapGestureRecognizerView.removeFromSuperview()
     }
 
     // MARK: - Action
@@ -100,14 +101,12 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     // MARK: - Private
 
     private func setUpTapGesture() {
-        guard dismissingTapGestureRecognizer.view == nil,
+        guard tapGestureRecognizerView.superview == nil,
             dismissingTapGestureRecognizer.isEnabled else {
                 return
         }
-        if tapGestureRecognizerView.superview == nil {
-            containerView?.addSubview(tapGestureRecognizerView)
-            tapGestureRecognizerView.pinToSuperview()
-        }
+        containerView?.addSubview(tapGestureRecognizerView)
+        tapGestureRecognizerView.pinToSuperview()
         tapGestureRecognizerView.addGestureRecognizer(dismissingTapGestureRecognizer)
     }
 
