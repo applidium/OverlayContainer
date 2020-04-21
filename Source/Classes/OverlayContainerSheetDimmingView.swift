@@ -70,7 +70,8 @@ open class TransparentOverlayContainerSheetDimmingView: UIView, OverlayContainer
     }
 
     public func overlayViewControllerWillTranslate(context: OverlayContainerTransitionCoordinatorContext) {
-        alpha = minimumAlpha + context.translationProgress() * (maximumAlpha - minimumAlpha)
+        let target = minimumAlpha + context.translationProgress() * (maximumAlpha - minimumAlpha)
+        alpha = max(min(target, 1.0), 0)
     }
 
     // MARK: - Private
