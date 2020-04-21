@@ -12,7 +12,7 @@ private struct Constant {
     static let minimumVelocity: CGFloat = 400
 }
 
-/// `RushingForwardTargetNotchPolicy` specifies an overlay that will always move forward if a
+/// `RushingForwardTargetNotchPolicy` specifies a policy that will always move forward if a
 /// minimum velocity has been reached.
 public class RushingForwardTargetNotchPolicy: OverlayTranslationTargetNotchPolicy {
 

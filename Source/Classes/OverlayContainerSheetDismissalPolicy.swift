@@ -69,7 +69,7 @@ public struct ThresholdOverlayContainerSheetDismissalPolicy: OverlayContainerShe
 
     public func shouldDismiss(using context: OverlayContainerSheetDismissalPolicyContext) -> Bool {
         guard !context.isDragging else { return false  }
-        let translationHeight = min(context.targetTranslationHeight, context.overlayTranslationHeight)
+        let translationHeight = context.targetTranslationHeight
         switch dismissingPosition {
         case .none:
             break
