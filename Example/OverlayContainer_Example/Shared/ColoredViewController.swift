@@ -12,7 +12,7 @@ class ColoredViewController: UIViewController {
 
     override func loadView() {
         view = UIView()
-        view.backgroundColor = .blue
+        view.backgroundColor = .systemBlue
     }
 
 }
