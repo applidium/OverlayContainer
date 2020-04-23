@@ -11,6 +11,7 @@ import OverlayContainer
 
 class ActivityControllerPresentationLikeViewController: UIViewController,
     UIViewControllerTransitioningDelegate,
+    OverlayTransitioningDelegate,
     OverlayContainerViewControllerDelegate,
     OverlayContainerSheetPresentationControllerDelegate,
     ActionViewControllerDelegate {
@@ -60,15 +61,27 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
     // MARK: - OverlayContainerSheetPresentationControllerDelegate
 
     func overlayContainerSheetDismissalPolicy(for presentationController: OverlayContainerSheetPresentationController) -> OverlayContainerSheetDismissalPolicy {
-        var policy = DefaultOverlayContainerSheetDismissalPolicy()
-        policy.threshold = .notch(index: Notch.medium.rawValue)
+        var policy = ThresholdOverlayContainerSheetDismissalPolicy()
+        policy.dismissingVelocity = .value(2400)
+        policy.dismissingPosition = .notch(index: Notch.medium.rawValue)
         return policy
+    }
+
+    // MARK: - OverlayTransitioningDelegate
+
+    func overlayTargetNotchPolicy(for overlayViewController: UIViewController) -> OverlayTranslationTargetNotchPolicy? {
+        ActivityControllerLikeTargetNotchPolicy()
     }
 
     // MARK: - OverlayContainerViewControllerDelegate
 
     func numberOfNotches(in containerViewController: OverlayContainerViewController) -> Int {
         Notch.allCases.count
+    }
+
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        transitioningDelegateForOverlay overlayViewController: UIViewController) -> OverlayTransitioningDelegate? {
+        self
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
@@ -90,5 +103,21 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
         let action = ActionViewController()
         action.delegate = self
         addChild(action, in: view)
+    }
+}
+
+struct ActivityControllerLikeTargetNotchPolicy: OverlayTranslationTargetNotchPolicy {
+
+    func targetNotchIndex(using context: OverlayContainerContextTargetNotchPolicy) -> Int {
+        let movesUp = context.velocity.y < 0
+        if movesUp {
+            // (gz) The container can easily move up
+            return RushingForwardTargetNotchPolicy().targetNotchIndex(using: context)
+        } else {
+            // (gz) The container can not easily move down
+            let defaultPolicy = RushingForwardTargetNotchPolicy()
+            defaultPolicy.minimumVelocity = 2400
+            return defaultPolicy.targetNotchIndex(using: context)
+        }
     }
 }

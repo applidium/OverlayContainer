@@ -21,7 +21,7 @@ public protocol OverlayContainerSheetDimmingView: UIView {
     /// Notifies the view that a presented overlay is about to be moved. This method is called in an animation block.
     ///
     /// - parameter context: The context object containing information about the current overlay container state.
-    func overlayControllerWillTranslate(context: OverlayContainerTransitionCoordinatorContext)
+    func overlayViewControllerWillTranslate(context: OverlayContainerTransitionCoordinatorContext)
 }
 
 public extension OverlayContainerSheetDimmingView {
@@ -29,7 +29,7 @@ public extension OverlayContainerSheetDimmingView {
     func presentationTransitionDidBegin() {}
     func dismissalTransitionWillBegin() {}
     func dismissalTransitionDidBegin() {}
-    func overlayControllerWillTranslate(context: OverlayContainerTransitionCoordinatorContext) {}
+    func overlayViewControllerWillTranslate(context: OverlayContainerTransitionCoordinatorContext) {}
 }
 
 /// An `OverlayContainerSheetDimmingView` class that coordinates its alpha value alongside the container presentation animations
@@ -69,8 +69,9 @@ open class TransparentOverlayContainerSheetDimmingView: UIView, OverlayContainer
         alpha = dismissedAlpha
     }
 
-    public func overlayControllerWillTranslate(context: OverlayContainerTransitionCoordinatorContext) {
-        alpha = minimumAlpha + context.translationProgress() * (maximumAlpha - minimumAlpha)
+    public func overlayViewControllerWillTranslate(context: OverlayContainerTransitionCoordinatorContext) {
+        let target = minimumAlpha + context.translationProgress() * (maximumAlpha - minimumAlpha)
+        alpha = max(min(target, 1.0), 0)
     }
 
     // MARK: - Private

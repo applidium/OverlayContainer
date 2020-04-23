@@ -10,7 +10,7 @@ import UIKit
 
 /// An `OverlayContainerPresentationController` subclass that can be used to manage the transition animations and the presentation of overlay containers onscreen.
 ///
-/// It adds a dimming layer over the presenting content and change its appearance based on the current container translations.
+/// It adds a dimming layer over the presenting content and changes its appearance based on the current container translations.
 /// It also includes two dismissal gestures: tap-to-dismiss and drag-to-dismiss.
 ///
 /// You can subclass this class if you need an extra level of customization.
@@ -30,8 +30,6 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     open private(set) lazy var dismissingTapGestureRecognizer: UITapGestureRecognizer = self.makeTapGestureRecognizer()
 
     // MARK: - Private properties
-
-    private var dismissalContext = ConcreteOverlayContainerDismissalPolicyContext()
 
     private lazy var tapGestureRecognizerView: UIView = self.makeTapGestureRecognizerView()
 
@@ -59,20 +57,18 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     // MARK: - OverlayContainerPresentationController
 
     open override func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                                      willEndDraggingOverlay overlayViewController: UIViewController,
-                                                      atVelocity velocity: CGPoint) {
-        dismissalContext.velocity = velocity
-        let policy = makeDismissalPolicy()
-        if policy.shouldDismiss(using: dismissalContext) {
-            presentingViewController.dismiss(animated: true, completion: nil)
-        }
-    }
-
-    open override func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                                       willTranslateOverlay overlayViewController: UIViewController,
                                                       transitionCoordinator: OverlayContainerTransitionCoordinator) {
-        dismissalContext.complete(with: transitionCoordinator)
-        dimmingView?.overlayControllerWillTranslate(context: transitionCoordinator)
+        let dismissalContext = ConcreteOverlayContainerDismissalPolicyContext(
+            context: transitionCoordinator
+        )
+        transitionCoordinator.animate(alongsideTransition: { [weak self] context in
+            self?.dimmingView?.overlayViewControllerWillTranslate(context: context)
+        }, completion: nil)
+        let policy = makeDismissalPolicy()
+        if !presentedViewController.isBeingDismissed && policy.shouldDismiss(using: dismissalContext) {
+            presentingViewController.dismiss(animated: true, completion: nil)
+        }
     }
 
     // MARK: - UIPresentationController
@@ -91,6 +87,7 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     open override func presentationTransitionDidEnd(_ completed: Bool) {
         guard !completed else { return }
         dimmingView?.removeFromSuperview()
+        tapGestureRecognizerView.removeFromSuperview()
     }
 
     // MARK: - Action
@@ -104,11 +101,12 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     // MARK: - Private
 
     private func setUpTapGesture() {
-        guard dismissingTapGestureRecognizer.view == nil else { return }
-        if tapGestureRecognizerView.superview == nil {
-            containerView?.addSubview(tapGestureRecognizerView)
-            tapGestureRecognizerView.pinToSuperview()
+        guard tapGestureRecognizerView.superview == nil,
+            dismissingTapGestureRecognizer.isEnabled else {
+                return
         }
+        containerView?.addSubview(tapGestureRecognizerView)
+        tapGestureRecognizerView.pinToSuperview()
         tapGestureRecognizerView.addGestureRecognizer(dismissingTapGestureRecognizer)
     }
 
@@ -134,7 +132,7 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     }
 
     private func makeDismissalPolicy() -> OverlayContainerSheetDismissalPolicy {
-        sheetDelegate?.overlayContainerSheetDismissalPolicy(for: self) ?? DefaultOverlayContainerSheetDismissalPolicy()
+        sheetDelegate?.overlayContainerSheetDismissalPolicy(for: self) ?? ThresholdOverlayContainerSheetDismissalPolicy()
     }
 
     private func makeTapGestureRecognizerView() -> UIView {
@@ -153,6 +151,6 @@ public extension OverlayContainerSheetPresentationControllerDelegate {
     }
 
     func overlayContainerSheetDismissalPolicy(for presentationController: OverlayContainerSheetPresentationController) -> OverlayContainerSheetDismissalPolicy {
-        DefaultOverlayContainerSheetDismissalPolicy()
+        ThresholdOverlayContainerSheetDismissalPolicy()
     }
 }

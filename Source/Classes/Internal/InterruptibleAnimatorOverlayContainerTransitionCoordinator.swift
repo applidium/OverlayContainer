@@ -29,6 +29,14 @@ class InterruptibleAnimatorOverlayContainerTransitionCoordinator: OverlayContain
 
     private(set) var isCancelled = false
 
+    var isDragging: Bool {
+        return context.isDragging
+    }
+
+    var velocity: CGPoint {
+        return context.velocity
+    }
+
     var isAnimated: Bool {
         return context.isAnimated
     }

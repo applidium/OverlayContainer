@@ -8,6 +8,7 @@
 import UIKit
 
 struct ConcreteOverlayContainerContextTargetNotchPolicy: OverlayContainerContextTargetNotchPolicy {
+    let isDragging: Bool
     let overlayViewController: UIViewController
     let overlayTranslationHeight: CGFloat
     let velocity: CGPoint

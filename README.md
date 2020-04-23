@@ -293,14 +293,11 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 The `transition coordinator` provides information about the translation that is about to start:
 
 ```swift
-/// A Boolean value indicating whether the transition is explicitly animated.
-var isAnimated: Bool { get }
+/// A Boolean value that indicates whether the user is current dragging the overlay.
+var isDragging: Bool { get }
 
-/// A Boolean value indicating whether the transition was cancelled.
-var isCancelled: Bool { get }
-
-/// The height the container expects to reach.
-var targetTranslationHeight: CGFloat { get }
+/// The overlay velocity.
+var velocity: CGPoint { get }
 
 /// The current translation height.
 var overlayTranslationHeight: CGFloat { get }
@@ -308,11 +305,20 @@ var overlayTranslationHeight: CGFloat { get }
 /// The notch indexes.
 var notchIndexes: Range<Int> { get }
 
-/// The reachable indexes ie the indexes not disabled by the `canReachNotchAt` delegate's method.
+/// The reachable indexes. Some indexes might be disabled by the `canReachNotchAt` delegate method.
 var reachableIndexes: [Int] { get }
 
 /// Returns the height of the specified notch.
 func height(forNotchAt index: Int) -> CGFloat
+
+/// A Boolean value indicating whether the transition is explicitly animated.
+var isAnimated: Bool { get }
+
+/// A Boolean value indicating whether the transition was cancelled.
+var isCancelled: Bool { get }
+
+/// The overlay height the container expects to reach.
+var targetTranslationHeight: CGFloat { get }
 ```
 and allows you to add animations alongside it:
 

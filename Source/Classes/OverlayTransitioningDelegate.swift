@@ -13,30 +13,18 @@ import UIKit
 public protocol OverlayContainerContextTargetNotchPolicy: OverlayContainerTransitionContext {
     /// The manipulated child view controller.
     var overlayViewController: UIViewController { get }
-    /// The overlay velocity at the moment the touch was released.
-    var velocity: CGPoint { get }
 }
 
 /// A protocol that provides contextual information on the current overlay translation.
 ///
 /// Do not adopt this protocol in your own classes, use the one provided in `OverlayAnimatedTransitioning`.
-public protocol OverlayContainerContextTransitioning {
+public protocol OverlayContainerContextTransitioning: OverlayContainerTransitionContext {
     /// The manipulated child view controller.
     var overlayViewController: UIViewController { get }
-    /// The current translation height.
-    var overlayTranslationHeight: CGFloat { get }
-    /// The overlay velocity at the moment the touch was released.
-    var velocity: CGPoint { get }
     /// The expected notch index once the animations ended.
     var targetNotchIndex: Int { get }
     /// The expected translation height once the animation ended.
     var targetNotchHeight: CGFloat { get }
-    /// The notch indexes.
-    var notchIndexes: Range<Int> { get }
-    /// The indexes considered as reachable by the container.
-    var reachableIndexes: [Int] { get }
-    /// Returns the height of the specified notch.
-    func height(forNotchAt index: Int) -> CGFloat
 }
 
 /// A protocol that manages the container behavior once the user finishes dragging.
@@ -65,4 +53,15 @@ public protocol OverlayTranslationTargetNotchPolicy {
 public protocol OverlayAnimatedTransitioning {
     /// Returns the animator that will animate the end of the translation.
     func interruptibleAnimator(using context: OverlayContainerContextTransitioning) -> UIViewImplicitlyAnimating
+}
+
+public extension OverlayTransitioningDelegate {
+
+    func overlayTargetNotchPolicy(for overlayViewController: UIViewController) -> OverlayTranslationTargetNotchPolicy? {
+        nil
+    }
+
+    func animationController(for overlayViewController: UIViewController) -> OverlayAnimatedTransitioning? {
+        nil
+    }
 }

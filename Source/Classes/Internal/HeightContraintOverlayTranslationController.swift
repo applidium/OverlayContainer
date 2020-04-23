@@ -85,6 +85,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         switch deferredTranslation.type {
         case .basedOnTargetPolicy:
             let context = ConcreteOverlayContainerContextTargetNotchPolicy(
+                isDragging: false,
                 overlayViewController: overlay,
                 overlayTranslationHeight: translationHeight,
                 velocity: deferredTranslation.velocity,
@@ -105,6 +106,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         if isAnimated {
             let height = translationHeight
             let context = ConcreteOverlayContainerContextTransitioning(
+                isDragging: false,
                 isCancelled: false,
                 isAnimated: true,
                 overlayViewController: overlay,
@@ -136,7 +138,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
             animator.startAnimation()
             lastScheduledTranslationAnimator = animator
         } else {
-            translateOverlayWithoutAnimation(toHeight: translationEndNotchHeight)
+            translateOverlayWithoutAnimation(toHeight: translationEndNotchHeight, isDragging: false)
             completions.forEach { $0() }
             delegate?.translationController(self, didMoveOverlayToNotchAt: targetIndex)
         }
@@ -221,7 +223,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
             delegate?.translationControllerWillStartDraggingOverlay(self)
             isDragging = true
         }
-        translateOverlayWithoutAnimation(toHeight: max(height, 0))
+        translateOverlayWithoutAnimation(toHeight: max(height, 0), isDragging: true)
     }
 
     func endOverlayTranslation(withVelocity velocity: CGPoint) {
@@ -243,9 +245,10 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         return configuration.heightForNotch(at: index) != translationEndNotchHeight
     }
 
-    private func translateOverlayWithoutAnimation(toHeight height: CGFloat) {
+    private func translateOverlayWithoutAnimation(toHeight height: CGFloat, isDragging: Bool) {
         guard let overlay = overlayViewController else { return }
         let context = ConcreteOverlayContainerContextTransitioning(
+            isDragging: isDragging,
             isCancelled: false,
             isAnimated: false,
             overlayViewController: overlay,
