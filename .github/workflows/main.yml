@@ -1,0 +1,27 @@
+
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Bundle install
+      working-directory: ./
+      run: bundle install
+
+    - name: Unit tests
+      run: bundle exec fastlane tests
+
+    - name: SPM lint
+      run: bundle exec fastlane spm_lint
+
+    - name: Carthage lint
+      run: bundle exec fastlane carthage_lint
+
+    - name: Pod lint
+      run: bundle exec fastlane pod_lint

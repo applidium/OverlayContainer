@@ -2,4 +2,51 @@
 default_platform(:ios)
 
 platform :ios do
+    desc "Run all unit tests"
+    lane :tests do
+        scan(
+            scheme: ENV["SCHEME"],
+            clean: true
+        )
+    end
+
+    desc "Pod linting"
+    lane :pod_lint do
+        pod_lib_lint(allow_warnings: true)
+    end
+
+    desc "Carthage linting"
+    lane :carthage_lint do
+        carthage(command: "build", no_skip_current: true, platform: "iOS")
+    end
+
+    desc "SPM linting"
+    lane :spm_lint do
+        output = "./Package.xcodeproj"
+        sh("swift package generate-xcodeproj --output #{output} --xcconfig-overrides #{ENV["XCCONFIG"]}")
+        xcodebuild(
+            project: output,
+            scheme: "#{ENV["SCHEME"]}-Package"
+        )
+    end
+
+    desc "Release a new version"
+    lane :release do |options|
+        target_version = options[:version]
+        raise "The version is missed. Use `fastlane release version:{version_number}`.`" if target_version.nil?
+
+        ensure_git_branch
+        ensure_git_status_clean
+
+        podspec = ENV["PODSPEC"]
+        version_bump_podspec(path: podspec, version_number: target_version)
+        increment_build_number
+        increment_version_number(
+            version_number: target_version
+        )
+        git_add
+        git_commit(message: "Bump to #{target_version}")
+        add_git_tag(tag: target_version)
+        push_to_git_remote
+    end
 end
