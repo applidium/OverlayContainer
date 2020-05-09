@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "OverlayContainer",
     platforms: [
-        .iOS(.v10),
+        .iOS(.v10)
     ],
     products: [
         .library(
@@ -17,10 +17,6 @@ let package = Package(
             name: "OverlayContainer",
             path: "Source/Classes"
         ),
-        // TODO: make tests work
-        // .testTarget(
-        //     name: "OverlayContainerTests",
-        //     dependencies: ["OverlayContainer"]
-        // ),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
