@@ -26,8 +26,10 @@ platform :ios do
 
     desc "SPM linting"
     lane :spm_lint do
-        output = "./Package.xcodeproj"
-        sh("swift package generate-xcodeproj --output #{output} --xcconfig-overrides #{ENV["XCCONFIG"]}")
+        output = "Package.xcodeproj"
+        Dir.chdir("..") do
+            sh("swift package generate-xcodeproj --output #{output} --xcconfig-overrides #{ENV["XCCONFIG"]}")
+        end
         xcodebuild(
             project: output,
             scheme: "#{ENV["SCHEME"]}-Package"
