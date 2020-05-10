@@ -51,7 +51,11 @@ platform :ios do
             version_number: target_version
         )
         git_add
-        git_commit(message: "Bump to #{target_version}")
+        git_commit(
+            path: ["Tests/Info.plist", "Source/Info.plist", "OverlayContainer.podspec", "OverlayContainer.xcodeproj/project.pbxproj"],
+            message: "Bump to #{target_version}"
+        )
+        ensure_git_status_clean
         add_git_tag(tag: target_version)
         if UI.confirm("Push?")
             push_to_git_remote
