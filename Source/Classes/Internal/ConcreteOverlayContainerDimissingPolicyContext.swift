@@ -6,7 +6,7 @@
 //  Copyright © 2020 Gaétan Zanella. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct ConcreteOverlayContainerDismissalPolicyContext: OverlayContainerSheetDismissalPolicyContext {
 

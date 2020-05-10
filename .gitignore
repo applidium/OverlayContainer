@@ -48,3 +48,21 @@ Example/Pods/
 Pods/
 
 .idea/
+
+# fastlane specific
+fastlane/report.xml
+
+# deliver temporary files
+fastlane/Preview.html
+
+# snapshot generated screenshots
+fastlane/screenshots/**/*.png
+fastlane/screenshots/screenshots.html
+
+# scan temporary files
+fastlane/test_output
+test_output
+fastlane/.env
+pre-change.yml
+.build
+fastlane/README.md

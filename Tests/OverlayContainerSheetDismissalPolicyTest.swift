@@ -15,7 +15,9 @@ private enum Notch: Int, CaseIterable {
 }
 
 class FakeOverlayContainerSheetDismissalPolicyContext: OverlayContainerSheetDismissalPolicyContext {
+    var targetTranslationHeight: CGFloat { overlayTranslationHeight }
 
+    var isDragging: Bool { false }
     var velocity: CGPoint = .zero
     var overlayTranslationHeight: CGFloat = 0
 
