@@ -53,6 +53,14 @@ platform :ios do
         git_add
         git_commit(message: "Bump to #{target_version}")
         add_git_tag(tag: target_version)
-        push_to_git_remote
+        if UI.confirm("Push?")
+            push_to_git_remote
+            push_git_tags(tag: target_version)
+            UI.success "Pushed 🎉"
+        end
+        if UI.confirm("Release pod?")
+            pod_push
+            UI.success "Released 🎉"
+        end
     end
 end
