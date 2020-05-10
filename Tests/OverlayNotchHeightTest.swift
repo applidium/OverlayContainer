@@ -73,7 +73,7 @@ class OverlayNotchHeightTest: QuickSpec {
         var overlay: UIViewController!
 
         beforeEach {
-            overlayContainer = OverlayContainerViewController()
+            overlayContainer = OverlayContainerViewController(style: .flexibleHeight)
             delegate = OverlayContainerDelegateImplementation()
             overlay = UIViewController()
             overlayContainer.view.frame = CGRect(origin: .zero, size: CGSize(width: 300, height: 300))

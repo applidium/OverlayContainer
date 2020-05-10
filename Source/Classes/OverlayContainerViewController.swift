@@ -100,10 +100,10 @@ open class OverlayContainerViewController: UIViewController {
 
     /// Creates an instance with the specified `style`.
     ///
-    /// - parameter style: The style used by the container. The default value is `flexibleHeight`.
+    /// - parameter style: The style used by the container. The default value is `expandableHeight`.
     ///
     /// - returns: The new `OverlayContainerViewController` instance.
-    public init(style: OverlayStyle = .flexibleHeight) {
+    public init(style: OverlayStyle = .expandableHeight) {
         self.style = style
         super.init(nibName: nil, bundle: nil)
     }

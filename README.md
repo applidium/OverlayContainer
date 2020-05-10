@@ -12,7 +12,7 @@
   <a href="https://developer.apple.com/swift"><img alt="Swift5" src="https://img.shields.io/badge/language-Swift%205.0-orange.svg"/></a>
   <a href="https://cocoapods.org/pods/OverlayContainer"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/OverlayContainer.svg?style=flat"/></a>
   <a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"/></a>
-  <a href="https://travis-ci.org/applidium/OverlayContainer"><img alt="Build Status" src="https://github.com/applidium/OverlayContainer/workflows/CI/badge.svg?branch=master"/></a>
+  <a href="https://github.com/applidium/OverlayContainer/actions"><img alt="Build Status" src="https://github.com/applidium/OverlayContainer/workflows/CI/badge.svg?branch=master"/></a>
   <a href="https://github.com/applidium/ADOverlayContainer/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/cocoapods/l/OverlayContainer.svg?style=flat"/></a>
 </p>
 
@@ -100,13 +100,7 @@ github "https://github.com/applidium/OverlayContainer"
 OverlayContainer can be installed as a Swift Package with Xcode 11 or higher. To install it, add a package using Xcode or a dependency to your Package.swift file:
 
 ```swift
-.package(url: "https://github.com/applidium/OverlayContainer.git", from: "3.2.0")
-```
-
-Or to track the latest version:
-
-```swift
-.package(url: "https://github.com/applidium/OverlayContainer.git", .branch("master"))
+.package(url: "https://github.com/applidium/OverlayContainer.git", from: "3.4.0")
 ```
 
 ## Usage
@@ -166,9 +160,9 @@ The overlay style defines how the overlay view controller will be constrained in
 
 ```swift
 enum OverlayStyle {
-    case flexibleHeight // default
+    case flexibleHeight
     case rigid
-    case expandableHeight
+    case expandableHeight // default
 }
 
 let overlayContainer = OverlayContainerViewController(style: .rigid)
