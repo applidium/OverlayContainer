@@ -1,3 +1,14 @@
+## 3.5.0 (07 August 2020)
+
+### Added
+
+- `OverlayContainerPresentationController`: An abstract class that can be used to manage the transition animations and the presentation of overlay containers onscreen.
+- `OverlayContainerSheetPresentationController`: An `OverlayContainerPresentationController` subclass that adds a dimming layer over the background content and a drag-to-dismiss & tap-to-dismiss gestures.
+
+### Updated
+
+- The overlay container view autorizing mask is now [.flexibleHeight, .flexibleWidth]
+
 ## 3.5.0-beta.1 (10 April 2020)
 
 ### Added
