@@ -117,6 +117,7 @@ open class OverlayContainerViewController: UIViewController {
 
     open override func loadView() {
         view = PassThroughView()
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         loadContainerViews()
         loadOverlayViews()
     }
