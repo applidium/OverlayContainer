@@ -85,6 +85,7 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     }
 
     open override func presentationTransitionDidEnd(_ completed: Bool) {
+        super.presentationTransitionDidEnd(completed)
         guard !completed else { return }
         dimmingView?.removeFromSuperview()
         tapGestureRecognizerView.removeFromSuperview()

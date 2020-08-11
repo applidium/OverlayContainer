@@ -16,6 +16,20 @@ import UIKit
 /// the `OverlayContainerSheetPresentationController` class to see if it can be adapted to your presentation behavior.
 open class OverlayContainerPresentationController: UIPresentationController {
 
+    // MARK: - Internal
+
+    open override func presentationTransitionWillBegin() {
+        super.presentationTransitionWillBegin()
+        findPresentedContainers().forEach { $0.overlayContainerPresentationTransitionWillBegin() }
+    }
+
+    open override func dismissalTransitionDidEnd(_ completed: Bool) {
+        super.dismissalTransitionDidEnd(completed)
+        findPresentedContainers().forEach { $0.overlayContainerDismissalTransitionDidEnd() }
+    }
+
+    // MARK: - Public
+
     /// Tells the presentation controller when the user is about to start dragging the overlay view controller.
     ///
     /// - parameter containerViewController: The container requesting this information.
@@ -65,4 +79,10 @@ open class OverlayContainerPresentationController: UIPresentationController {
     open func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                              willTranslateOverlay overlayViewController: UIViewController,
                                              transitionCoordinator: OverlayContainerTransitionCoordinator) {}
+
+    // MARK: - Private
+
+    private func findPresentedContainers() -> [OverlayContainerViewController] {
+        presentedViewController.oc_findChildren(OverlayContainerViewController.self)
+    }
 }

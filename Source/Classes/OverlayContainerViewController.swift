@@ -96,6 +96,10 @@ open class OverlayContainerViewController: UIViewController {
     private var translationController: HeightConstraintOverlayTranslationController?
     private var translationDrivers: [OverlayTranslationDriver] = []
 
+    // (gz) 2020-08-11 Uses to determine whether we can safely call `presentationController` or not.
+    // See issue #72
+    private var isPresentedInsideAnOverlayContainerPresentationController = false
+
     // MARK: - Life Cycle
 
     /// Creates an instance with the specified `style`.
@@ -151,6 +155,16 @@ open class OverlayContainerViewController: UIViewController {
         }
         configuration.requestOverlayMetricsIfNeeded()
         performDeferredTranslations()
+    }
+
+    // MARK: - Internal
+
+    func overlayContainerPresentationTransitionWillBegin() {
+        isPresentedInsideAnOverlayContainerPresentationController = true
+    }
+
+    func overlayContainerDismissalTransitionDidEnd() {
+        isPresentedInsideAnOverlayContainerPresentationController = false
     }
 
     // MARK: - Public
@@ -311,7 +325,8 @@ open class OverlayContainerViewController: UIViewController {
 extension OverlayContainerViewController: HeightConstraintOverlayTranslationControllerDelegate {
 
     private var overlayPresentationController: OverlayContainerPresentationController? {
-        oc_findPresentationController(OverlayContainerPresentationController.self)
+        guard isPresentedInsideAnOverlayContainerPresentationController else { return nil }
+        return oc_findPresentationController(OverlayContainerPresentationController.self)
     }
 
     // MARK: - HeightOverlayTranslationControllerDelegate
