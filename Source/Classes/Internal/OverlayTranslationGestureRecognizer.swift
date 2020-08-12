@@ -11,8 +11,6 @@ class OverlayTranslationGestureRecognizer: UIPanGestureRecognizer {
 
     weak var drivingScrollView: UIScrollView?
 
-    var translationOffset: CGFloat = 0
-
     private(set) var startingLocation: CGPoint = .zero
 
     // MARK: - Public
