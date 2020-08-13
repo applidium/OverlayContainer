@@ -20,10 +20,10 @@ open class OverlayContainerViewController: UIViewController {
     /// `OverlayStyle` defines how the overlay view controller will be constrained in the container.
     public enum OverlayStyle {
         /// The overlay view controller will not be height-constrained. It will grow and shrink
-        /// as the user drags them up and down.
+        /// as the user drags it up and down.
         case flexibleHeight
         /// The overlay view controller will be constrained with a height equal to the highest notch.
-        /// It will be fully visible only when the user has drag them up to this notch.
+        /// It will be fully visible only when the user has drag it up to this notch.
         case rigid
         /// The overlay view controller will be constrained with a height greater or equal to the highest notch.
         /// Its height will be expanded if the overlay goes beyond the highest notch.

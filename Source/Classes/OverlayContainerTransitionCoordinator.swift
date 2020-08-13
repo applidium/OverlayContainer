@@ -9,7 +9,7 @@ import UIKit
 
 /// A protocol that provides information about the current overlay translation.
 public protocol OverlayContainerTransitionContext {
-    /// A Boolean value that indicates whether the user is current dragging the overlay.
+    /// A Boolean value that indicates whether the user is currently dragging the overlay.
     var isDragging: Bool { get }
     /// The overlay velocity.
     var velocity: CGPoint { get }
@@ -54,7 +54,7 @@ public protocol OverlayContainerTransitionCoordinatorContext: OverlayContainerTr
     var targetTranslationHeight: CGFloat { get }
 }
 
-/// A protocol that provides support for animations associated with a overlay translation.
+/// A protocol that provides support for animations associated with an overlay translation.
 ///
 /// Do not adopt this procotol in your own classes. Use the one provided by the `OverlayContainerDelegate` to
 /// add any extra animations alongside the translation animations.
