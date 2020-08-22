@@ -1,3 +1,10 @@
+## 3.5.1 (22 August 2020)
+
+### Fixed
+
+- Issue [71](https://github.com/applidium/OverlayContainer/issues/71)
+- Issue [72](https://github.com/applidium/OverlayContainer/issues/72)
+
 ## 3.5.0 (07 August 2020)
 
 ### Added
