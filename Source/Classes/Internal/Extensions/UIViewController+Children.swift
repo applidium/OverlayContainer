@@ -29,4 +29,12 @@ extension UIViewController {
         }
         return parent?.oc_findPresentationController(Controller.self)
     }
+
+    func oc_findChildren<Controller: UIViewController>(_ type: Controller.Type) -> [Controller] {
+        if let controller = self as? Controller {
+            return [controller]
+        } else {
+            return children.map { $0.oc_findChildren(type) }.flatMap { $0 }
+        }
+    }
 }

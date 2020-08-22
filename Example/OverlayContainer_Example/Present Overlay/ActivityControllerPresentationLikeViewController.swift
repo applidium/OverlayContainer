@@ -34,11 +34,9 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
         container.viewControllers = [ColoredViewController()]
         container.delegate = self
         container.moveOverlay(toNotchAt: Notch.medium.rawValue, animated: false)
-        let root = UIViewController()
-        root.addChild(container, in: root.view)
-        root.transitioningDelegate = self
-        root.modalPresentationStyle = .custom
-        present(root, animated: true, completion: nil)
+        container.transitioningDelegate = self
+        container.modalPresentationStyle = .custom
+        present(container, animated: true, completion: nil)
     }
 
     // MARK: - UIViewControllerTransitioningDelegate
@@ -65,6 +63,10 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
         policy.dismissingVelocity = .value(2400)
         policy.dismissingPosition = .notch(index: Notch.medium.rawValue)
         return policy
+    }
+
+    func overlayContainerSheetPresentationControllerShouldDismissOnTap(_ presentationController: OverlayContainerSheetPresentationController) -> Bool {
+        return false
     }
 
     // MARK: - OverlayTransitioningDelegate

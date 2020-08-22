@@ -20,10 +20,10 @@ open class OverlayContainerViewController: UIViewController {
     /// `OverlayStyle` defines how the overlay view controller will be constrained in the container.
     public enum OverlayStyle {
         /// The overlay view controller will not be height-constrained. It will grow and shrink
-        /// as the user drags them up and down.
+        /// as the user drags it up and down.
         case flexibleHeight
         /// The overlay view controller will be constrained with a height equal to the highest notch.
-        /// It will be fully visible only when the user has drag them up to this notch.
+        /// It will be fully visible only when the user has drag it up to this notch.
         case rigid
         /// The overlay view controller will be constrained with a height greater or equal to the highest notch.
         /// Its height will be expanded if the overlay goes beyond the highest notch.
@@ -96,6 +96,10 @@ open class OverlayContainerViewController: UIViewController {
     private var translationController: HeightConstraintOverlayTranslationController?
     private var translationDrivers: [OverlayTranslationDriver] = []
 
+    // (gz) 2020-08-11 Uses to determine whether we can safely call `presentationController` or not.
+    // See issue #72
+    private var isPresentedInsideAnOverlayContainerPresentationController = false
+
     // MARK: - Life Cycle
 
     /// Creates an instance with the specified `style`.
@@ -151,6 +155,16 @@ open class OverlayContainerViewController: UIViewController {
         }
         configuration.requestOverlayMetricsIfNeeded()
         performDeferredTranslations()
+    }
+
+    // MARK: - Internal
+
+    func overlayContainerPresentationTransitionWillBegin() {
+        isPresentedInsideAnOverlayContainerPresentationController = true
+    }
+
+    func overlayContainerDismissalTransitionDidEnd() {
+        isPresentedInsideAnOverlayContainerPresentationController = false
     }
 
     // MARK: - Public
@@ -311,7 +325,8 @@ open class OverlayContainerViewController: UIViewController {
 extension OverlayContainerViewController: HeightConstraintOverlayTranslationControllerDelegate {
 
     private var overlayPresentationController: OverlayContainerPresentationController? {
-        oc_findPresentationController(OverlayContainerPresentationController.self)
+        guard isPresentedInsideAnOverlayContainerPresentationController else { return nil }
+        return oc_findPresentationController(OverlayContainerPresentationController.self)
     }
 
     // MARK: - HeightOverlayTranslationControllerDelegate
