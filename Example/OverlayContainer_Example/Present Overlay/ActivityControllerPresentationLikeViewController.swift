@@ -65,10 +65,6 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
         return policy
     }
 
-    func overlayContainerSheetPresentationControllerShouldDismissOnTap(_ presentationController: OverlayContainerSheetPresentationController) -> Bool {
-        return false
-    }
-
     // MARK: - OverlayTransitioningDelegate
 
     func overlayTargetNotchPolicy(for overlayViewController: UIViewController) -> OverlayTranslationTargetNotchPolicy? {
