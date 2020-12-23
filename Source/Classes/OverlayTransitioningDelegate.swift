@@ -46,7 +46,7 @@ public protocol OverlayTranslationTargetNotchPolicy {
     func targetNotchIndex(using context: OverlayContainerContextTargetNotchPolicy) -> Int
 }
 
-/// A protocol that provides the animation controllers once once the user finishes dragging.
+/// A protocol that provides the animation controllers once the user finishes dragging.
 ///
 /// Adopt this protocol to perform your own translation animations. You can also use the provided
 /// implementations like `SpringOverlayTranslationAnimationController`.
