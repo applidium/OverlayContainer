@@ -65,10 +65,11 @@ See the provided examples for help or feel free to ask directly.
   - [Presenting an overlay container](#presenting-an-overlay-container)
   - [Enabling & disabling notches](#enabling--disabling-notches)
   - [Backdrop view](#backdrop-view)
-  - [Safe Area](#safe-area)
+  - [Safe Area issues](#safe-area-issues)
   - [Custom Translation](#custom-translation)
   - [Custom Translation Animations](#custom-translation-animations)
   - [Reloading the notches](#reloading-the-notches)
+- [SwiftUI](#swiftui)
 - [Author](#author)
 - [License](#license)
 
@@ -452,11 +453,11 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
 }
 ```
 
-### Safe Area
+### Safe Area issues
 
-Be careful when using safe areas. As described in the [WWDC "UIKit: Apps for Every Size and Shape" video](https://masterer.apple.com/videos/play/wwdc2018-235/?time=328), the safe area insets will not be updated if your views exceeds the screen bounds. This is specially the case when using the `OverlayStyle.flexibleHeight`.
+Be careful when using safe areas. As described in the [WWDC "UIKit: Apps for Every Size and Shape" video](https://masterer.apple.com/videos/play/wwdc2018-235/?time=328), the safe area insets will not be updated if your views exceeds the screen bounds. This is specially the case when using the `OverlayStyle.expandableHeight`: when the overlay exceeds the bottom screen limit, its safe area will not be updated.
 
-The simpliest way to handle the safe area correctly is to compute your notch heights using the `safeAreaInsets` provided by the container and avoid the `safeAreaLayoutGuide` bottom anchor in your overlay:
+The simpliest way to handle the safe area correctly is to compute your notch heights using the `safeAreaInsets` of the container and avoid the `safeAreaLayoutGuide` use in your overlay view:
 
 ```swift
 func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
@@ -472,6 +473,8 @@ func overlayContainerViewController(_ containerViewController: OverlayContainerV
     }
 }
 ```
+
+If you depend on `UIKit` native components that do not ignore the safe area like a `UINavigationBar`, use the `OverlayStyle.flexibleHeight` style.
 
 ### Custom Translation
 
@@ -527,6 +530,10 @@ func invalidateNotchHeights()
 
 This method does not reload the notch heights immediately. It only clears the current container's state. Because the number of notches may change, the container will use its target notch policy to determine where to go.
 Call `moveOverlay(toNotchAt:animated:)` to override this behavior.
+
+## SwiftUI
+
+See [DynamicOverlay](https://github.com/faberNovel/DynamicOverlay)
 
 ## Author
 
