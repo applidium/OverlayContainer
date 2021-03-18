@@ -4,6 +4,11 @@ default_platform(:ios)
 platform :ios do
     desc "Run all unit tests"
     lane :tests do
+        carthage(
+            command: "update",
+            platform: "iOS",
+            use_xcframeworks: true
+        )
         scan(
             scheme: ENV["SCHEME"],
             clean: true
