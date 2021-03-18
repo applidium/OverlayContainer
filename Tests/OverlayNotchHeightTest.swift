@@ -114,7 +114,7 @@ class OverlayNotchHeightTest: QuickSpec {
             overlayContainer.loadViewIfNeeded()
             overlayContainer.view.layoutIfNeeded()
             Notch.allCases.forEach { notch in
-                waitUntil(timeout: 1) { done in
+                waitUntil(timeout: DispatchTimeInterval.seconds(1)) { done in
                     overlayContainer.moveOverlay(toNotchAt: notch.rawValue, animated: true) {
                         expect(true).to(beTrue())
                         done()
@@ -130,7 +130,7 @@ class OverlayNotchHeightTest: QuickSpec {
             overlayContainer.loadViewIfNeeded()
             overlayContainer.view.layoutIfNeeded()
             Notch.allCases.forEach { notch in
-                waitUntil(timeout: 1) { done in
+                waitUntil(timeout: DispatchTimeInterval.seconds(1)) { done in
                     overlayContainer.moveOverlay(toNotchAt: notch.rawValue, animated: false) {
                         expect(true).to(beTrue())
                         done()
@@ -145,7 +145,7 @@ class OverlayNotchHeightTest: QuickSpec {
             overlayContainer.viewControllers = [overlay]
             overlayContainer.loadViewIfNeeded()
             overlayContainer.view.layoutIfNeeded()
-            waitUntil(timeout: 1) { done in
+            waitUntil(timeout: DispatchTimeInterval.seconds(1)) { done in
                 var i = 0
                 overlayContainer.moveOverlay(toNotchAt: Notch.minimum.rawValue, animated: false) {
                     i += 1

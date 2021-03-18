@@ -6,7 +6,8 @@ platform :ios do
     lane :tests do
         carthage(
             command: "update",
-            platform: "iOS"
+            platform: "iOS",
+            use_xcframeworks: true
         )
         scan(
             scheme: ENV["SCHEME"],
@@ -21,7 +22,12 @@ platform :ios do
 
     desc "Carthage linting"
     lane :carthage_lint do
-        carthage(command: "build", no_skip_current: true, platform: "iOS")
+        carthage(
+            command: "build",
+            no_skip_current: true,
+            platform: "iOS",
+            use_xcframeworks: true
+        )
     end
 
     desc "SPM linting"
