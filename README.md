@@ -213,6 +213,8 @@ let containerController = OverlayContainerViewController()
 containerController.drivingScrollView = myScrollView
 ```
 
+Make sure to set `UIScrollView.alwaysBounceVertical` to `true` so the scroll view will always scroll regardless of its content size.
+
 ### Pan gesture support
 
 The container view controller detects pan gestures on its own view.
