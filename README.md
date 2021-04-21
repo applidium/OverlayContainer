@@ -1,6 +1,3 @@
-<p align="center">
-<img src="https://github.com/applidium/ADOverlayContainer/blob/master/Assets/icon.png" width="700">
-</p>
 
 <H4 align="center">
   OverlayContainer is a UI library written in Swift. It makes easier to develop overlay based interfaces, such as the one presented in the Apple Maps, Stocks or Shortcuts apps
@@ -18,18 +15,9 @@
 
 ---
 
-## Features
+`OverlayContainer` tries to be as lightweight and non-intrusive as possible. The layout and the UI customization are done by you to avoid to corrupt your project. 
 
-There are alternatives like:
-
-- [Pulley](https://github.com/52inc/Pulley)
-- [FloatingPanel](https://github.com/SCENEE/FloatingPanel)
-
-`OverlayContainer` uses a different approach:
-
-- It tries to be as lightweight and non-intrusive as possible. The layout and the UI customization are done by you to avoid to corrupt your project.
-- It perfectly mimics the overlay presented in the Siri Shotcuts app. See [this article](https://gaetanzanella.github.io//2018/replicate-apple-maps-overlay/) for details.
-- It provides more features:
+It perfectly mimics the overlay presented in the Siri Shotcuts app. See [this article](https://gaetanzanella.github.io//2018/replicate-apple-maps-overlay/) for details.
 
 - [x] Unlimited notches
 - [x] Notches modifiable at runtime
@@ -48,11 +36,6 @@ See the provided examples for help or feel free to ask directly.
 
 ---
 
-- [Requirements](#requirements)
-- [Installation](#installation)
-  - [CocoaPods](#cocoapods)
-  - [Carthage](#carthage)
-  - [Swift Package Manager](#swift-package-manager)
 - [Usage](#usage)
   - [Setup](#setup)
   - [Overlay style](#overlay-style)
@@ -69,40 +52,14 @@ See the provided examples for help or feel free to ask directly.
   - [Custom Translation](#custom-translation)
   - [Custom Translation Animations](#custom-translation-animations)
   - [Reloading the notches](#reloading-the-notches)
+- [Requirements](#requirements)
+- [Installation](#installation)
+  - [CocoaPods](#cocoapods)
+  - [Carthage](#carthage)
+  - [Swift Package Manager](#swift-package-manager)
 - [SwiftUI](#swiftui)
 - [Author](#author)
 - [License](#license)
-
-
-## Requirements
-
-OverlayContainer is written in Swift 5. Compatible with iOS 10.0+.
-
-## Installation
-
-OverlayContainer is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your Podfile:
-
-### Cocoapods
-
-```ruby
-pod 'OverlayContainer'
-```
-
-### Carthage
-
-Add the following to your Cartfile:
-
-```ruby
-github "https://github.com/applidium/OverlayContainer"
-```
-
-### Swift Package Manager
-
-OverlayContainer can be installed as a Swift Package with Xcode 11 or higher. To install it, add a package using Xcode or a dependency to your Package.swift file:
-
-```swift
-.package(url: "https://github.com/applidium/OverlayContainer.git", from: "3.4.0")
-```
 
 ## Usage
 
@@ -532,6 +489,37 @@ func invalidateNotchHeights()
 
 This method does not reload the notch heights immediately. It only clears the current container's state. Because the number of notches may change, the container will use its target notch policy to determine where to go.
 Call `moveOverlay(toNotchAt:animated:)` to override this behavior.
+
+## Requirements
+
+OverlayContainer is written in Swift 5. Compatible with iOS 10.0+.
+
+## Installation
+
+OverlayContainer is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your Podfile:
+
+### Cocoapods
+
+```ruby
+pod 'OverlayContainer'
+```
+
+### Carthage
+
+Add the following to your Cartfile:
+
+```ruby
+github "https://github.com/applidium/OverlayContainer"
+```
+
+### Swift Package Manager
+
+OverlayContainer can be installed as a Swift Package with Xcode 11 or higher. To install it, add a package using Xcode or a dependency to your Package.swift file:
+
+```swift
+.package(url: "https://github.com/applidium/OverlayContainer.git", from: "3.4.0")
+```
+
 
 ## SwiftUI
 
