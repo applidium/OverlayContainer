@@ -14,7 +14,11 @@ extension UIScrollView {
     }
 
     var isContentOriginInBounds: Bool {
-        return contentOffset.y <= -oc_adjustedContentInset.top
+        topOffsetInContent <= 0.0
+    }
+
+    var topOffsetInContent: CGFloat {
+        contentOffset.y + oc_adjustedContentInset.top
     }
 
     func scrollToTop() {
