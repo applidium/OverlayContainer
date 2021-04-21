@@ -53,6 +53,7 @@
 		E79AE426262F40A800BFFBF3 /* ScrollViewEmulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE41E262F40A000BFFBF3 /* ScrollViewEmulator.swift */; };
 		E79AE42F2630282800BFFBF3 /* PanGestureOverlayTranslationDriverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE4292630282400BFFBF3 /* PanGestureOverlayTranslationDriverTests.swift */; };
 		E79AE438263029AE00BFFBF3 /* FakeOverlayTranslationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE4322630286F00BFFBF3 /* FakeOverlayTranslationController.swift */; };
+		E79AE443263033F200BFFBF3 /* HeightConstraintOverlayTranslationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79AE43B26302EEA00BFFBF3 /* HeightConstraintOverlayTranslationControllerTests.swift */; };
 		E79D75E126035ED900C942F7 /* Quick.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79D75DF26035ED900C942F7 /* Quick.xcframework */; };
 		E79D75E226035ED900C942F7 /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79D75E026035ED900C942F7 /* Nimble.xcframework */; };
 		E7A6A3AC24460D1A00E51F7A /* OverlayContainerSheetDismissalPolicyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A6A3AA24460B5E00E51F7A /* OverlayContainerSheetDismissalPolicyTest.swift */; };
@@ -127,6 +128,7 @@
 		E79AE41E262F40A000BFFBF3 /* ScrollViewEmulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewEmulator.swift; sourceTree = "<group>"; };
 		E79AE4292630282400BFFBF3 /* PanGestureOverlayTranslationDriverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanGestureOverlayTranslationDriverTests.swift; sourceTree = "<group>"; };
 		E79AE4322630286F00BFFBF3 /* FakeOverlayTranslationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeOverlayTranslationController.swift; sourceTree = "<group>"; };
+		E79AE43B26302EEA00BFFBF3 /* HeightConstraintOverlayTranslationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightConstraintOverlayTranslationControllerTests.swift; sourceTree = "<group>"; };
 		E79D75DF26035ED900C942F7 /* Quick.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Quick.xcframework; path = Carthage/Build/Quick.xcframework; sourceTree = "<group>"; };
 		E79D75E026035ED900C942F7 /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
 		E7A6A3AA24460B5E00E51F7A /* OverlayContainerSheetDismissalPolicyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContainerSheetDismissalPolicyTest.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				E79AE40B262F094600BFFBF3 /* RushingForwardTargetNotchPolicyTests.swift */,
 				E79AE414262F12DF00BFFBF3 /* ScrollViewOverlayTranslationDriverTests.swift */,
 				E79AE4292630282400BFFBF3 /* PanGestureOverlayTranslationDriverTests.swift */,
+				E79AE43B26302EEA00BFFBF3 /* HeightConstraintOverlayTranslationControllerTests.swift */,
 				E78485C52201E66500DE64C3 /* Info.plist */,
 			);
 			path = Tests;
@@ -474,6 +477,7 @@
 				E79AE41A262F12E800BFFBF3 /* ScrollViewOverlayTranslationDriverTests.swift in Sources */,
 				E79AE42F2630282800BFFBF3 /* PanGestureOverlayTranslationDriverTests.swift in Sources */,
 				E79AE438263029AE00BFFBF3 /* FakeOverlayTranslationController.swift in Sources */,
+				E79AE443263033F200BFFBF3 /* HeightConstraintOverlayTranslationControllerTests.swift in Sources */,
 				E78486542201EA9400DE64C3 /* OverlayNotchHeightTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
