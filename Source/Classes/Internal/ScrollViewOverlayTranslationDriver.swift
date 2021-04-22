@@ -46,7 +46,11 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
         let previousTranslation = scrollViewTranslation
         scrollViewTranslation = scrollView.panGestureRecognizer.translation(in: scrollView).y
         if shouldDragOverlay(following: scrollView) {
-            overlayTranslation += scrollViewTranslation - previousTranslation
+            if scrollView.isContentOriginInBounds {
+                overlayTranslation += -scrollView.topOffsetInContent
+            } else {
+                overlayTranslation += scrollViewTranslation - previousTranslation
+            }
             let offset = adjustedContentOffset(dragging: scrollView)
             lastContentOffsetWhileScrolling = offset
             scrollView.contentOffset = offset // Warning : calls `overlayScrollViewDidScroll(_:)` again
