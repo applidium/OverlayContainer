@@ -15,6 +15,10 @@
 
 ---
 
+> ⚠️ In iOS 15, consider using [UISheetPresentationController](https://developer.apple.com/documentation/uikit/uisheetpresentationcontroller) before `OverlayContainer`
+
+---
+
 `OverlayContainer` tries to be as lightweight and non-intrusive as possible. The layout and the UI customization are done by you to avoid to corrupt your project. 
 
 It perfectly mimics the overlay presented in the Siri Shotcuts app. See [this article](https://gaetanzanella.github.io//2018/replicate-apple-maps-overlay/) for details.
