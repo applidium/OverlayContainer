@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol OverlayScrollViewDelegate: class {
+protocol OverlayScrollViewDelegate: AnyObject {
     func overlayScrollViewWillBeginDragging(_ scrollView: UIScrollView)
     func overlayScrollViewDidScroll(_ scrollView: UIScrollView)
     func overlayScrollView(_ scrollView: UIScrollView,

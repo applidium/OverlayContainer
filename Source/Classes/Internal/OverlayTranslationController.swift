@@ -11,7 +11,7 @@ enum OverlayTranslationPosition {
     case top, bottom, inFlight, stationary
 }
 
-protocol OverlayTranslationController: class {
+protocol OverlayTranslationController: AnyObject {
     var lastTranslationEndNotchIndex: Int { get }
     var translationHeight: CGFloat { get }
     var translationPosition: OverlayTranslationPosition { get }

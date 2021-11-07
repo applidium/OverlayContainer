@@ -19,7 +19,7 @@ private struct TranslationMetaData {
     let type: TranslationType
 }
 
-protocol HeightConstraintOverlayTranslationControllerDelegate: class {
+protocol HeightConstraintOverlayTranslationControllerDelegate: AnyObject {
     func overlayViewController(for translationController: OverlayTranslationController) -> UIViewController?
 
     func translationController(_ translationController: OverlayTranslationController,
