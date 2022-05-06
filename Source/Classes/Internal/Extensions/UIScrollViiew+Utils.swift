@@ -17,6 +17,10 @@ extension UIScrollView {
         topOffsetInContent <= 0.0
     }
 
+    var isContentReachedBottom: Bool {
+        return topOffsetInContent >= (contentSize.height - frame.size.height)
+    }
+
     var topOffsetInContent: CGFloat {
         contentOffset.y + oc_adjustedContentInset.top
     }
