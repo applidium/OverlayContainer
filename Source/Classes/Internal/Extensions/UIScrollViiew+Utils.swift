@@ -13,12 +13,18 @@ extension UIScrollView {
         return panGestureRecognizer.yDirection == .up
     }
 
+    var scrollsDown: Bool {
+        return panGestureRecognizer.yDirection == .down
+    }
+
     var isContentOriginInBounds: Bool {
         topOffsetInContent <= 0.0
     }
 
     var isContentReachedBottom: Bool {
-        return topOffsetInContent >= (contentSize.height - frame.size.height)
+        let distanceFromBottom = contentSize.height - topOffsetInContent
+//        print("distance \(distanceFromBottom) content \(contentSize.height) height \(frame.height)")
+        return distanceFromBottom < frame.height
     }
 
     var topOffsetInContent: CGFloat {
