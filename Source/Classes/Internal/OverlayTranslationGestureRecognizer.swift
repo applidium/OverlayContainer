@@ -31,6 +31,9 @@ class OverlayTranslationGestureRecognizer: UIPanGestureRecognizer {
         guard let gestures = drivingScrollView?.gestureRecognizers else {
             return super.shouldRequireFailure(of: otherGestureRecognizer)
         }
+
+        return super.shouldRequireFailure(of: otherGestureRecognizer)
+
         if gestures.contains(otherGestureRecognizer) {
             return true
         } else {
