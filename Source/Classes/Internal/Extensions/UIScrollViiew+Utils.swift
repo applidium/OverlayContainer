@@ -22,8 +22,7 @@ extension UIScrollView {
     }
 
     var isContentReachedBottom: Bool {
-        let distanceFromBottom = contentSize.height - topOffsetInContent
-//        print("distance \(distanceFromBottom) content \(contentSize.height) height \(frame.height)")
+        let distanceFromBottom = contentSize.height - topOffsetInContent + contentInset.top
         return distanceFromBottom < frame.height
     }
 
