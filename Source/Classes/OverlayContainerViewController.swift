@@ -100,6 +100,10 @@ open class OverlayContainerViewController: UIViewController {
     // See issue #72
     private var isPresentedInsideAnOverlayContainerPresentationController = false
 
+    public var isDragging: Bool {
+        return translationController?.isDragging ?? false
+    }
+
     // MARK: - Life Cycle
 
     /// Creates an instance with the specified `style`.
