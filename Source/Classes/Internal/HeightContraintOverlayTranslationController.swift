@@ -58,7 +58,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
 
     private let configuration: OverlayContainerConfiguration
     private let translationHeightConstraint: NSLayoutConstraint
-    var isDragging = false
+    private var isDragging = false
 
     // MARK: - Life Cycle
 
