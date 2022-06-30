@@ -115,6 +115,7 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
         guard let controller = translationController else { return .zero }
         var contentOffset = lastContentOffsetWhileScrolling
         let topInset = -scrollView.oc_adjustedContentInset.top
+        let bottomInset = scrollView.contentSize.height - scrollView.frame.size.height
         switch controller.translationPosition {
         case .inFlight, .top:
             // (gz) 2018-11-26 The user raised its finger in the top or in flight positions while scrolling bottom.
@@ -122,6 +123,11 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
             // the content offset may have exceeded the top inset. We adjust it.
             if contentOffset.y < topInset {
                 contentOffset.y = topInset
+            }
+
+            if contentOffset.y > (bottomInset) &&
+                scrollView.contentSize.height > scrollView.frame.size.height  {
+                contentOffset.y = bottomInset
             }
         case .bottom, .stationary:
             break
