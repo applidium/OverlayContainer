@@ -78,6 +78,7 @@ open class OverlayContainerViewController: UIViewController {
 
     /// The style of the container.
     public let style: OverlayStyle
+    public var iPadLayout = false
 
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
     private lazy var overlayContainerView = OverlayContainerView()
@@ -214,8 +215,14 @@ open class OverlayContainerViewController: UIViewController {
         overlayTranslationContainerView.pinToSuperview()
         overlayTranslationContainerView.addSubview(overlayTranslationView)
         overlayTranslationView.addSubview(overlayContainerView)
-        overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
-        overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
+        if iPadLayout {
+            overlayTranslationView.pinToSuperview(edges: [.top, .left, .right])
+            overlayContainerView.pinToSuperview(edges: [.left, .top, .right, .bottom])
+        } else {
+            overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
+            overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
+        }
+        
         translationHeightConstraint = overlayTranslationView.heightAnchor.constraint(equalToConstant: 0)
         switch style {
         case .flexibleHeight:
@@ -231,10 +238,13 @@ open class OverlayContainerViewController: UIViewController {
                 equalToConstant: 0
             )
             overlayContainerViewStyleConstraint?.priority = .defaultHigh
-            let bottomConstraint = overlayContainerView.bottomAnchor.constraint(
-                greaterThanOrEqualTo: overlayTranslationView.bottomAnchor
-            )
-            bottomConstraint.isActive = true
+            if !iPadLayout {
+                let bottomConstraint = overlayContainerView.bottomAnchor.constraint(
+                    greaterThanOrEqualTo: overlayTranslationView.bottomAnchor
+                )
+
+                bottomConstraint.isActive = true
+            }
         }
         loadTranslationController()
     }
@@ -243,7 +253,8 @@ open class OverlayContainerViewController: UIViewController {
         guard let translationHeightConstraint = translationHeightConstraint else { return }
         translationController = HeightConstraintOverlayTranslationController(
             translationHeightConstraint: translationHeightConstraint,
-            configuration: configuration
+            configuration: configuration,
+            isInverse: iPadLayout
         )
         translationController?.delegate = self
         translationController?.scheduleOverlayTranslation(
