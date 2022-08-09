@@ -104,8 +104,7 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
         case .top:
             return scrollView.isContentOriginInBounds && !movesUp
         case .inFlight:
-            return (scrollView.isContentReachedBottom && scrollView.scrollsUp) ||
-                (scrollView.isContentOriginInBounds && scrollView.scrollsDown)
+            return scrollView.isContentOriginInBounds && scrollView.scrollsDown
         case .stationary:
             return false
         }
