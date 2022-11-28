@@ -6,28 +6,16 @@ platform :ios do
     lane :tests do
         scan(
             scheme: ENV["SCHEME"],
-            clean: true
+            package_path: ".",
+            device: "iPhone 8",
+            clean: true,
+            result_bundle: true
         )
     end
 
     desc "Pod linting"
     lane :pod_lint do
         pod_lib_lint(allow_warnings: true)
-    end
-
-    desc "Carthage linting"
-    lane :carthage_lint do
-        carthage(
-            command: "build",
-            no_skip_current: true,
-            platform: "iOS",
-            use_xcframeworks: true
-        )
-    end
-
-    desc "SPM linting"
-    lane :spm_lint do
-        UI.sucess "Done when testing"
     end
 
     desc "Release a new version"
