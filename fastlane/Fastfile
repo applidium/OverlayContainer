@@ -4,42 +4,18 @@ default_platform(:ios)
 platform :ios do
     desc "Run all unit tests"
     lane :tests do
-        carthage(
-            command: "update",
-            platform: "iOS",
-            use_xcframeworks: true
-        )
         scan(
             scheme: ENV["SCHEME"],
-            clean: true
+            package_path: ".",
+            device: "iPhone 8",
+            clean: true,
+            result_bundle: true
         )
     end
 
     desc "Pod linting"
     lane :pod_lint do
         pod_lib_lint(allow_warnings: true)
-    end
-
-    desc "Carthage linting"
-    lane :carthage_lint do
-        carthage(
-            command: "build",
-            no_skip_current: true,
-            platform: "iOS",
-            use_xcframeworks: true
-        )
-    end
-
-    desc "SPM linting"
-    lane :spm_lint do
-        output = "Package.xcodeproj"
-        Dir.chdir("..") do
-            sh("swift package generate-xcodeproj --output #{output} --xcconfig-overrides #{ENV["XCCONFIG"]}")
-        end
-        xcodebuild(
-            project: output,
-            scheme: "#{ENV["SCHEME"]}-Package"
-        )
     end
 
     desc "Release a new version"
@@ -58,7 +34,7 @@ platform :ios do
         )
         git_add
         git_commit(
-            path: ["Tests/Info.plist", "Source/Info.plist", "OverlayContainer.podspec", "OverlayContainer.xcodeproj/project.pbxproj"],
+            path: ["OverlayContainer.podspec"],
             message: "Bump to #{target_version}"
         )
         ensure_git_status_clean
