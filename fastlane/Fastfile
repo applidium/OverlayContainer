@@ -4,11 +4,6 @@ default_platform(:ios)
 platform :ios do
     desc "Run all unit tests"
     lane :tests do
-        carthage(
-            command: "update",
-            platform: "iOS",
-            use_xcframeworks: true
-        )
         scan(
             scheme: ENV["SCHEME"],
             clean: true
@@ -32,14 +27,7 @@ platform :ios do
 
     desc "SPM linting"
     lane :spm_lint do
-        output = "Package.xcodeproj"
-        Dir.chdir("..") do
-            sh("swift package generate-xcodeproj --output #{output} --xcconfig-overrides #{ENV["XCCONFIG"]}")
-        end
-        xcodebuild(
-            project: output,
-            scheme: "#{ENV["SCHEME"]}-Package"
-        )
+        UI.sucess "Done when testing"
     end
 
     desc "Release a new version"
@@ -58,7 +46,7 @@ platform :ios do
         )
         git_add
         git_commit(
-            path: ["Tests/Info.plist", "Source/Info.plist", "OverlayContainer.podspec", "OverlayContainer.xcodeproj/project.pbxproj"],
+            path: ["OverlayContainer.podspec"],
             message: "Bump to #{target_version}"
         )
         ensure_git_status_clean
