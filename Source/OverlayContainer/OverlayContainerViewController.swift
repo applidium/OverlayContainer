@@ -76,6 +76,10 @@ open class OverlayContainerViewController: UIViewController {
         return view.frame.height
     }
 
+	public var lastNotchIndex: Int? {
+		translationController?.lastTranslationEndNotchIndex
+	}
+
     /// The style of the container.
     public let style: OverlayStyle
 
