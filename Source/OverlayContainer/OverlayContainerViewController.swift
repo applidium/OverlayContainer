@@ -100,6 +100,10 @@ open class OverlayContainerViewController: UIViewController {
     private var translationController: HeightConstraintOverlayTranslationController?
     private var translationDrivers: [OverlayTranslationDriver] = []
 
+	public var overlayTranslation: OverlayTranslationController? {
+		translationController
+	}
+
     // (gz) 2020-08-11 Uses to determine whether we can safely call `presentationController` or not.
     // See issue #72
     private var isPresentedInsideAnOverlayContainerPresentationController = false

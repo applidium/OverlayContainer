@@ -229,12 +229,23 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         translateOverlayWithoutAnimation(toHeight: max(height, 0), isDragging: true)
     }
 
-    func endOverlayTranslation(withVelocity velocity: CGPoint) {
+	func dragOverlay(toNotchIndex index: Int, fractionComplete percent: CGFloat) {
+		let toHeight = configuration.heightForNotch(at: index)
+		let distance = toHeight - translationStartHeight
+		let translation = translationStartHeight + (distance * percent)
+		translateOverlayWithoutAnimation(toHeight: translation, isDragging: true)
+	}
+
+	func endOverlayTranslation(withVelocity velocity: CGPoint, at index: Int?) {
         if isDragging {
             delegate?.translationController(self, willEndDraggingAtVelocity: velocity)
         }
         guard overlayHasAmibiguousTranslationHeight() else { return }
-        scheduleOverlayTranslation(.basedOnTargetPolicy, velocity: velocity, animated: true)
+		var type = TranslationType.basedOnTargetPolicy
+		if let index = index {
+			type = .toIndex(index)
+		}
+        scheduleOverlayTranslation(type, velocity: velocity, animated: true)
         delegate?.translationControllerDidScheduleTranslations(self)
     }
 

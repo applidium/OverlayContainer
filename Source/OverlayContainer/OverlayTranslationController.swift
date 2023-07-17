@@ -7,11 +7,11 @@
 
 import UIKit
 
-enum OverlayTranslationPosition {
+public enum OverlayTranslationPosition {
     case top, bottom, inFlight, stationary
 }
 
-protocol OverlayTranslationController: AnyObject {
+public protocol OverlayTranslationController: AnyObject {
     var lastTranslationEndNotchIndex: Int { get }
     var translationHeight: CGFloat { get }
     var translationPosition: OverlayTranslationPosition { get }
@@ -22,5 +22,12 @@ protocol OverlayTranslationController: AnyObject {
 
     func startOverlayTranslation()
     func dragOverlay(withOffset offset: CGFloat, usesFunction: Bool)
-    func endOverlayTranslation(withVelocity velocity: CGPoint)
+	func dragOverlay(toNotchIndex index: Int, fractionComplete percent: CGFloat)
+    func endOverlayTranslation(withVelocity velocity: CGPoint, at index: Int?)
+}
+
+public extension OverlayTranslationController {
+	func endOverlayTranslation(withVelocity velocity: CGPoint) {
+		endOverlayTranslation(withVelocity: velocity, at: nil)
+	}
 }
