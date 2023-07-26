@@ -104,6 +104,10 @@ open class OverlayContainerViewController: UIViewController {
 		translationController
 	}
 
+	open var cornerRadius: CGFloat {
+		0
+	}
+
     // (gz) 2020-08-11 Uses to determine whether we can safely call `presentationController` or not.
     // See issue #72
     private var isPresentedInsideAnOverlayContainerPresentationController = false
@@ -224,6 +228,9 @@ open class OverlayContainerViewController: UIViewController {
         overlayTranslationView.addSubview(overlayContainerView)
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
         overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
+		overlayContainerView.clipsToBounds = true
+		overlayContainerView.layer.cornerRadius = cornerRadius
+		overlayContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         translationHeightConstraint = overlayTranslationView.heightAnchor.constraint(equalToConstant: 0)
         switch style {
         case .flexibleHeight:
