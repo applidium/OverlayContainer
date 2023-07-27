@@ -85,9 +85,10 @@ open class OverlayContainerViewController: UIViewController {
 
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
     private lazy var overlayContainerView = OverlayContainerView()
-    private lazy var overlayTranslationView = OverlayTranslationView()
+	internal lazy var overlayTranslationView = OverlayTranslationView()
     private lazy var overlayTranslationContainerView = OverlayTranslationContainerView()
     private lazy var groundView = GroundView()
+	private lazy var dashView = DashView()
 
     private var overlayContainerViewStyleConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
@@ -225,12 +226,15 @@ open class OverlayContainerViewController: UIViewController {
         view.addSubview(overlayTranslationContainerView)
         overlayTranslationContainerView.pinToSuperview()
         overlayTranslationContainerView.addSubview(overlayTranslationView)
+		overlayTranslationView.addSubview(dashView)
         overlayTranslationView.addSubview(overlayContainerView)
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
-        overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
-		overlayContainerView.clipsToBounds = true
-		overlayContainerView.layer.cornerRadius = cornerRadius
-		overlayContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+		dashView.pinToSuperview(edges: [.left, .top, .right])
+        overlayContainerView.pinToSuperview(edges: [.left, .right])
+		overlayContainerView.topAnchor.constraint(equalTo: dashView.bottomAnchor).isActive = true
+		overlayTranslationView.clipsToBounds = true
+		overlayTranslationView.layer.cornerRadius = cornerRadius
+		overlayTranslationView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         translationHeightConstraint = overlayTranslationView.heightAnchor.constraint(equalToConstant: 0)
         switch style {
         case .flexibleHeight:
