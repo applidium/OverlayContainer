@@ -88,7 +88,7 @@ open class OverlayContainerViewController: UIViewController {
 	internal lazy var overlayTranslationView = OverlayTranslationView()
     private lazy var overlayTranslationContainerView = OverlayTranslationContainerView()
     private lazy var groundView = GroundView()
-	private lazy var dashView = DashView()
+	public private (set) lazy var dashView: UIView = DashView()
 
     private var overlayContainerViewStyleConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
@@ -232,6 +232,7 @@ open class OverlayContainerViewController: UIViewController {
 		dashView.pinToSuperview(edges: [.left, .top, .right])
         overlayContainerView.pinToSuperview(edges: [.left, .right])
 		overlayContainerView.topAnchor.constraint(equalTo: dashView.bottomAnchor).isActive = true
+		dashView.layoutIfNeeded()
 		overlayTranslationView.clipsToBounds = true
 		overlayTranslationView.layer.cornerRadius = cornerRadius
 		overlayTranslationView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
