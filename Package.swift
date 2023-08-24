@@ -9,6 +9,7 @@ let package = Package(
     products: [
         .library(
             name: "OverlayContainer",
+            type: .dynamic,
             targets: ["OverlayContainer"]
         ),
     ],
