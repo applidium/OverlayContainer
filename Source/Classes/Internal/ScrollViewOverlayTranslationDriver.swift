@@ -19,12 +19,15 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
     private var overlayTranslation: CGFloat = 0
     private var scrollViewTranslation: CGFloat = 0
     private var lastContentOffsetWhileScrolling: CGPoint = .zero
+    private var scrollUpToExpand: Bool
 
     // MARK: - Life Cycle
 
-    init(translationController: OverlayTranslationController, scrollView: UIScrollView) {
+    init(translationController: OverlayTranslationController, scrollView: UIScrollView, scrollUpToExpand: Bool) {
         self.translationController = translationController
         self.scrollView = scrollView
+        self.scrollUpToExpand = scrollUpToExpand
+        
         scrollViewDelegateProxy.forward(to: self, delegateInvocationsFrom: scrollView)
         lastContentOffsetWhileScrolling = scrollView.contentOffset
     }
@@ -104,7 +107,7 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
         case .top:
             return scrollView.isContentOriginInBounds && !movesUp
         case .inFlight:
-            return scrollView.isContentOriginInBounds && scrollView.scrollsDown
+            return scrollView.isContentOriginInBounds && scrollView.scrollsDown || (scrollView.scrollsUp && scrollUpToExpand)
         case .stationary:
             return false
         }

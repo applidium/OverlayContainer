@@ -102,6 +102,8 @@ open class OverlayContainerViewController: UIViewController {
     // See issue #72
     private var isPresentedInsideAnOverlayContainerPresentationController = false
 
+    public var scrollUpToExpand = false
+
     // MARK: - Life Cycle
 
     /// Creates an instance with the specified `style`.
@@ -320,7 +322,8 @@ open class OverlayContainerViewController: UIViewController {
             overlayPanGesture.drivingScrollView = scrollView
             let driver = ScrollViewOverlayTranslationDriver(
                 translationController: translationController,
-                scrollView: scrollView
+                scrollView: scrollView,
+                scrollUpToExpand: scrollUpToExpand
             )
             drivers.append(driver)
         }
