@@ -90,6 +90,9 @@ open class OverlayContainerViewController: UIViewController {
     private var overlayContainerViewBottomConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
 
+    private var overlayContainerPortraitWidthConstraint: NSLayoutConstraint?
+    private var overlayContainerLandscapeWidthConstraint: NSLayoutConstraint?
+
     private lazy var configuration = makeConfiguration()
 
     private var needsOverlayContainerHeightUpdate = true
@@ -103,6 +106,7 @@ open class OverlayContainerViewController: UIViewController {
     private var isPresentedInsideAnOverlayContainerPresentationController = false
 
     public var scrollUpToExpand = false
+    public var shrinksInLandscape = false
 
     // MARK: - Life Cycle
 
@@ -159,6 +163,13 @@ open class OverlayContainerViewController: UIViewController {
         }
         configuration.requestOverlayMetricsIfNeeded()
         performDeferredTranslations()
+    }
+
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        guard shrinksInLandscape else { return }
+
+        overlayContainerPortraitWidthConstraint?.isActive = traitCollection.verticalSizeClass == .regular
+        overlayContainerLandscapeWidthConstraint?.isActive = traitCollection.verticalSizeClass == .compact
     }
 
     // MARK: - Internal
@@ -299,7 +310,20 @@ open class OverlayContainerViewController: UIViewController {
         guard !viewControllers.isEmpty else { return }
         groundView.isHidden = viewControllers.count == 1
         var truncatedViewControllers = viewControllers
-        truncatedViewControllers.popLast().flatMap { addChild($0, in: overlayContainerView) }
+        truncatedViewControllers.popLast().flatMap {
+            addChild($0, in: overlayContainerView, pinToContainer: false)
+            $0.view.translatesAutoresizingMaskIntoConstraints = false
+            $0.view.topAnchor.constraint(equalTo: overlayContainerView.topAnchor).isActive = true
+            $0.view.bottomAnchor.constraint(equalTo: overlayContainerView.bottomAnchor).isActive = true
+            $0.view.centerXAnchor.constraint(equalTo: overlayContainerView.centerXAnchor).isActive = true
+            overlayContainerLandscapeWidthConstraint = $0.view.widthAnchor.constraint(equalToConstant: 375)
+            overlayContainerPortraitWidthConstraint = $0.view.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor)
+            if shrinksInLandscape && traitCollection.verticalSizeClass == .compact {
+                overlayContainerLandscapeWidthConstraint?.isActive = true
+            } else {
+                overlayContainerPortraitWidthConstraint?.isActive = true
+            }
+        }
         truncatedViewControllers.forEach { addChild($0, in: groundView) }
         loadTranslationDrivers()
     }

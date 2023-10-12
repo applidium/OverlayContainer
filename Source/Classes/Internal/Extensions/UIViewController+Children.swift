@@ -8,11 +8,13 @@
 import UIKit
 
 extension UIViewController {
-    func addChild(_ child: UIViewController, in containerView: UIView) {
+    func addChild(_ child: UIViewController, in containerView: UIView, pinToContainer: Bool = true) {
         guard containerView.isDescendant(of: view) else { return }
         addChild(child)
         containerView.addSubview(child.view)
-        child.view.pinToSuperview()
+        if pinToContainer {
+            child.view.pinToSuperview()
+        }
         child.didMove(toParent: self)
     }
 
