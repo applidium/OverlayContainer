@@ -24,4 +24,6 @@ public protocol OverlayContainerSheetPresentationControllerDelegate: AnyObject {
     ///
     /// - parameter presentationController: The presentation controller requesting this information.
     func overlayContainerSheetPresentationControllerShouldDismissOnTap(_ presentationController: OverlayContainerSheetPresentationController) -> Bool
+
+    func overlayContainerSheetPresentationControllerDidDismiss()
 }

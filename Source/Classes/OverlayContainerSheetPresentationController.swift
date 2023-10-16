@@ -67,6 +67,7 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
         }, completion: nil)
         let policy = makeDismissalPolicy()
         if !presentedViewController.isBeingDismissed && policy.shouldDismiss(using: dismissalContext) {
+            sheetDelegate?.overlayContainerSheetPresentationControllerDidDismiss()
             presentingViewController.dismiss(animated: true, completion: nil)
         }
     }
@@ -96,6 +97,7 @@ open class OverlayContainerSheetPresentationController: OverlayContainerPresenta
     @objc private func tapGestureAction(_ sender: UITapGestureRecognizer) {
         let shouldDismiss = sheetDelegate?.overlayContainerSheetPresentationControllerShouldDismissOnTap(self) ?? true
         guard shouldDismiss else { return }
+        sheetDelegate?.overlayContainerSheetPresentationControllerDidDismiss()
         presentedViewController.dismiss(animated: true, completion: nil)
     }
 
