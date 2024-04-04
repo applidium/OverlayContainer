@@ -243,6 +243,8 @@ open class OverlayContainerViewController: UIViewController {
         overlayTranslationContainerView.pinToSuperview()
         overlayTranslationContainerView.addSubview(overlayTranslationView)
         overlayTranslationView.addSubview(overlayContainerView)
+        overlayTranslationView.translatesAutoresizingMaskIntoConstraints = false
+        overlayContainerView.translatesAutoresizingMaskIntoConstraints = false
         setOverlayPosition()
         setOverlayConstraints()
         loadTranslationController()
