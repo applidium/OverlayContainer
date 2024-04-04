@@ -272,7 +272,7 @@ open class OverlayContainerViewController: UIViewController {
 
         } else {
             translationConstraints.append(
-                overlayContainerView.topAnchor.constraint(equalTo: overlayTranslationContainerView.topAnchor)
+                overlayContainerView.bottomAnchor.constraint(equalTo: overlayTranslationContainerView.bottomAnchor)
             )
         }
 
