@@ -269,11 +269,8 @@ open class OverlayContainerViewController: UIViewController {
             } else {
                 translationConstraints.append(overlayContainerView.topAnchor.constraint(equalTo: overlayTranslationContainerView.topAnchor))
             }
-
-            overlayConstraints.append(overlayContainerView.bottomAnchor.constraint(equalTo: overlayTranslationView.bottomAnchor))
-
         } else {
-            translationConstraints.append(
+            overlayConstraints.append(
                 overlayContainerView.bottomAnchor.constraint(equalTo: overlayTranslationContainerView.bottomAnchor)
             )
         }
@@ -286,9 +283,13 @@ open class OverlayContainerViewController: UIViewController {
         translationHeightConstraint = overlayTranslationView.heightAnchor.constraint(equalToConstant: 0)
         switch style {
         case .flexibleHeight:
-            overlayContainerViewStyleConstraint = overlayContainerView.bottomAnchor.constraint(
-                equalTo: overlayTranslationView.bottomAnchor
-            )
+            if landscapeLayout && UIDevice.current.userInterfaceIdiom == .phone {
+                overlayContainerViewStyleConstraint = nil
+            } else {
+                overlayContainerViewStyleConstraint = overlayContainerView.bottomAnchor.constraint(
+                    equalTo: overlayTranslationView.bottomAnchor
+                )
+            }
         case .rigid:
             overlayContainerViewStyleConstraint = overlayContainerView.heightAnchor.constraint(
                 equalToConstant: 0
