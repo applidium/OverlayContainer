@@ -254,7 +254,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         guard let index = heights.firstIndex(where: { $0 == translationHeight }) else {
             return true
         }
-        return configuration.heightForNotch(at: index) != translationEndNotchHeight
+        return heights[index] != translationEndNotchHeight
     }
 
     private func translateOverlayWithoutAnimation(toHeight height: CGFloat, isDragging: Bool) {
