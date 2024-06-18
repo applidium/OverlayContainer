@@ -200,7 +200,7 @@ open class OverlayContainerViewController: UIViewController {
     /// - parameter completion: The block to execute after the translation finishes.
     ///   This block has no return value and takes no parameters. You may specify nil for this parameter.
     ///
-    open func moveOverlay(toNotchAt index: Int, insetColor: UIColor = .clear, animated: Bool, completion: (() -> Void)? = nil) {
+    open func moveOverlay(toNotchAt index: Int, insetColor: UIColor? = .clear, animated: Bool, completion: (() -> Void)? = nil) {
         loadViewIfNeeded()
         translationController?.scheduleOverlayTranslation(
             .toIndex(index),
