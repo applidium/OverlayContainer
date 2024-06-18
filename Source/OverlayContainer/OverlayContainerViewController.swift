@@ -211,12 +211,13 @@ open class OverlayContainerViewController: UIViewController {
             duration: 0,
             timingParameters: timing
         )
+        
+        navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight : 0
 
         animator.addAnimations {
-            self.navControllerTopConstraint?.constant = index == self.configuration.maximumNotchIndex
-            ? self.statusBarHeight
-            : 0
-            self.overlayContainerView.backgroundColor = self.overlayContainerView.subviews.first?.backgroundColor ?? .clear
+            self.overlayContainerView.layoutIfNeeded()
+            self.overlayContainerView.backgroundColor = self.viewControllers
+                .last?.navigationController?.topViewController?.view.backgroundColor ?? .clear
         }
         animator.startAnimation()
         loadViewIfNeeded()
