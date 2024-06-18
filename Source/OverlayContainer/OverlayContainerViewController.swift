@@ -119,6 +119,13 @@ open class OverlayContainerViewController: UIViewController {
             UIApplication.shared.statusBarFrame.height
         }
     }
+    
+    let animationTiming = UISpringTimingParameters(
+        mass: 1,
+        stiffness: pow(2 * .pi / 0.3, 2),
+        damping: 4 * .pi / 0.3,
+        initialVelocity: .zero
+    )
 
     // (gz) 2020-08-11 Uses to determine whether we can safely call `presentationController` or not.
     // See issue #72
@@ -212,22 +219,15 @@ open class OverlayContainerViewController: UIViewController {
         if
             let topVC = viewControllers.last?.navigationController?.topViewController
         {
-            let timing = UISpringTimingParameters(
-                mass: 1,
-                stiffness: pow(2 * .pi / 0.3, 2),
-                damping: 4 * .pi / 0.3,
-                initialVelocity: .zero
-            )
             let animator = UIViewPropertyAnimator(
                 duration: 0,
-                timingParameters: timing
+                timingParameters: animationTiming
             )
             
             navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight : 0
             
             animator.addAnimations {
                 self.overlayContainerView.layoutIfNeeded()
-                self.overlayContainerView.backgroundColor = topVC.view.backgroundColor
             }
             animator.startAnimation()
         }
@@ -416,6 +416,16 @@ extension OverlayContainerViewController: HeightConstraintOverlayTranslationCont
             didMoveOverlay: controller,
             toNotchAt: index
         )
+        
+        let animator = UIViewPropertyAnimator(
+            duration: 0,
+            timingParameters: animationTiming
+        )
+        
+        animator.addAnimations {
+            self.overlayContainerView.backgroundColor = controller.view.backgroundColor
+        }
+        animator.startAnimation()
     }
 
     func translationController(_ translationController: OverlayTranslationController,
