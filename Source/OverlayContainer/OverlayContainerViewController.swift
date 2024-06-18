@@ -201,25 +201,6 @@ open class OverlayContainerViewController: UIViewController {
     ///   This block has no return value and takes no parameters. You may specify nil for this parameter.
     ///
     open func moveOverlay(toNotchAt index: Int, animated: Bool, completion: (() -> Void)? = nil) {
-        let timing = UISpringTimingParameters(
-            mass: 1,
-            stiffness: pow(2 * .pi / 0.3, 2),
-            damping: 4 * .pi / 0.3,
-            initialVelocity: .zero
-        )
-        let animator = UIViewPropertyAnimator(
-            duration: 0,
-            timingParameters: timing
-        )
-        
-        navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight : 0
-
-        animator.addAnimations {
-            self.overlayContainerView.layoutIfNeeded()
-            self.overlayContainerView.backgroundColor = self.viewControllers
-                .last?.navigationController?.topViewController?.view.backgroundColor ?? .clear
-        }
-        animator.startAnimation()
         loadViewIfNeeded()
         translationController?.scheduleOverlayTranslation(
             .toIndex(index),
@@ -228,6 +209,29 @@ open class OverlayContainerViewController: UIViewController {
             completion: completion
         )
         setNeedsOverlayContainerHeightUpdate()
+        if
+            let topVC = viewControllers.last?.navigationController?.topViewController,
+            !(topVC.navigationController?.isNavigationBarHidden ?? true)
+        {
+            let timing = UISpringTimingParameters(
+                mass: 1,
+                stiffness: pow(2 * .pi / 0.3, 2),
+                damping: 4 * .pi / 0.3,
+                initialVelocity: .zero
+            )
+            let animator = UIViewPropertyAnimator(
+                duration: 0,
+                timingParameters: timing
+            )
+            
+            navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight : 0
+            
+            animator.addAnimations {
+                self.overlayContainerView.layoutIfNeeded()
+                self.overlayContainerView.backgroundColor = topVC.view.backgroundColor
+            }
+            animator.startAnimation()
+        }
     }
 
     /// Invalidates the current container notches.
