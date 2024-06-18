@@ -210,8 +210,7 @@ open class OverlayContainerViewController: UIViewController {
         )
         setNeedsOverlayContainerHeightUpdate()
         if
-            let topVC = viewControllers.last?.navigationController?.topViewController,
-            !(topVC.navigationController?.isNavigationBarHidden ?? true)
+            let topVC = viewControllers.last?.navigationController?.topViewController
         {
             let timing = UISpringTimingParameters(
                 mass: 1,
