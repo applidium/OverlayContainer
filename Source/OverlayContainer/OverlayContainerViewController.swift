@@ -108,6 +108,21 @@ open class OverlayContainerViewController: UIViewController {
 	open var cornerRadius: CGFloat {
 		0
 	}
+    
+    open var needNavbarInset: Bool {
+        false
+    }
+    
+    private var navControllerTopConstraint: NSLayoutConstraint?
+    
+    public var statusBarHeight: CGFloat {
+        if #available(iOS 13.0, *) {
+            UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.windowScene?.statusBarManager?.statusBarFrame
+                .height ?? 0
+        } else {
+            UIApplication.shared.statusBarFrame.height
+        }
+    }
 
     // (gz) 2020-08-11 Uses to determine whether we can safely call `presentationController` or not.
     // See issue #72
@@ -189,7 +204,7 @@ open class OverlayContainerViewController: UIViewController {
     /// - parameter completion: The block to execute after the translation finishes.
     ///   This block has no return value and takes no parameters. You may specify nil for this parameter.
     ///
-    open func moveOverlay(toNotchAt index: Int, animated: Bool, completion: (() -> Void)? = nil) {
+    open func moveOverlay(toNotchAt index: Int, insetColor: UIColor? = .clear, animated: Bool, completion: (() -> Void)? = nil) {
         loadViewIfNeeded()
         translationController?.scheduleOverlayTranslation(
             .toIndex(index),
@@ -198,6 +213,26 @@ open class OverlayContainerViewController: UIViewController {
             completion: completion
         )
         setNeedsOverlayContainerHeightUpdate()
+        if needNavbarInset {
+            let timing = UISpringTimingParameters(
+                mass: 1,
+                stiffness: pow(2 * .pi / 0.3, 2),
+                damping: 4 * .pi / 0.3,
+                initialVelocity: .zero
+            )
+            let animator = UIViewPropertyAnimator(
+                duration: 0,
+                timingParameters: timing
+            )
+            
+            navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight : 0
+            
+            animator.addAnimations {
+                self.overlayContainerView.layoutIfNeeded()
+                self.overlayContainerView.backgroundColor = insetColor
+            }
+            animator.startAnimation()
+        }
     }
 
     /// Invalidates the current container notches.
@@ -277,7 +312,30 @@ open class OverlayContainerViewController: UIViewController {
         guard !viewControllers.isEmpty else { return }
         groundView.isHidden = viewControllers.count == 1
         var truncatedViewControllers = viewControllers
-        truncatedViewControllers.popLast().flatMap { addChild($0, in: overlayContainerView) }
+        truncatedViewControllers.popLast().flatMap {
+            navControllerTopConstraint = $0.view.topAnchor.constraint(
+                equalTo: overlayContainerView.topAnchor,
+                constant: 0
+            )
+            addChild($0)
+            overlayContainerView.addSubview($0.view)
+            $0.view.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                $0.view.leadingAnchor.constraint(
+                    equalTo: overlayContainerView.leadingAnchor
+                ),
+                $0.view.trailingAnchor.constraint(
+                    equalTo: overlayContainerView.trailingAnchor
+                ),
+                $0.view.bottomAnchor.constraint(
+                    equalTo: overlayContainerView.bottomAnchor
+                ),
+                navControllerTopConstraint ?? $0.view.topAnchor.constraint(
+                    equalTo: overlayContainerView.topAnchor
+                )
+            ])
+            $0.didMove(toParent: self)
+        }
         truncatedViewControllers.forEach { addChild($0, in: groundView) }
         loadTranslationDrivers()
     }
