@@ -109,6 +109,10 @@ open class OverlayContainerViewController: UIViewController {
 		0
 	}
     
+    open var needNavbarInset: Bool {
+        false
+    }
+    
     private var navControllerTopConstraint: NSLayoutConstraint?
     
     public var statusBarHeight: CGFloat {
@@ -209,11 +213,7 @@ open class OverlayContainerViewController: UIViewController {
             completion: completion
         )
         setNeedsOverlayContainerHeightUpdate()
-        if
-            let topVC = viewControllers.last?.navigationController?.topViewController
-        {
-            
-            
+        if needNavbarInset {
             let timing = UISpringTimingParameters(
                 mass: 1,
                 stiffness: pow(2 * .pi / 0.3, 2),
