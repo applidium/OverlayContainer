@@ -269,7 +269,7 @@ open class OverlayContainerViewController: UIViewController {
 		dashView.pinToSuperview(edges: [.left,.right])
         dashView.bottomAnchor.constraint(equalTo: overlayTranslationView.topAnchor).isActive = true
         overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
-//		dashView.layoutIfNeeded()
+		dashView.layoutIfNeeded()
 		overlayTranslationView.clipsToBounds = true
 		overlayTranslationView.layer.cornerRadius = cornerRadius
 		overlayTranslationView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
