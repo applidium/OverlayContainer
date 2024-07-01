@@ -209,7 +209,7 @@ open class OverlayContainerViewController: UIViewController {
             completion: completion
         )
         setNeedsOverlayContainerHeightUpdate()
-        if needNavbarInset {
+        if needNavbarInset && (viewControllers.last?.navigationController?.isNavigationBarHidden ?? false) {
             let timing = UISpringTimingParameters(
                 mass: 1,
                 stiffness: pow(2 * .pi / 0.3, 2),
