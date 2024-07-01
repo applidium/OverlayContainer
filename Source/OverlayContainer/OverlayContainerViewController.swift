@@ -116,12 +116,8 @@ open class OverlayContainerViewController: UIViewController {
     private var navControllerTopConstraint: NSLayoutConstraint?
     
     public var statusBarHeight: CGFloat {
-        if #available(iOS 13.0, *) {
-            UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.windowScene?.statusBarManager?.statusBarFrame
-                .height ?? 0
-        } else {
-            UIApplication.shared.statusBarFrame.height
-        }
+        let window = UIApplication.shared.windows.first
+        return window?.safeAreaInsets.top ?? 0
     }
 
     // (gz) 2020-08-11 Uses to determine whether we can safely call `presentationController` or not.
@@ -225,7 +221,7 @@ open class OverlayContainerViewController: UIViewController {
                 timingParameters: timing
             )
             
-            navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight : 20
+            navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight + 20 : 20
             
             animator.addAnimations {
                 self.overlayContainerView.layoutIfNeeded()
@@ -267,7 +263,6 @@ open class OverlayContainerViewController: UIViewController {
         
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
         dashView.pinToSuperview(edges: [.left, .top, .right])
-//        dashView.bottomAnchor.constraint(equalTo: overlayTranslationView.topAnchor).isActive = true
         overlayContainerView.pinToSuperview(edges: [.left, .right])
         dashView.layoutIfNeeded()
         dashView.clipsToBounds = true
