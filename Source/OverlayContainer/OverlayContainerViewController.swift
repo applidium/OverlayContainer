@@ -259,9 +259,9 @@ open class OverlayContainerViewController: UIViewController {
         view.addSubview(groundView)
         groundView.pinToSuperview()
         view.addSubview(overlayTranslationContainerView)
-        
         overlayTranslationContainerView.pinToSuperview()
-        overlayTranslationView.addSubview(dashView)
+        
+        overlayTranslationContainerView.addSubview(dashView)
         overlayTranslationContainerView.addSubview(overlayTranslationView)
         overlayTranslationView.addSubview(overlayContainerView)
         
