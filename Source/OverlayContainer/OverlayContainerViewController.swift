@@ -258,16 +258,17 @@ open class OverlayContainerViewController: UIViewController {
     private func loadContainerViews() {
         view.addSubview(groundView)
         groundView.pinToSuperview()
+        view.addSubview(dashView)
         view.addSubview(overlayTranslationContainerView)
-        overlayTranslationContainerView.pinToSuperview()
         
-        overlayTranslationContainerView.addSubview(dashView)
+        dashView.pinToSuperview(edges: [.left, .top, .right])
+        overlayTranslationContainerView.pinToSuperview(edges: [.left, .bottom, .right])
+        overlayTranslationContainerView.topAnchor.constraint(equalTo: dashView.topAnchor).isActive = true
+        
         overlayTranslationContainerView.addSubview(overlayTranslationView)
         overlayTranslationView.addSubview(overlayContainerView)
         
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
-		dashView.pinToSuperview(edges: [.left,.right])
-        dashView.bottomAnchor.constraint(equalTo: overlayTranslationView.topAnchor).isActive = true
         overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
 		dashView.layoutIfNeeded()
         dashView.clipsToBounds = true
