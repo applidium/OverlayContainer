@@ -225,7 +225,7 @@ open class OverlayContainerViewController: UIViewController {
                 timingParameters: timing
             )
             
-            navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight : 0
+            navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight : 20
             
             animator.addAnimations {
                 self.overlayContainerView.layoutIfNeeded()
@@ -263,13 +263,12 @@ open class OverlayContainerViewController: UIViewController {
         
         overlayTranslationContainerView.addSubview(overlayTranslationView)
         overlayTranslationView.addSubview(overlayContainerView)
-        overlayTranslationView.addSubview(dashView)
+        overlayContainerView.addSubview(dashView)
         
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
         dashView.pinToSuperview(edges: [.left, .top, .right])
 //        dashView.bottomAnchor.constraint(equalTo: overlayTranslationView.topAnchor).isActive = true
         overlayContainerView.pinToSuperview(edges: [.left, .right])
-        overlayContainerView.topAnchor.constraint(equalTo: overlayTranslationView.topAnchor, constant: 20).isActive = true
         dashView.layoutIfNeeded()
         dashView.clipsToBounds = true
         dashView.layer.cornerRadius = cornerRadius
@@ -318,7 +317,7 @@ open class OverlayContainerViewController: UIViewController {
         truncatedViewControllers.popLast().flatMap {
             navControllerTopConstraint = $0.view.topAnchor.constraint(
                 equalTo: overlayContainerView.topAnchor,
-                constant: 0
+                constant: 20
             )
             addChild($0)
             overlayContainerView.addSubview($0.view)
