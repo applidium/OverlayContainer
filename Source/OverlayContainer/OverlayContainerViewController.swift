@@ -113,6 +113,8 @@ open class OverlayContainerViewController: UIViewController {
         false
     }
     
+    private let dashViewHeight = 20.0
+    
     private var navControllerTopConstraint: NSLayoutConstraint?
     
     public var statusBarHeight: CGFloat {
@@ -209,7 +211,6 @@ open class OverlayContainerViewController: UIViewController {
             completion: completion
         )
         setNeedsOverlayContainerHeightUpdate()
-        if needNavbarInset && !isNavBarHidden {
             let timing = UISpringTimingParameters(
                 mass: 1,
                 stiffness: pow(2 * .pi / 0.3, 2),
@@ -221,14 +222,16 @@ open class OverlayContainerViewController: UIViewController {
                 timingParameters: timing
             )
             
-            navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight + 20 : 20
-            
-            animator.addAnimations {
-                self.overlayContainerView.layoutIfNeeded()
-                self.overlayContainerView.backgroundColor = insetColor
-            }
-            animator.startAnimation()
+        if needNavbarInset && !isNavBarHidden {
+            navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight + dashViewHeight : dashViewHeight
+        } else {
+            navControllerTopConstraint?.constant = dashViewHeight
         }
+        animator.addAnimations {
+            self.overlayContainerView.layoutIfNeeded()
+            self.overlayContainerView.backgroundColor = insetColor
+        }
+        animator.startAnimation()
     }
 
     /// Invalidates the current container notches.
@@ -312,7 +315,7 @@ open class OverlayContainerViewController: UIViewController {
         truncatedViewControllers.popLast().flatMap {
             navControllerTopConstraint = $0.view.topAnchor.constraint(
                 equalTo: overlayContainerView.topAnchor,
-                constant: 20
+                constant: dashViewHeight
             )
             addChild($0)
             overlayContainerView.addSubview($0.view)
