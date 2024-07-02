@@ -211,6 +211,8 @@ open class OverlayContainerViewController: UIViewController {
             completion: completion
         )
         setNeedsOverlayContainerHeightUpdate()
+        
+        if needNavbarInset {
             let timing = UISpringTimingParameters(
                 mass: 1,
                 stiffness: pow(2 * .pi / 0.3, 2),
@@ -222,16 +224,17 @@ open class OverlayContainerViewController: UIViewController {
                 timingParameters: timing
             )
             
-        if needNavbarInset && !isNavBarHidden {
-            navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight + dashViewHeight : dashViewHeight
-        } else {
-            navControllerTopConstraint?.constant = dashViewHeight
+            if !isNavBarHidden {
+                navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight + dashViewHeight : dashViewHeight
+            } else {
+                navControllerTopConstraint?.constant = dashViewHeight
+            }
+            animator.addAnimations {
+                self.overlayContainerView.layoutIfNeeded()
+                self.overlayContainerView.backgroundColor = insetColor
+            }
+            animator.startAnimation()
         }
-        animator.addAnimations {
-            self.overlayContainerView.layoutIfNeeded()
-            self.overlayContainerView.backgroundColor = insetColor
-        }
-        animator.startAnimation()
     }
 
     /// Invalidates the current container notches.
