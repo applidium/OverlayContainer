@@ -113,15 +113,13 @@ open class OverlayContainerViewController: UIViewController {
         false
     }
     
+    private let dashViewHeight = 20.0
+    
     private var navControllerTopConstraint: NSLayoutConstraint?
     
     public var statusBarHeight: CGFloat {
-        if #available(iOS 13.0, *) {
-            UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.windowScene?.statusBarManager?.statusBarFrame
-                .height ?? 0
-        } else {
-            UIApplication.shared.statusBarFrame.height
-        }
+        let window = UIApplication.shared.windows.first
+        return window?.safeAreaInsets.top ?? 0
     }
 
     // (gz) 2020-08-11 Uses to determine whether we can safely call `presentationController` or not.
@@ -204,7 +202,7 @@ open class OverlayContainerViewController: UIViewController {
     /// - parameter completion: The block to execute after the translation finishes.
     ///   This block has no return value and takes no parameters. You may specify nil for this parameter.
     ///
-    open func moveOverlay(toNotchAt index: Int, insetColor: UIColor? = .clear, animated: Bool, completion: (() -> Void)? = nil) {
+    open func moveOverlay(toNotchAt index: Int, isNavBarHidden: Bool = false, insetColor: UIColor? = .clear, animated: Bool, completion: (() -> Void)? = nil) {
         loadViewIfNeeded()
         translationController?.scheduleOverlayTranslation(
             .toIndex(index),
@@ -213,6 +211,7 @@ open class OverlayContainerViewController: UIViewController {
             completion: completion
         )
         setNeedsOverlayContainerHeightUpdate()
+        
         if needNavbarInset {
             let timing = UISpringTimingParameters(
                 mass: 1,
@@ -225,8 +224,11 @@ open class OverlayContainerViewController: UIViewController {
                 timingParameters: timing
             )
             
-            navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight : 0
-            
+            if !isNavBarHidden {
+                navControllerTopConstraint?.constant = index == configuration.maximumNotchIndex ? statusBarHeight + dashViewHeight : dashViewHeight
+            } else {
+                navControllerTopConstraint?.constant = dashViewHeight
+            }
             animator.addAnimations {
                 self.overlayContainerView.layoutIfNeeded()
                 self.overlayContainerView.backgroundColor = insetColor
@@ -260,17 +262,18 @@ open class OverlayContainerViewController: UIViewController {
         groundView.pinToSuperview()
         view.addSubview(overlayTranslationContainerView)
         overlayTranslationContainerView.pinToSuperview()
+        
         overlayTranslationContainerView.addSubview(overlayTranslationView)
-		overlayTranslationView.addSubview(dashView)
         overlayTranslationView.addSubview(overlayContainerView)
+        overlayContainerView.addSubview(dashView)
+        
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
-		dashView.pinToSuperview(edges: [.left, .top, .right])
+        dashView.pinToSuperview(edges: [.left, .top, .right])
         overlayContainerView.pinToSuperview(edges: [.left, .right])
-		overlayContainerView.topAnchor.constraint(equalTo: dashView.bottomAnchor).isActive = true
-		dashView.layoutIfNeeded()
-		overlayTranslationView.clipsToBounds = true
-		overlayTranslationView.layer.cornerRadius = cornerRadius
-		overlayTranslationView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        dashView.layoutIfNeeded()
+        overlayContainerView.clipsToBounds = true
+        overlayContainerView.layer.cornerRadius = cornerRadius
+        overlayContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         translationHeightConstraint = overlayTranslationView.heightAnchor.constraint(equalToConstant: 0)
         switch style {
         case .flexibleHeight:
@@ -315,7 +318,7 @@ open class OverlayContainerViewController: UIViewController {
         truncatedViewControllers.popLast().flatMap {
             navControllerTopConstraint = $0.view.topAnchor.constraint(
                 equalTo: overlayContainerView.topAnchor,
-                constant: 0
+                constant: dashViewHeight
             )
             addChild($0)
             overlayContainerView.addSubview($0.view)
