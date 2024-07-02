@@ -200,7 +200,7 @@ open class OverlayContainerViewController: UIViewController {
     /// - parameter completion: The block to execute after the translation finishes.
     ///   This block has no return value and takes no parameters. You may specify nil for this parameter.
     ///
-    open func moveOverlay(toNotchAt index: Int, insetColor: UIColor? = .clear, animated: Bool, completion: (() -> Void)? = nil) {
+    open func moveOverlay(toNotchAt index: Int, isNavBarHidden: Bool = false, insetColor: UIColor? = .clear, animated: Bool, completion: (() -> Void)? = nil) {
         loadViewIfNeeded()
         translationController?.scheduleOverlayTranslation(
             .toIndex(index),
@@ -209,7 +209,7 @@ open class OverlayContainerViewController: UIViewController {
             completion: completion
         )
         setNeedsOverlayContainerHeightUpdate()
-        if needNavbarInset {
+        if needNavbarInset && !isNavBarHidden {
             let timing = UISpringTimingParameters(
                 mass: 1,
                 stiffness: pow(2 * .pi / 0.3, 2),
