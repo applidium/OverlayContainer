@@ -16,7 +16,7 @@ class DashView: UIView {
 		dashView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(dashView)
 		backgroundColor = .white
-		dashView.backgroundColor = .init(red: 233, green: 235, blue: 236, alpha: 1)
+		dashView.backgroundColor = .init(red: 233/255, green: 235/255, blue: 236/255, alpha: 1)
 		NSLayoutConstraint.activate([
 			dashView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
 			dashView.topAnchor.constraint(equalTo: self.topAnchor, constant: 11),
