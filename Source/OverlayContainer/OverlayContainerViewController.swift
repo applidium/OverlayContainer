@@ -158,6 +158,7 @@ open class OverlayContainerViewController: UIViewController {
 
     public required init?(coder aDecoder: NSCoder) {
         self.style = .flexibleHeight
+		self.dashViewStyle = .default
         super.init(coder: aDecoder)
     }
 
