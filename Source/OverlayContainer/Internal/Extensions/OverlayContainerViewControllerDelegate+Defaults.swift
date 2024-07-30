@@ -55,7 +55,7 @@ public extension OverlayContainerViewControllerDelegate {
         return true
     }
 
-		func notchesForHeightCalculation(in containerViewController: OverlayContainerViewController) -> [Int] {
-			return []
+		func overlayContainerHeightPolicy(in containerViewController: OverlayContainerViewController) -> OverlayContainerHeightPolicy {
+			return .boundToNotchHeight
 		}
 }

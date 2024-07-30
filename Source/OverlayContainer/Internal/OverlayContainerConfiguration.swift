@@ -11,7 +11,7 @@ protocol OverlayContainerConfiguration {
 
     func numberOfNotches() -> Int
     func heightForNotch(at index: Int) -> CGFloat
-    func notchesForHeightCalculation() -> [Int]
+    func overlayContainerHeightPolicy() -> OverlayContainerHeightPolicy
 
     func canReachNotch(at index: Int, for overlayViewController: UIViewController) -> Bool
     func animationController(forOverlay overlay: UIViewController) -> OverlayAnimatedTransitioning
@@ -40,13 +40,9 @@ extension OverlayContainerConfiguration {
         return 0
     }
 
-		var minimumNotchIndexForHeightCalculation: Int {
-			return notchesForHeightCalculation().min() ?? 0
+		func containerHeightForNotch(at index: Int) -> CGFloat {
+			heightForNotch(at: index)
 		}
-
-    var overlayContainerHeight: CGFloat {
-        return heightForNotch(at: minimumNotchIndexForHeightCalculation)
-    }
 
 		var maximumNotchHeight: CGFloat {
         return heightForNotch(at: maximumNotchIndex)
