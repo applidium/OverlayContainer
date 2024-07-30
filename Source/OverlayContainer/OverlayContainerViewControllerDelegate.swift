@@ -18,6 +18,14 @@ public protocol OverlayContainerViewControllerDelegate: AnyObject {
     /// - returns: The number of notches in `containerViewController`.
     func numberOfNotches(in containerViewController: OverlayContainerViewController) -> Int
 
+		/// Asks the delegate for the notches indexes that will be used for overlay view height calculation
+    /// **Required**.
+    ///
+    /// - parameter containerViewController: The container requesting this information.
+    ///
+    /// - returns: Notches indexes.
+    func notchesForHeightCalculation(in containerViewController: OverlayContainerViewController) -> [Int]
+
     /// Asks the delegate for the height of a notch in a specified location.
     /// **Required**.
     ///

@@ -12,7 +12,7 @@ import UIKit
 class MapsLikeViewController: UIViewController {
 
 	enum OverlayNotch: Int, CaseIterable {
-		case minimum, maximum
+		case minimum, medium, maximum
 	}
 
 	@IBOutlet var overlayContainerView: UIView!
@@ -33,7 +33,7 @@ class MapsLikeViewController: UIViewController {
 		addChild(MapsViewController(), in: backgroundView)
 
 		searchController.onTapHandler = { [weak overlayController] in
-			overlayController?.moveOverlay(toNotchAt: Bool.random() ? 0 : 1, animated: true)
+			overlayController?.moveOverlay(toNotchAt: Bool.random() ? 1 : 2, animated: true)
 		}
 	}
 
@@ -58,6 +58,8 @@ class MapsLikeViewController: UIViewController {
 		switch notch {
 		case .maximum:
 			return availableSpace * 3 / 4
+		case .medium:
+			return availableSpace * 2 / 4
 		case .minimum:
 			return availableSpace * 1 / 4
 		}
@@ -70,6 +72,10 @@ extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
 
 	func numberOfNotches(in containerViewController: OverlayContainerViewController) -> Int {
 		return OverlayNotch.allCases.count
+	}
+
+	func notchesForHeightCalculation(in containerViewController: OverlayContainer.OverlayContainerViewController) -> [Int] {
+		[OverlayNotch.medium.rawValue, OverlayNotch.maximum.rawValue]
 	}
 
 	func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
@@ -94,4 +100,6 @@ extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
 		let convertedPoint = coordinateSpace.convert(point, to: header)
 		return header.bounds.contains(convertedPoint)
 	}
+
+
 }

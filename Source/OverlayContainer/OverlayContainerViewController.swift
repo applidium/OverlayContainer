@@ -401,7 +401,7 @@ open class OverlayContainerViewController: UIViewController {
         case .flexibleHeight:
             overlayContainerViewStyleConstraint?.constant = 0
         case .rigid, .expandableHeight:
-            overlayContainerViewStyleConstraint?.constant = configuration.maximumNotchHeight
+            overlayContainerViewStyleConstraint?.constant = configuration.overlayContainerHeight
         }
         translationHeightConstraint?.isActive = true
         overlayContainerViewStyleConstraint?.isActive = true

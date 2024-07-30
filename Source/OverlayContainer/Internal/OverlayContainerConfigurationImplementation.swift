@@ -50,6 +50,11 @@ class OverlayContainerConfigurationImplementation: OverlayContainerConfiguration
         return notchHeightByIndex[index] ?? 0
     }
 
+		func notchesForHeightCalculation() -> [Int] {
+			guard let controller = overlayContainerViewController else { return [] }
+			return delegate?.notchesForHeightCalculation(in: controller) ?? []
+		}
+
     func animationController(forOverlay overlay: UIViewController) -> OverlayAnimatedTransitioning {
         guard let controller = overlayContainerViewController else {
             return SpringOverlayTranslationAnimationController()
