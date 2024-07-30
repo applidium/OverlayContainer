@@ -29,6 +29,11 @@ open class OverlayContainerViewController: UIViewController {
         /// Its height will be expanded if the overlay goes beyond the highest notch.
         case expandableHeight
     }
+	
+	public enum DashViewStyle {
+		case none
+		case `default`
+	}
 
     /// The delegate of the container.
     weak open var delegate: OverlayContainerViewControllerDelegate? {
@@ -113,7 +118,16 @@ open class OverlayContainerViewController: UIViewController {
         false
     }
     
-    private let dashViewHeight = 20.0
+	private let dashViewHeight: CGFloat {
+		switch dashViewStyle {
+		case .default:
+			return 20
+		case .none:
+			return 0
+		}
+	}
+
+	private let dashViewStyle: DashViewStyle
     
     private var navControllerTopConstraint: NSLayoutConstraint?
     
@@ -133,8 +147,12 @@ open class OverlayContainerViewController: UIViewController {
     /// - parameter style: The style used by the container. The default value is `expandableHeight`.
     ///
     /// - returns: The new `OverlayContainerViewController` instance.
-    public init(style: OverlayStyle = .expandableHeight) {
+    public init(
+		style: OverlayStyle = .expandableHeight,
+		dashViewStyle: DashViewStyle = .default
+	) {
         self.style = style
+		self.dashViewStyle = dashViewStyle
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -265,12 +283,15 @@ open class OverlayContainerViewController: UIViewController {
         
         overlayTranslationContainerView.addSubview(overlayTranslationView)
         overlayTranslationView.addSubview(overlayContainerView)
-        overlayContainerView.addSubview(dashView)
+		
+		if dashViewStyle == .default {
+			overlayContainerView.addSubview(dashView)
+			dashView.pinToSuperview(edges: [.left, .top, .right])
+			dashView.layoutIfNeeded()
+		}
         
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
-        dashView.pinToSuperview(edges: [.left, .top, .right])
         overlayContainerView.pinToSuperview(edges: [.left, .right])
-        dashView.layoutIfNeeded()
         overlayContainerView.clipsToBounds = true
         overlayContainerView.layer.cornerRadius = cornerRadius
         overlayContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
