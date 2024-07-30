@@ -118,7 +118,7 @@ open class OverlayContainerViewController: UIViewController {
         false
     }
     
-	private let dashViewHeight: CGFloat {
+	private var dashViewHeight: CGFloat {
 		switch dashViewStyle {
 		case .default:
 			return 20
