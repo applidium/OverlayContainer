@@ -201,6 +201,11 @@ open class OverlayContainerViewController: UIViewController {
         configuration.requestOverlayMetricsIfNeeded()
         performDeferredTranslations()
     }
+	
+	public func setContentHeight(height: CGFloat) {
+		overlayContainerViewStyleConstraint?.constant = height
+		overlayTranslationContainerView.layoutIfNeeded()
+	}
 
     // MARK: - Internal
 
