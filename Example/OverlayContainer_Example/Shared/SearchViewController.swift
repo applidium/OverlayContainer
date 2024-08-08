@@ -23,6 +23,10 @@ class SearchViewController: UIViewController,
     private let showsCloseAction: Bool
     private(set) lazy var header = Bundle.main.loadNibNamed("DetailHeaderView", owner: self, options: nil)![0] as! DetailHeaderView
     private(set) lazy var tableView = UITableView()
+    private(set) lazy var button = UIButton()
+    private(set) lazy var button2 = UIButton()
+
+	var onTapHandler: (() -> Void)?
 
     // MARK: - Life Cycle
 
@@ -75,6 +79,8 @@ class SearchViewController: UIViewController,
         view.backgroundColor = .white
         view.addSubview(tableView)
         view.addSubview(header)
+        view.addSubview(button)
+        view.addSubview(button2)
         header.heightAnchor.constraint(equalToConstant: 70).isActive = true
         header.pinToSuperview(edges: [.left, .right])
         if #available(iOS 11.0, *) {
@@ -87,5 +93,21 @@ class SearchViewController: UIViewController,
         tableView.pinToSuperview(edges: [.left, .right, .bottom])
         tableView.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
         tableView.delegate = self
+
+			button.setTitle("some test title", for: .normal)
+			button.setTitleColor(.blue, for: .normal)
+			button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+			button.pinToSuperview(edges: [.left, .right, .bottom])
+			button.addTarget(self, action: #selector(onTap), for: .touchUpInside)
+
+			button2.setTitle("some test title", for: .normal)
+			button2.setTitleColor(.blue, for: .normal)
+			button2.heightAnchor.constraint(equalToConstant: 50).isActive = true
+			button2.pinToSuperview(edges: [.left, .right, .top])
+			button2.addTarget(self, action: #selector(onTap), for: .touchUpInside)
     }
+
+	@objc func onTap() {
+		onTapHandler?()
+	}
 }

@@ -297,7 +297,8 @@ open class OverlayContainerViewController: UIViewController {
 		}
         
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
-        overlayContainerView.pinToSuperview(edges: [.left, .right])
+			overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
+//        overlayContainerView.pinToSuperview(edges: [.left, .right])
         overlayContainerView.clipsToBounds = true
         overlayContainerView.layer.cornerRadius = cornerRadius
         overlayContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
