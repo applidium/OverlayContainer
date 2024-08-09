@@ -130,6 +130,8 @@ open class OverlayContainerViewController: UIViewController {
 	private let dashViewStyle: DashViewStyle
     
     private var navControllerTopConstraint: NSLayoutConstraint?
+	private var leftInsetConstraint: NSLayoutConstraint?
+	private var rightInsetConstraint: NSLayoutConstraint?
     
     public var statusBarHeight: CGFloat {
         let window = UIApplication.shared.windows.first
@@ -205,6 +207,20 @@ open class OverlayContainerViewController: UIViewController {
 	public func setContentHeight(height: CGFloat) {
 		overlayContainerViewStyleConstraint?.constant = height
 		overlayTranslationContainerView.layoutIfNeeded()
+	}
+	
+	public func changeSideInsets(left: CGFloat, right: CGFloat, animated: Bool) {
+		if animated {
+			UIView.animate(
+				withDuration: 0.2
+			) {
+				self.leftInsetConstraint?.constant = left
+				self.rightInsetConstraint?.constant = right
+			}
+		} else {
+			self.leftInsetConstraint?.constant = left
+			self.rightInsetConstraint?.constant = right
+		}
 	}
 
     // MARK: - Internal
@@ -297,8 +313,21 @@ open class OverlayContainerViewController: UIViewController {
 		}
         
         overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
-			overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
-//        overlayContainerView.pinToSuperview(edges: [.left, .right])
+		
+		leftInsetConstraint = overlayTranslationView.leadingAnchor.constraint(
+			equalTo: overlayContainerView.leadingAnchor,
+			constant: 0
+		)
+		
+		rightInsetConstraint = overlayTranslationView.trailingAnchor.constraint(
+			equalTo: overlayContainerView.trailingAnchor,
+			constant: 0
+		)
+		
+		leftInsetConstraint?.isActive = true
+		rightInsetConstraint?.isActive = true
+		
+		overlayContainerView.pinToSuperview(edges: [.top])
         overlayContainerView.clipsToBounds = true
         overlayContainerView.layer.cornerRadius = cornerRadius
         overlayContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
