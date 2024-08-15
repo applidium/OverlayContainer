@@ -586,13 +586,10 @@ extension OverlayContainerViewController: HeightConstraintOverlayTranslationCont
             willTranslateOverlay: controller,
             transitionCoordinator: transitionCoordinator
         )
-		if transitionCoordinator.isDragging {
-			let newHeight = min(
-				configuration.maximumNotchHeight + (topInsetConstraint?.constant ?? 0),
-				transitionCoordinator.overlayTranslationHeight
-			)
+		if transitionCoordinator.isDragging,
+			transitionCoordinator.overlayTranslationHeight > configuration.maximumNotchHeight {
 			setContentHeight(
-				height: newHeight,
+				height: transitionCoordinator.overlayTranslationHeight,
 				animated: false
 			)
 		}
