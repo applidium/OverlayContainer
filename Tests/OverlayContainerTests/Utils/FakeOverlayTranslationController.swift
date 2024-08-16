@@ -11,6 +11,14 @@ import Foundation
 import UIKit
 
 class FakeOverlayTranslationController: OverlayTranslationController {
+	func endOverlayTranslation(withVelocity velocity: CGPoint, at index: Int?) {
+		
+	}
+	
+	func dragOverlay(toNotchIndex index: Int, fractionComplete percent: CGFloat) {
+		
+	}
+	
 
     var lastTranslationEndNotchIndex: Int = 0
 
