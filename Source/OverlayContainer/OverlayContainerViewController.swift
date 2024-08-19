@@ -481,8 +481,10 @@ open class OverlayContainerViewController: UIViewController {
         case .flexibleHeight:
             overlayContainerViewStyleConstraint?.constant = 0
         case .rigid, .expandableHeight:
+			let topInset = topInsetConstraint?.constant ?? 0
             overlayContainerViewStyleConstraint?.constant = configuration.maximumNotchHeight
-			+ (topInsetConstraint?.constant ?? 0)
+			+ topInset
+			- topInset != 0 ? dashView.frame.height : 0
         }
         translationHeightConstraint?.isActive = true
         overlayContainerViewStyleConstraint?.isActive = true
