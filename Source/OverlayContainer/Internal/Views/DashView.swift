@@ -7,24 +7,23 @@
 
 import UIKit
 
-class DashView: UIView {
+public class DashView: UIView {
 
-	private let dashView = UIView()
+	public private(set) var dragIndicator = UIView()
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		dashView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(dashView)
+		dragIndicator.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(dragIndicator)
 		backgroundColor = .white
-		dashView.backgroundColor = .init(red: 233/255, green: 235/255, blue: 236/255, alpha: 1)
+		dragIndicator.backgroundColor = .init(red: 233/255, green: 235/255, blue: 236/255, alpha: 1)
 		NSLayoutConstraint.activate([
-			dashView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-			dashView.topAnchor.constraint(equalTo: self.topAnchor, constant: 11),
-			dashView.widthAnchor.constraint(equalToConstant: 80),
-			dashView.heightAnchor.constraint(equalToConstant: 3),
-			dashView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6)
+			dragIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+			dragIndicator.topAnchor.constraint(equalTo: self.topAnchor, constant: 11),
+			dragIndicator.widthAnchor.constraint(equalToConstant: 80),
+			dragIndicator.heightAnchor.constraint(equalToConstant: 3)
 		])
-		dashView.layer.cornerRadius = 1.5
+		dragIndicator.layer.cornerRadius = 1.5
 
 	}
 
