@@ -78,7 +78,18 @@ open class OverlayContainerViewController: UIViewController {
 
     /// The style of the container.
     public let style: OverlayStyle
-    public var landscapeLayout = false
+
+    public var landscapeLayout = false {
+        didSet {
+            guard isViewLoaded, landscapeLayout != oldValue else { return }
+            if landscapeLayout {
+                NSLayoutConstraint.activate(landscapeLayoutConstraints)
+            } else {
+                NSLayoutConstraint.deactivate(landscapeLayoutConstraints)
+            }
+            invalidateNotchHeights()
+        }
+    }
 
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
     private lazy var overlayContainerView = OverlayContainerView()
@@ -87,11 +98,10 @@ open class OverlayContainerViewController: UIViewController {
     private lazy var groundView = GroundView()
 
     private var overlayContainerViewStyleConstraint: NSLayoutConstraint?
-    private var overlayContainerViewBottomConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
 
     private var widthLimitConstraint: NSLayoutConstraint?
-    private var overlayPositionConstraints: [NSLayoutConstraint] = []
+    private var landscapeLayoutConstraints: [NSLayoutConstraint] = []
 
     private lazy var configuration = makeConfiguration()
 
@@ -218,19 +228,6 @@ open class OverlayContainerViewController: UIViewController {
         setNeedsOverlayContainerHeightUpdate()
     }
 
-    open func reloadContainer() {
-        translationHeightConstraint?.isActive = false
-        overlayContainerViewBottomConstraint?.isActive = false
-        overlayContainerViewStyleConstraint?.isActive = false
-        NSLayoutConstraint.deactivate(overlayPositionConstraints)
-
-        setOverlayPosition()
-        setOverlayConstraints()
-        loadTranslationController()
-        loadOverlayViews()
-        invalidateNotchHeights()
-    }
-
     // MARK: - Private
 
     private func loadContainerViews() {
@@ -240,53 +237,30 @@ open class OverlayContainerViewController: UIViewController {
         overlayTranslationContainerView.pinToSuperview()
         overlayTranslationContainerView.addSubview(overlayTranslationView)
         overlayTranslationView.addSubview(overlayContainerView)
-        overlayTranslationView.translatesAutoresizingMaskIntoConstraints = false
-        overlayContainerView.translatesAutoresizingMaskIntoConstraints = false
-        setOverlayPosition()
-        setOverlayConstraints()
+        setupOverlayConstraints()
         loadTranslationController()
     }
 
-    private func setOverlayPosition() {
-        var translationConstraints: [NSLayoutConstraint] = [
-            overlayTranslationView.leftAnchor.constraint(equalTo: overlayTranslationContainerView.leftAnchor),
-            overlayTranslationView.rightAnchor.constraint(equalTo: overlayTranslationContainerView.rightAnchor)
-        ]
+    private func setupOverlayConstraints() {
+        overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
+        overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
 
-        var overlayConstraints: [NSLayoutConstraint] = [
-            overlayContainerView.topAnchor.constraint(equalTo: overlayTranslationView.topAnchor),
-            overlayContainerView.leftAnchor.constraint(equalTo: overlayTranslationView.leftAnchor),
-            overlayContainerView.rightAnchor.constraint(equalTo: overlayTranslationView.rightAnchor)
+        landscapeLayoutConstraints = [
+            overlayTranslationView.topAnchor.constraint(equalTo: overlayTranslationContainerView.topAnchor),
+            overlayContainerView.bottomAnchor.constraint(equalTo: overlayTranslationView.bottomAnchor)
         ]
 
         if landscapeLayout {
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                translationConstraints.append(overlayContainerView.topAnchor.constraint(equalTo: overlayTranslationContainerView.topAnchor))
-                translationConstraints.append(overlayContainerView.bottomAnchor.constraint(equalTo: overlayTranslationContainerView.bottomAnchor))
-            } else {
-                translationConstraints.append(overlayContainerView.topAnchor.constraint(equalTo: overlayTranslationContainerView.topAnchor))
-            }
-        } else {
-            overlayConstraints.append(
-                overlayContainerView.bottomAnchor.constraint(equalTo: overlayTranslationContainerView.bottomAnchor)
-            )
+            NSLayoutConstraint.activate(landscapeLayoutConstraints)
         }
 
-        overlayPositionConstraints = translationConstraints + overlayConstraints
-        NSLayoutConstraint.activate(overlayPositionConstraints)
-    }
-
-    private func setOverlayConstraints() {
         translationHeightConstraint = overlayTranslationView.heightAnchor.constraint(equalToConstant: 0)
+
         switch style {
         case .flexibleHeight:
-            if landscapeLayout && UIDevice.current.userInterfaceIdiom == .phone {
-                overlayContainerViewStyleConstraint = nil
-            } else {
-                overlayContainerViewStyleConstraint = overlayContainerView.bottomAnchor.constraint(
-                    equalTo: overlayTranslationView.bottomAnchor
-                )
-            }
+            overlayContainerViewStyleConstraint = overlayContainerView.bottomAnchor.constraint(
+                equalTo: overlayTranslationView.bottomAnchor
+            )
         case .rigid:
             overlayContainerViewStyleConstraint = overlayContainerView.heightAnchor.constraint(
                 equalToConstant: 0
@@ -295,15 +269,14 @@ open class OverlayContainerViewController: UIViewController {
             overlayContainerViewStyleConstraint = overlayContainerView.heightAnchor.constraint(
                 equalToConstant: 0
             )
-            overlayContainerViewStyleConstraint?.priority = .defaultHigh
-            if !landscapeLayout {
-                overlayContainerViewBottomConstraint = overlayContainerView.bottomAnchor.constraint(
-                    greaterThanOrEqualTo: overlayTranslationView.bottomAnchor
-                )
-
-                overlayContainerViewBottomConstraint?.isActive = true
-            }
+            let bottomConstraint = overlayContainerView.bottomAnchor.constraint(
+                greaterThanOrEqualTo: overlayTranslationView.bottomAnchor
+            )
+            bottomConstraint.isActive = true
         }
+
+        translationHeightConstraint?.priority = .defaultHigh
+        overlayContainerViewStyleConstraint?.priority = .defaultHigh
     }
 
     private func loadTranslationController() {
