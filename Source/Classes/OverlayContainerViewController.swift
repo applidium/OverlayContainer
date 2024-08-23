@@ -313,8 +313,7 @@ open class OverlayContainerViewController: UIViewController {
         guard let translationHeightConstraint = translationHeightConstraint else { return }
         translationController = HeightConstraintOverlayTranslationController(
             translationHeightConstraint: translationHeightConstraint,
-            configuration: configuration,
-            isInverse: landscapeLayout
+            configuration: configuration
         )
         translationController?.delegate = self
         translationController?.scheduleOverlayTranslation(
