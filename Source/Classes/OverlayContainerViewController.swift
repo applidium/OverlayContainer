@@ -78,7 +78,18 @@ open class OverlayContainerViewController: UIViewController {
 
     /// The style of the container.
     public let style: OverlayStyle
-    public var landscapeLayout = false
+
+    public var landscapeLayout = false {
+        didSet {
+            guard isViewLoaded, landscapeLayout != oldValue else { return }
+            if landscapeLayout {
+                NSLayoutConstraint.activate(landscapeLayoutConstraints)
+            } else {
+                NSLayoutConstraint.deactivate(landscapeLayoutConstraints)
+            }
+            invalidateNotchHeights()
+        }
+    }
 
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
     private lazy var overlayContainerView = OverlayContainerView()
@@ -87,12 +98,10 @@ open class OverlayContainerViewController: UIViewController {
     private lazy var groundView = GroundView()
 
     private var overlayContainerViewStyleConstraint: NSLayoutConstraint?
-    private var overlayContainerViewBottomConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
 
-    private var overlayContainerPortraitWidthConstraint: NSLayoutConstraint?
-    private var overlayContainerLandscapeWidthConstraint: NSLayoutConstraint?
-    private var overlayPositionConstraints: [NSLayoutConstraint] = []
+    private var widthLimitConstraint: NSLayoutConstraint?
+    private var landscapeLayoutConstraints: [NSLayoutConstraint] = []
 
     private lazy var configuration = makeConfiguration()
 
@@ -107,7 +116,7 @@ open class OverlayContainerViewController: UIViewController {
     private var isPresentedInsideAnOverlayContainerPresentationController = false
 
     public var scrollUpToExpand = false
-    public var shrinksInLandscape = false
+    public var limitWidthInCompactHeight = false
 
     // MARK: - Life Cycle
 
@@ -167,10 +176,8 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        guard shrinksInLandscape else { return }
-
-        overlayContainerPortraitWidthConstraint?.isActive = traitCollection.verticalSizeClass == .regular
-        overlayContainerLandscapeWidthConstraint?.isActive = traitCollection.verticalSizeClass == .compact
+        super.traitCollectionDidChange(previousTraitCollection)
+        widthLimitConstraint?.isActive = limitWidthInCompactHeight && traitCollection.verticalSizeClass == .compact
     }
 
     // MARK: - Internal
@@ -221,19 +228,6 @@ open class OverlayContainerViewController: UIViewController {
         setNeedsOverlayContainerHeightUpdate()
     }
 
-    open func reloadContainer() {
-        translationHeightConstraint?.isActive = false
-        overlayContainerViewBottomConstraint?.isActive = false
-        overlayContainerViewStyleConstraint?.isActive = false
-        NSLayoutConstraint.deactivate(overlayPositionConstraints)
-
-        setOverlayPosition()
-        setOverlayConstraints()
-        loadTranslationController()
-        loadOverlayViews()
-        invalidateNotchHeights()
-    }
-
     // MARK: - Private
 
     private func loadContainerViews() {
@@ -243,53 +237,30 @@ open class OverlayContainerViewController: UIViewController {
         overlayTranslationContainerView.pinToSuperview()
         overlayTranslationContainerView.addSubview(overlayTranslationView)
         overlayTranslationView.addSubview(overlayContainerView)
-        overlayTranslationView.translatesAutoresizingMaskIntoConstraints = false
-        overlayContainerView.translatesAutoresizingMaskIntoConstraints = false
-        setOverlayPosition()
-        setOverlayConstraints()
+        setupOverlayConstraints()
         loadTranslationController()
     }
 
-    private func setOverlayPosition() {
-        var translationConstraints: [NSLayoutConstraint] = [
-            overlayTranslationView.leftAnchor.constraint(equalTo: overlayTranslationContainerView.leftAnchor),
-            overlayTranslationView.rightAnchor.constraint(equalTo: overlayTranslationContainerView.rightAnchor)
-        ]
+    private func setupOverlayConstraints() {
+        overlayTranslationView.pinToSuperview(edges: [.bottom, .left, .right])
+        overlayContainerView.pinToSuperview(edges: [.left, .top, .right])
 
-        var overlayConstraints: [NSLayoutConstraint] = [
-            overlayContainerView.topAnchor.constraint(equalTo: overlayTranslationView.topAnchor),
-            overlayContainerView.leftAnchor.constraint(equalTo: overlayTranslationView.leftAnchor),
-            overlayContainerView.rightAnchor.constraint(equalTo: overlayTranslationView.rightAnchor)
+        landscapeLayoutConstraints = [
+            overlayTranslationView.topAnchor.constraint(equalTo: overlayTranslationContainerView.topAnchor),
+            overlayContainerView.bottomAnchor.constraint(equalTo: overlayTranslationView.bottomAnchor)
         ]
 
         if landscapeLayout {
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                translationConstraints.append(overlayContainerView.topAnchor.constraint(equalTo: overlayTranslationContainerView.topAnchor))
-                translationConstraints.append(overlayContainerView.bottomAnchor.constraint(equalTo: overlayTranslationContainerView.bottomAnchor))
-            } else {
-                translationConstraints.append(overlayContainerView.topAnchor.constraint(equalTo: overlayTranslationContainerView.topAnchor))
-            }
-        } else {
-            overlayConstraints.append(
-                overlayContainerView.bottomAnchor.constraint(equalTo: overlayTranslationContainerView.bottomAnchor)
-            )
+            NSLayoutConstraint.activate(landscapeLayoutConstraints)
         }
 
-        overlayPositionConstraints = translationConstraints + overlayConstraints
-        NSLayoutConstraint.activate(overlayPositionConstraints)
-    }
-
-    private func setOverlayConstraints() {
         translationHeightConstraint = overlayTranslationView.heightAnchor.constraint(equalToConstant: 0)
+
         switch style {
         case .flexibleHeight:
-            if landscapeLayout && UIDevice.current.userInterfaceIdiom == .phone {
-                overlayContainerViewStyleConstraint = nil
-            } else {
-                overlayContainerViewStyleConstraint = overlayContainerView.bottomAnchor.constraint(
-                    equalTo: overlayTranslationView.bottomAnchor
-                )
-            }
+            overlayContainerViewStyleConstraint = overlayContainerView.bottomAnchor.constraint(
+                equalTo: overlayTranslationView.bottomAnchor
+            )
         case .rigid:
             overlayContainerViewStyleConstraint = overlayContainerView.heightAnchor.constraint(
                 equalToConstant: 0
@@ -298,23 +269,21 @@ open class OverlayContainerViewController: UIViewController {
             overlayContainerViewStyleConstraint = overlayContainerView.heightAnchor.constraint(
                 equalToConstant: 0
             )
-            overlayContainerViewStyleConstraint?.priority = .defaultHigh
-            if !landscapeLayout {
-                overlayContainerViewBottomConstraint = overlayContainerView.bottomAnchor.constraint(
-                    greaterThanOrEqualTo: overlayTranslationView.bottomAnchor
-                )
-
-                overlayContainerViewBottomConstraint?.isActive = true
-            }
+            let bottomConstraint = overlayContainerView.bottomAnchor.constraint(
+                greaterThanOrEqualTo: overlayTranslationView.bottomAnchor
+            )
+            bottomConstraint.isActive = true
         }
+
+        translationHeightConstraint?.priority = .defaultHigh
+        overlayContainerViewStyleConstraint?.priority = .defaultHigh
     }
 
     private func loadTranslationController() {
         guard let translationHeightConstraint = translationHeightConstraint else { return }
         translationController = HeightConstraintOverlayTranslationController(
             translationHeightConstraint: translationHeightConstraint,
-            configuration: configuration,
-            isInverse: landscapeLayout
+            configuration: configuration
         )
         translationController?.delegate = self
         translationController?.scheduleOverlayTranslation(
@@ -325,8 +294,9 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     private func loadOverlayViews() {
-        guard !viewControllers.isEmpty else { return }
-        groundView.isHidden = viewControllers.count == 1
+        widthLimitConstraint?.isActive = false
+        widthLimitConstraint = nil
+        groundView.isHidden = viewControllers.count <= 1
         var truncatedViewControllers = viewControllers
         truncatedViewControllers.popLast().flatMap {
             addChild($0, in: overlayContainerView, pinToContainer: false)
@@ -334,13 +304,11 @@ open class OverlayContainerViewController: UIViewController {
             $0.view.topAnchor.constraint(equalTo: overlayContainerView.topAnchor).isActive = true
             $0.view.bottomAnchor.constraint(equalTo: overlayContainerView.bottomAnchor).isActive = true
             $0.view.centerXAnchor.constraint(equalTo: overlayContainerView.centerXAnchor).isActive = true
-            overlayContainerLandscapeWidthConstraint = $0.view.widthAnchor.constraint(equalToConstant: 375)
-            overlayContainerPortraitWidthConstraint = $0.view.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor)
-            if shrinksInLandscape && traitCollection.verticalSizeClass == .compact {
-                overlayContainerLandscapeWidthConstraint?.isActive = true
-            } else {
-                overlayContainerPortraitWidthConstraint?.isActive = true
-            }
+            let widthConstraint = $0.view.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor)
+            widthConstraint.priority = .defaultHigh
+            widthConstraint.isActive = true
+            widthLimitConstraint = $0.view.widthAnchor.constraint(lessThanOrEqualToConstant: 375)
+            widthLimitConstraint?.isActive = limitWidthInCompactHeight && traitCollection.verticalSizeClass == .compact
         }
         truncatedViewControllers.forEach { addChild($0, in: groundView) }
         loadTranslationDrivers()

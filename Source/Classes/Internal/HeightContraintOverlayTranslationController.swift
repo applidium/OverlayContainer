@@ -59,7 +59,6 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     private let configuration: OverlayContainerConfiguration
     private let translationHeightConstraint: NSLayoutConstraint
     private var isDragging = false
-    private var isInverse = false
 
     // MARK: - Life Cycle
 
@@ -69,7 +68,6 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
     ) {
         self.translationHeightConstraint = translationHeightConstraint
         self.configuration = configuration
-        self.isInverse = isInverse
     }
 
     // MARK: - Public
@@ -89,16 +87,11 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         let targetIndex: Int
         switch deferredTranslation.type {
         case .basedOnTargetPolicy:
-            var velocity = deferredTranslation.velocity
-            if isInverse {
-                velocity = CGPoint.init(x: deferredTranslation.velocity.x, y: deferredTranslation.velocity.y * -1)
-            }
-
             let context = ConcreteOverlayContainerContextTargetNotchPolicy(
                 isDragging: false,
                 overlayViewController: overlay,
                 overlayTranslationHeight: translationHeight,
-                velocity: velocity,
+                velocity: deferredTranslation.velocity,
                 notchHeightByIndex: configuration.notchHeightByIndex,
                 reachableIndexes: enabledNotchIndexes()
             )
@@ -218,7 +211,7 @@ class HeightConstraintOverlayTranslationController: OverlayTranslationController
         guard let viewController = overlayViewController else { return }
         let maximumHeight = maximumReachableNotchHeight()
         let minimumHeight = minimumReachableNotchHeight()
-        let translation = translationStartHeight - (isInverse ? -offset : offset)
+        let translation = translationStartHeight - offset
         let height: CGFloat
         if usesFunction {
             let parameters = ConcreteOverlayTranslationParameters(
