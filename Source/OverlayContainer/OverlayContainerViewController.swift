@@ -406,6 +406,7 @@ open class OverlayContainerViewController: UIViewController {
 						overlayContainerViewStyleConstraint?.constant = configuration.maximumNotchHeight
 					case .boundToNotchHeight:
 						if let lastNotchIndex {
+//							overlayContainerViewStyleConstraint?.constant = configuration.maximumNotchHeight
 							overlayContainerViewStyleConstraint?.constant = configuration.heightForNotch(at: lastNotchIndex)
 						} else {
 							overlayContainerViewStyleConstraint?.constant = configuration.maximumNotchHeight

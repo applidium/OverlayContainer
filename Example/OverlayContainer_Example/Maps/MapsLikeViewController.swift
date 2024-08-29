@@ -21,14 +21,22 @@ class MapsLikeViewController: UIViewController {
 	@IBOutlet private var widthConstraint: NSLayoutConstraint!
 	@IBOutlet private var trailingConstraint: NSLayoutConstraint!
 
+
+	weak var underlyingNC: UINavigationController?
+	weak var overlay: OverlayContainerViewController?
+
 	// MARK: - UIViewController
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		let overlayController = OverlayContainerViewController()
+		overlay = overlayController
 		let searchController = SearchViewController(showsCloseAction: false)
+		searchController.delegate = self
+		let nc = UINavigationController(rootViewController: searchController)
+		underlyingNC = nc
 		overlayController.delegate = self
-		overlayController.viewControllers = [searchController]
+		overlayController.viewControllers = [nc]
 		addChild(overlayController, in: overlayContainerView)
 		addChild(MapsViewController(), in: backgroundView)
 
@@ -87,7 +95,8 @@ extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
 
 	func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
 																			scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView? {
-		return (overlayViewController as? SearchViewController)?.tableView
+
+		return (self.underlyingNC?.viewControllers.first as? SearchViewController)?.tableView
 	}
 
 	func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
@@ -100,6 +109,17 @@ extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
 		let convertedPoint = coordinateSpace.convert(point, to: header)
 		return header.bounds.contains(convertedPoint)
 	}
+}
 
-
+extension MapsLikeViewController: SearchViewControllerDelegate {
+	func searchViewControllerDidSelectARow(_ searchViewController: SearchViewController) {
+		let vc = ColoredViewController()
+		underlyingNC?.pushViewController(vc, animated: true)
+		underlyingNC?.navigationBar.isHidden = false
+		overlay?.moveOverlay(toNotchAt: 2, animated: true)
+	}
+	
+	func searchViewControllerDidSelectCloseAction(_ searchViewController: SearchViewController) {
+		//
+	}
 }
