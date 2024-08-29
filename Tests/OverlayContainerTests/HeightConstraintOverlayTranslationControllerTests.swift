@@ -19,6 +19,7 @@ class HeightConstraintOverlayTranslationControllerTests: QuickSpec {
     override func spec() {
 
         var constraint: NSLayoutConstraint!
+		var constraint2: NSLayoutConstraint!
         var translationController: HeightConstraintOverlayTranslationController!
         var configuration: FakeConfiguration!
         var delegate: FakeDelegate!
@@ -26,8 +27,10 @@ class HeightConstraintOverlayTranslationControllerTests: QuickSpec {
         beforeEach {
             configuration = FakeConfiguration()
             constraint = NSLayoutConstraint()
+			constraint2 = NSLayoutConstraint()
             translationController = HeightConstraintOverlayTranslationController(
-                translationHeightConstraint: constraint,
+				translationHeightConstraint: constraint,
+				topDashViewConstraint: constraint2,
                 configuration: configuration
             )
             delegate = FakeDelegate()
