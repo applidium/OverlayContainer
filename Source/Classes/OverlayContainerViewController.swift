@@ -100,7 +100,8 @@ open class OverlayContainerViewController: UIViewController {
     private var overlayContainerViewStyleConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
 
-    private var widthLimitConstraint: NSLayoutConstraint?
+    private var overlayContainerPortraitWidthConstraint: NSLayoutConstraint?
+    private var overlayContainerLandscapeWidthConstraint: NSLayoutConstraint?
     private var landscapeLayoutConstraints: [NSLayoutConstraint] = []
 
     private lazy var configuration = makeConfiguration()
@@ -116,7 +117,7 @@ open class OverlayContainerViewController: UIViewController {
     private var isPresentedInsideAnOverlayContainerPresentationController = false
 
     public var scrollUpToExpand = false
-    public var limitWidthInCompactHeight = false
+    public var limitWidthInLandscape = false
 
     // MARK: - Life Cycle
 
@@ -177,7 +178,11 @@ open class OverlayContainerViewController: UIViewController {
 
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        widthLimitConstraint?.isActive = limitWidthInCompactHeight && traitCollection.verticalSizeClass == .compact
+        
+        guard limitWidthInLandscape else { return }
+
+        overlayContainerPortraitWidthConstraint?.isActive = traitCollection.verticalSizeClass == .regular
+        overlayContainerLandscapeWidthConstraint?.isActive = traitCollection.verticalSizeClass == .compact
     }
 
     // MARK: - Internal
@@ -294,8 +299,11 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     private func loadOverlayViews() {
-        widthLimitConstraint?.isActive = false
-        widthLimitConstraint = nil
+        overlayContainerLandscapeWidthConstraint?.isActive = false
+        overlayContainerLandscapeWidthConstraint = nil
+        overlayContainerPortraitWidthConstraint?.isActive = false
+        overlayContainerPortraitWidthConstraint = nil
+
         groundView.isHidden = viewControllers.count <= 1
         var truncatedViewControllers = viewControllers
         truncatedViewControllers.popLast().flatMap {
@@ -304,11 +312,13 @@ open class OverlayContainerViewController: UIViewController {
             $0.view.topAnchor.constraint(equalTo: overlayContainerView.topAnchor).isActive = true
             $0.view.bottomAnchor.constraint(equalTo: overlayContainerView.bottomAnchor).isActive = true
             $0.view.centerXAnchor.constraint(equalTo: overlayContainerView.centerXAnchor).isActive = true
-            let widthConstraint = $0.view.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor)
-            widthConstraint.priority = .defaultHigh
-            widthConstraint.isActive = true
-            widthLimitConstraint = $0.view.widthAnchor.constraint(lessThanOrEqualToConstant: 375)
-            widthLimitConstraint?.isActive = limitWidthInCompactHeight && traitCollection.verticalSizeClass == .compact
+            overlayContainerLandscapeWidthConstraint = $0.view.widthAnchor.constraint(equalToConstant: 375)
+            overlayContainerPortraitWidthConstraint = $0.view.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor)
+            if limitWidthInLandscape && traitCollection.verticalSizeClass == .compact {
+                overlayContainerLandscapeWidthConstraint?.isActive = true
+            } else {
+                overlayContainerPortraitWidthConstraint?.isActive = true
+            }
         }
         truncatedViewControllers.forEach { addChild($0, in: groundView) }
         loadTranslationDrivers()
