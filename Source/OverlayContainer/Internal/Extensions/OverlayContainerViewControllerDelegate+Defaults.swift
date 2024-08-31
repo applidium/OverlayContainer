@@ -55,7 +55,6 @@ public extension OverlayContainerViewControllerDelegate {
         return true
     }
 
-		func overlayContainerHeightPolicy(in containerViewController: OverlayContainerViewController) -> OverlayContainerHeightPolicy {
-			return .boundToNotchHeight
-		}
+    func overlayPinnedViewConfig() -> OverlayPinnedViewConfig? { nil }
+    func overlayKeyboardPolicy() -> KeyboardPolicy? { nil }
 }

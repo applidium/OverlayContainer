@@ -24,7 +24,7 @@ class SearchViewController: UIViewController,
     private(set) lazy var header = Bundle.main.loadNibNamed("DetailHeaderView", owner: self, options: nil)![0] as! DetailHeaderView
     private(set) lazy var tableView = UITableView()
     private(set) lazy var button = UIButton()
-    private(set) lazy var button2 = UIButton()
+    private(set) lazy var someView = UIView()
 
 	var onTapHandler: (() -> Void)?
 
@@ -80,7 +80,11 @@ class SearchViewController: UIViewController,
         view.addSubview(tableView)
         view.addSubview(header)
         view.addSubview(button)
-        view.addSubview(button2)
+
+        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        button.pinToSuperview(edges: [.left, .right, .bottom])
+
+
         header.heightAnchor.constraint(equalToConstant: 70).isActive = true
         header.pinToSuperview(edges: [.left, .right])
         if #available(iOS 11.0, *) {
@@ -94,17 +98,10 @@ class SearchViewController: UIViewController,
         tableView.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
         tableView.delegate = self
 
-			button.setTitle("some test title", for: .normal)
-			button.setTitleColor(.blue, for: .normal)
-			button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-			button.pinToSuperview(edges: [.left, .right, .bottom])
-			button.addTarget(self, action: #selector(onTap), for: .touchUpInside)
+        button.setTitle("some test title", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
 
-			button2.setTitle("some test title", for: .normal)
-			button2.setTitleColor(.blue, for: .normal)
-			button2.heightAnchor.constraint(equalToConstant: 50).isActive = true
-			button2.pinToSuperview(edges: [.left, .right, .top])
-			button2.addTarget(self, action: #selector(onTap), for: .touchUpInside)
+        header.searchBar.isUserInteractionEnabled = true
     }
 
 	@objc func onTap() {

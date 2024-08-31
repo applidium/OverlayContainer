@@ -82,9 +82,6 @@ extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
 		return OverlayNotch.allCases.count
 	}
 
-	func overlayContainerHeightPolicy(in containerViewController: OverlayContainer.OverlayContainerViewController) -> OverlayContainerHeightPolicy {
-		.boundToNotchHeight
-	}
 
 	func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
 																			heightForNotchAt index: Int,

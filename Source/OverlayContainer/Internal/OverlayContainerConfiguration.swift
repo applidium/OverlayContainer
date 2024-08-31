@@ -11,7 +11,6 @@ protocol OverlayContainerConfiguration {
 
     func numberOfNotches() -> Int
     func heightForNotch(at index: Int) -> CGFloat
-    func overlayContainerHeightPolicy() -> OverlayContainerHeightPolicy
 
     func canReachNotch(at index: Int, for overlayViewController: UIViewController) -> Bool
     func animationController(forOverlay overlay: UIViewController) -> OverlayAnimatedTransitioning

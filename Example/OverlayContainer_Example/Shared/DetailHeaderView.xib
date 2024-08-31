@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,16 +15,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2YA-D4-gbE">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="137"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="117"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="oEF-uh-Gwv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="137"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="117"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cVr-EY-vtB">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="137"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="117"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="CMd-Ia-Wpa">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="137"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CMd-Ia-Wpa">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="117"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <vibrancyEffect>
@@ -34,13 +32,13 @@
                                 </vibrancyEffect>
                             </visualEffectView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="41o-ao-FEy">
-                                <rect key="frame" x="8" y="40.5" width="359" height="56"/>
+                                <rect key="frame" x="8" y="30.5" width="359" height="56"/>
                                 <subviews>
                                     <searchBar userInteractionEnabled="NO" contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="HZ6-bb-fXd">
                                         <rect key="frame" x="0.0" y="0.0" width="305" height="56"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEe-lx-hpD">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEe-lx-hpD">
                                         <rect key="frame" x="313" y="0.0" width="46" height="56"/>
                                         <state key="normal" title="Close"/>
                                         <connections>
@@ -59,6 +57,7 @@
                     <blurEffect style="extraLight"/>
                 </visualEffectView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="2YA-D4-gbE" secondAttribute="bottom" id="MHc-g9-qS5"/>
@@ -67,9 +66,9 @@
                 <constraint firstItem="2YA-D4-gbE" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="pHk-MY-Cx4"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="button" destination="ZEe-lx-hpD" id="jRm-yz-soa"/>
+                <outlet property="searchBar" destination="HZ6-bb-fXd" id="hB0-aE-FsV"/>
             </connections>
             <point key="canvasLocation" x="117.59999999999999" y="126.38680659670166"/>
         </view>

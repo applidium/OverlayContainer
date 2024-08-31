@@ -7,12 +7,6 @@
 
 import UIKit
 
-public enum OverlayContainerHeightPolicy {
-	case boundToNotchHeight
-	case outline
-	case concrete(CGFloat)
-}
-
 /// The container delegate is responsible for defining the aspect and the behavior of the container.
 public protocol OverlayContainerViewControllerDelegate: AnyObject {
 
@@ -24,13 +18,17 @@ public protocol OverlayContainerViewControllerDelegate: AnyObject {
     /// - returns: The number of notches in `containerViewController`.
     func numberOfNotches(in containerViewController: OverlayContainerViewController) -> Int
 
-		/// Asks the delegate for the notches indexes that will be used for overlay view height calculation
+    /// Asks the delegate for the Pinned View, pinned to bootom and its config
     /// **Required**.
     ///
-    /// - parameter containerViewController: The container requesting this information.
+    /// - returns: OverlayPinnedViewConfig.
+    func overlayPinnedViewConfig() -> OverlayPinnedViewConfig?
+
+    /// Asks the delegate for the KeyboardPolicy
+    /// **Required**.
     ///
-    /// - returns: Notches indexes.
-    func overlayContainerHeightPolicy(in containerViewController: OverlayContainerViewController) -> OverlayContainerHeightPolicy
+    /// - returns: KeyboardPolicy.
+    func overlayKeyboardPolicy() -> KeyboardPolicy?
 
     /// Asks the delegate for the height of a notch in a specified location.
     /// **Required**.
