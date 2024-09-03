@@ -1,9 +1,11 @@
 import UIKit
 
+class SafeAreaBottomView: UIView {}
+
 extension OverlayContainerViewController {
     internal func loadOverlayPinnedView() {
         guard let pinnedViewConfig = configuration.overlayPinnedViewConfig(),
-            let _pinnedView = pinnedViewConfig.pinnedView else {
+              let _pinnedView = pinnedViewConfig.pinnedView else {
             return
         }
 
@@ -16,7 +18,6 @@ extension OverlayContainerViewController {
         )
         pinnedViewBottomConstraint?.isActive = true
 
-        _pinnedView.backgroundColor = .yellow
         self.pinnedView = pinnedViewContainer
 
         switch pinnedViewConfig.safeAreaPolicy {
@@ -34,8 +35,8 @@ extension OverlayContainerViewController {
                 }
             case .getExisting:
                 // задержка чтобы получить parent у pinnedView
-                DispatchQueue.main.async {
-                    self.adjustPinnedIfNeeded(
+							DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                    self?.adjustPinnedIfNeeded(
                         pinnedView: _pinnedView,
                         container: pinnedViewContainer,
                         pinBottomToSafeArea: false
@@ -43,21 +44,7 @@ extension OverlayContainerViewController {
                 }
             }
 
-
-
         case .constrainAndHighlight(let color):
-            let safeAreaView = UIView()
-            safeAreaView.backgroundColor = color
-            pinnedViewContainer.addSubview(safeAreaView)
-
-            safeAreaView.translatesAutoresizingMaskIntoConstraints = false
-            safeAreaView.pinToSuperview(edges: [.left, .right, .bottom])
-
-            // задержка чтобы получить значение safe area
-            DispatchQueue.main.async {
-                safeAreaView.heightAnchor.constraint(equalToConstant: self.view.safeAreaInsets.bottom).isActive = true
-            }
-
             switch pinnedViewConfig.constraintsMode {
             case .set(let insets, let edges, let height, let width):
                 pinnedViewContainer.addSubview(_pinnedView)
@@ -75,13 +62,25 @@ extension OverlayContainerViewController {
                 ).isActive = true
             case .getExisting:
                 // задержка чтобы получить parent у pinnedView
-                DispatchQueue.main.async {
-                    self.adjustPinnedIfNeeded(
+							DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                    self?.adjustPinnedIfNeeded(
                         pinnedView: _pinnedView,
                         container: pinnedViewContainer,
                         pinBottomToSafeArea: true
                     )
                 }
+            }
+
+            let safeAreaView = SafeAreaBottomView()
+            safeAreaView.backgroundColor = color
+            pinnedViewContainer.addSubview(safeAreaView)
+
+            safeAreaView.translatesAutoresizingMaskIntoConstraints = false
+            safeAreaView.pinToSuperview(edges: [.left, .right, .bottom])
+
+            // задержка чтобы получить значение safe area
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                safeAreaView.heightAnchor.constraint(equalToConstant: self?.view.safeAreaInsets.bottom ?? 0).isActive = true
             }
         }
     }
@@ -105,15 +104,15 @@ extension OverlayContainerViewController {
         if let heightToStartMoveDown = pinnedViewConfig.heightToStartMoveDown {
             minHeight = heightToStartMoveDown
         }
-        let diff = context.overlayTranslationHeight - (minHeight + -finalBottomContraintValue)
+        let diff = context.overlayTranslationHeight - (minHeight + -finalBottomContraintValue) - keyboardHeight // если будут проблемы иначе хэндлить высоту клавиатуры
 /*
-        debugPrint("\n")
-        debugPrint("context.overlayTranslationHeight \(context.overlayTranslationHeight)")
-        debugPrint("context.minimumHeight \(minHeight)")
-        debugPrint("finalBottomContraintValue) \(finalBottomContraintValue)")
-        debugPrint("minHeight + -finalBottomContraintValue \(minHeight + -finalBottomContraintValue)")
-        debugPrint("diff \(diff)")
-*/
+         debugPrint("\n")
+         debugPrint("context.overlayTranslationHeight \(context.overlayTranslationHeight)")
+         debugPrint("context.minimumHeight \(minHeight)")
+         debugPrint("finalBottomContraintValue) \(finalBottomContraintValue)")
+         debugPrint("minHeight + -finalBottomContraintValue \(minHeight + -finalBottomContraintValue)")
+         debugPrint("diff \(diff)")
+  */
         if diff < 0 {
             pinnedViewBottomConstraint?.constant = finalBottomContraintValue - diff
             pinnedViewBottomConstraint?.isActive = true

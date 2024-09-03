@@ -547,7 +547,12 @@ extension OverlayContainerViewController: HeightConstraintOverlayTranslationCont
             toNotchAt: index
         )
 
-        hideKeyboardIfNeeded(forNotch: index)
+			hideKeyboardIfNeeded(forNotch: index)
+			// TODO: func
+			if configuration.heightForNotch(at: index) == 0 {
+				self.finalBottomContraintValue = self.translationHeightConstraint?.constant ?? -700
+				self.updatePinnedViewConstraints(nil)
+			}
     }
 
     func translationControllerWillStartDraggingOverlay(_ translationController: OverlayTranslationController) {
@@ -587,7 +592,9 @@ extension OverlayContainerViewController: HeightConstraintOverlayTranslationCont
         transitionCoordinator.animate(alongsideTransition: { [weak self] context in
             self?.updateOverlayContainerConstraints()
             if context is InterruptibleAnimatorOverlayContainerTransitionCoordinator {
-                self?.updatePinnedViewConstraints(nil)
+							if context.targetTranslationHeight != 0 {
+								self?.updatePinnedViewConstraints(nil)
+							}
             } else {
                 self?.updatePinnedViewConstraints(context)
             }
