@@ -39,7 +39,11 @@ extension OverlayContainerConfiguration {
         return 0
     }
 
-    var maximumNotchHeight: CGFloat {
+		func containerHeightForNotch(at index: Int) -> CGFloat {
+			heightForNotch(at: index)
+		}
+
+		var maximumNotchHeight: CGFloat {
         return heightForNotch(at: maximumNotchIndex)
     }
 

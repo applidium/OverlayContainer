@@ -50,6 +50,14 @@ class OverlayContainerConfigurationImplementation: OverlayContainerConfiguration
         return notchHeightByIndex[index] ?? 0
     }
 
+    func overlayPinnedViewConfig() -> OverlayPinnedViewConfig? {
+        return delegate?.overlayPinnedViewConfig()
+    }
+
+    func overlayKeyboardPolicy() -> KeyboardPolicy? {
+        return delegate?.overlayKeyboardPolicy()
+    }
+
     func animationController(forOverlay overlay: UIViewController) -> OverlayAnimatedTransitioning {
         guard let controller = overlayContainerViewController else {
             return SpringOverlayTranslationAnimationController()

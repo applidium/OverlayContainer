@@ -88,5 +88,22 @@ extension ModalNavigationViewController: OverlayContainerViewControllerDelegate 
         let convertedPoint = coordinateSpace.convert(point, to: header)
         return header.bounds.contains(convertedPoint)
     }
+
+    func overlayPinnedViewConfig() -> OverlayPinnedViewConfig? {
+        OverlayPinnedViewConfig(
+            pinnedView: (overlayNavigationController.topViewController as? SearchViewController)?.button,
+//            constraintsMode: .set(
+//                insets: .init(top: 0, left: 16, bottom: 0, right: 16),
+//                edges: [.left, .right],
+//                height: 40
+//            ),
+            constraintsMode: .getExisting,
+            safeAreaPolicy: .constrainAndHighlight(.white)
+        )
+    }
+
+    func overlayKeyboardPolicy() -> KeyboardPolicy? {
+        .switchToLongFormWithPinndedView(-25)
+    }
 }
 

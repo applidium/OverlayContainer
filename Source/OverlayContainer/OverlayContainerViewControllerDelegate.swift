@@ -18,6 +18,18 @@ public protocol OverlayContainerViewControllerDelegate: AnyObject {
     /// - returns: The number of notches in `containerViewController`.
     func numberOfNotches(in containerViewController: OverlayContainerViewController) -> Int
 
+    /// Asks the delegate for the Pinned View, pinned to bootom and its config
+    /// **Required**.
+    ///
+    /// - returns: OverlayPinnedViewConfig.
+    func overlayPinnedViewConfig() -> OverlayPinnedViewConfig?
+
+    /// Asks the delegate for the KeyboardPolicy
+    /// **Required**.
+    ///
+    /// - returns: KeyboardPolicy.
+    func overlayKeyboardPolicy() -> KeyboardPolicy?
+
     /// Asks the delegate for the height of a notch in a specified location.
     /// **Required**.
     ///
