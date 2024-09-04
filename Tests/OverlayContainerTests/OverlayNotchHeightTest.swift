@@ -21,7 +21,6 @@ private enum NewNotch: Int, CaseIterable {
 }
 
 private class OverlayContainerDelegateImplementation: OverlayContainerViewControllerDelegate {
-
     var usesNewNotches = false
 
     // MARK: - Public
@@ -63,6 +62,14 @@ private class OverlayContainerDelegateImplementation: OverlayContainerViewContro
         }
         return height(for: Notch.allCases[index])
     }
+	
+	func overlayContainerShouldBeginDragging() -> Bool {
+		true
+	}
+	
+	func overlayContainerShouldRecognizeSimultaneously() -> Bool {
+		false
+	}
 }
 
 class OverlayNotchHeightTest: QuickSpec {

@@ -59,7 +59,9 @@ class PanGestureOverlayTranslationDriverTests: QuickSpec {
             gesture = FakeOverlayTranslationGestureRecognizer()
             driver = PanGestureOverlayTranslationDriver(
                 translationController: controller,
-                panGestureRecognizer: gesture
+				panGestureRecognizer: gesture, 
+				shouldBeginCondition: nil, 
+				shouldRecognizeSimultaneously: nil
             )
             let view = UIView()
             gesture.mutableView = view

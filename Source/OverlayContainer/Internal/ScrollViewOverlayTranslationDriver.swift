@@ -13,6 +13,7 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
     weak var scrollView: UIScrollView?
 
     private let scrollViewDelegateProxy = OverlayScrollViewDelegateProxy()
+	private var externalScrollViewDelegateProxy: ExternalOverlayScrollViewDelegate?
 
     // (gz) 2018-11-27 The overlay transaction is not always equal to the scroll view translation.
     // The user can scroll bottom then drag the overlay up repeatedly in a single gesture.
@@ -22,12 +23,27 @@ class ScrollViewOverlayTranslationDriver: OverlayTranslationDriver, OverlayScrol
 
     // MARK: - Life Cycle
 
-    init(translationController: OverlayTranslationController, scrollView: UIScrollView) {
+    init(
+		translationController: OverlayTranslationController,
+		scrollView: UIScrollView
+	) {
         self.translationController = translationController
         self.scrollView = scrollView
         scrollViewDelegateProxy.forward(to: self, delegateInvocationsFrom: scrollView)
         lastContentOffsetWhileScrolling = scrollView.contentOffset
     }
+	
+	init(
+		translationController: OverlayTranslationController,
+		scrollView: UIScrollView,
+		externalOverlayScrollViewDelegate: ExternalOverlayScrollViewDelegate
+	) {
+		self.translationController = translationController
+		self.scrollView = scrollView
+		externalScrollViewDelegateProxy = externalOverlayScrollViewDelegate
+		externalScrollViewDelegateProxy?.delegate = self
+		lastContentOffsetWhileScrolling = scrollView.contentOffset
+	}
 
     // MARK: - OverlayTranslationDriver
 
