@@ -78,17 +78,6 @@ open class OverlayContainerViewController: UIViewController {
             loadTranslationDrivers()
         }
     }
-	
-	public func setExternalScrollViewDelegate(
-		delegate: ExternalOverlayScrollViewDelegate,
-		for scrollView: UIScrollView
-	) {
-		guard delegate !== self.externalScrollViewDelegate else { return }
-		guard isViewLoaded else { return }
-		self.externalScrollViewDelegate = delegate
-		self.drivingScrollView = scrollView
-		loadTranslationDrivers()
-	}
 
     /// The height of the area where the overlay view controller can be dragged up and down.
     /// It will only be valid once the container view is laid out or in the delegate callbacks.
@@ -107,10 +96,10 @@ open class OverlayContainerViewController: UIViewController {
     internal var pinnedView: PassThroughView?
 
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
-    private lazy var overlayContainerView = OverlayContainerView()
-	private lazy var overlayContainerWrappedView = OverlayContainerView()
+    internal lazy var overlayContainerView = OverlayContainerView()
     internal lazy var overlayTranslationView = OverlayTranslationView()
     internal lazy var overlayTranslationContainerView = OverlayTranslationContainerView()
+	private lazy var overlayContainerWrappedView = OverlayContainerView()
     private lazy var groundView = GroundView()
 	public private (set) lazy var dashView = DashView(
 		frame: CGRect(
@@ -132,17 +121,17 @@ open class OverlayContainerViewController: UIViewController {
         }
     }
     internal var keyboardHeight: CGFloat = 0
-    private var overlayContainerViewStyleConstraint: NSLayoutConstraint?
+    internal var overlayContainerViewStyleConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
 
     internal lazy var configuration = makeConfiguration()
+	internal var externalScrollViewDelegate: ExternalOverlayScrollViewDelegate?
 
     private var needsOverlayContainerHeightUpdate = true
 
     private var previousSize: CGSize = .zero
     private var translationController: HeightConstraintOverlayTranslationController?
     private var translationDrivers: [OverlayTranslationDriver] = []
-	private var externalScrollViewDelegate: ExternalOverlayScrollViewDelegate?
 
 	public var overlayTranslation: OverlayTranslationController? {
 		translationController
@@ -167,12 +156,12 @@ open class OverlayContainerViewController: UIViewController {
 
 	private let dashViewStyle: DashViewStyle
     
-    private var navControllerTopConstraint: NSLayoutConstraint?
-	private var leftInsetConstraint: NSLayoutConstraint?
-	private var rightInsetConstraint: NSLayoutConstraint?
-	private var contentMaxHeightConstraint: NSLayoutConstraint?
+    internal var navControllerTopConstraint: NSLayoutConstraint?
+	internal var leftInsetConstraint: NSLayoutConstraint?
+	internal var rightInsetConstraint: NSLayoutConstraint?
+	internal var contentMaxHeightConstraint: NSLayoutConstraint?
 
-	private var topInsetValue: CGFloat = .zero
+	internal var topInsetValue: CGFloat = .zero
 
     public var statusBarHeight: CGFloat {
         let window = UIApplication.shared.windows.first
@@ -247,70 +236,9 @@ open class OverlayContainerViewController: UIViewController {
         performDeferredTranslations()
     }
 	
-	public func setContentHeight(
-		height: CGFloat,
-		animated: Bool
-	) {
-		overlayContainerViewStyleConstraint?.constant = height
-		overlayContainerViewStyleConstraint?.isActive = true
-
-		if animated {
-			baseAnimation { [weak self] in
-				self?.overlayTranslationView.layoutIfNeeded()
-			}
-		}
-	}
-	
 	public func setDragIndicatorHidden(_ isHidden: Bool) {
 		baseAnimation { [weak self] in
 			self?.dashView.dragIndicator.alpha = isHidden ? 0 : 1
-		}
-	}
-	
-	public func setTopInset(_ value: CGFloat, animated: Bool) {
-		topInsetValue = value
-		navControllerTopConstraint?.constant = value
-		navControllerTopConstraint?.isActive = true
-		
-		if animated {
-			baseAnimation {
-				self.dashView.frame.size.height = value + 1
-				self.overlayTranslationView.layoutIfNeeded()
-			}
-		} else {
-			dashView.frame.size.height = value + 1
-		}
-		
-		updateOverlayContainerConstraints()
-	}
-	
-	public func setContentMaxHeight(_ value: CGFloat?, animated: Bool) {
-		contentMaxHeightConstraint?.constant = value ?? UIScreen.main.bounds.height + 100
-		contentMaxHeightConstraint?.isActive = true
-		
-		if animated {
-			baseAnimation {
-				self.overlayContainerView.layoutIfNeeded()
-			}
-		}
-	}
-	
-	public func changeSideInsets(
-		left: CGFloat,
-		right: CGFloat,
-		animated: Bool
-	) {
-		leftInsetConstraint?.constant = -left
-		rightInsetConstraint?.constant = right
-		leftInsetConstraint?.isActive = true
-		rightInsetConstraint?.isActive = true
-		
-		dashView.frame.origin.x = -left
-		
-		if animated {
-			baseAnimation { [weak self] in
-				self?.overlayTranslationView.layoutIfNeeded()
-			}
 		}
 	}
 	
@@ -493,7 +421,7 @@ open class OverlayContainerViewController: UIViewController {
         loadTranslationDrivers()
     }
 
-    private func loadTranslationDrivers() {
+    internal func loadTranslationDrivers() {
         guard let translationController = translationController,
             let overlayController = topViewController else {
                 return
@@ -534,7 +462,7 @@ open class OverlayContainerViewController: UIViewController {
         viewIfLoaded?.setNeedsLayout()
     }
 
-    private func updateOverlayContainerConstraints() {
+    internal func updateOverlayContainerConstraints() {
         switch style {
         case .flexibleHeight:
             overlayContainerViewStyleConstraint?.constant = 0
