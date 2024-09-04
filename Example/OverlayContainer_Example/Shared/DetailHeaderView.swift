@@ -24,7 +24,7 @@ class DetailHeaderView: UIView {
             return !button.isHidden
         }
     }
-
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet private var button: UIButton!
 
     @IBAction private func closeAction(_ sender: Any) {

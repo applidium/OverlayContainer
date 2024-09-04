@@ -103,12 +103,14 @@ open class OverlayContainerViewController: UIViewController {
     /// The style of the container.
     public let style: OverlayStyle
 
+    internal lazy var kbObserver: KeyboardObserverInterface = KeyboardObserver()
+    internal var pinnedView: PassThroughView?
+
     private lazy var overlayPanGesture: OverlayTranslationGestureRecognizer = self.makePanGesture()
     private lazy var overlayContainerView = OverlayContainerView()
 	private lazy var overlayContainerWrappedView = OverlayContainerView()
-
-	internal lazy var overlayTranslationView = OverlayTranslationView()
-    private lazy var overlayTranslationContainerView = OverlayTranslationContainerView()
+    internal lazy var overlayTranslationView = OverlayTranslationView()
+    internal lazy var overlayTranslationContainerView = OverlayTranslationContainerView()
     private lazy var groundView = GroundView()
 	public private (set) lazy var dashView = DashView(
 		frame: CGRect(
@@ -119,10 +121,21 @@ open class OverlayContainerViewController: UIViewController {
 		)
 	)
 
+    internal var pinnedViewBottomConstraint: NSLayoutConstraint? {
+        didSet {
+            debugPrint("pinnedViewBottomConstraint, \(pinnedViewBottomConstraint?.constant ?? 0)")
+        }
+    }
+    internal var finalBottomContraintValue: CGFloat = 0 {
+        didSet {
+            debugPrint("finalBottomContraintValue, \(finalBottomContraintValue)")
+        }
+    }
+    internal var keyboardHeight: CGFloat = 0
     private var overlayContainerViewStyleConstraint: NSLayoutConstraint?
     private var translationHeightConstraint: NSLayoutConstraint?
 
-    private lazy var configuration = makeConfiguration()
+    internal lazy var configuration = makeConfiguration()
 
     private var needsOverlayContainerHeightUpdate = true
 
@@ -203,7 +216,9 @@ open class OverlayContainerViewController: UIViewController {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
+        loadOverlayPinnedView()
         setUpPanGesture()
+        setupKeyboardObserver()
     }
 
     open override func viewWillLayoutSubviews() {
@@ -240,8 +255,8 @@ open class OverlayContainerViewController: UIViewController {
 		overlayContainerViewStyleConstraint?.isActive = true
 
 		if animated {
-			baseAnimation {
-				self.overlayTranslationView.layoutIfNeeded()
+			baseAnimation { [weak self] in
+				self?.overlayTranslationView.layoutIfNeeded()
 			}
 		}
 	}
@@ -293,13 +308,13 @@ open class OverlayContainerViewController: UIViewController {
 		dashView.frame.origin.x = -left
 		
 		if animated {
-			baseAnimation {
-				self.overlayTranslationView.layoutIfNeeded()
+			baseAnimation { [weak self] in
+				self?.overlayTranslationView.layoutIfNeeded()
 			}
 		}
 	}
 	
-	private func baseAnimation(animations: @escaping () -> Void) {
+	internal func baseAnimation(animations: @escaping () -> Void) {
 		let timing = UISpringTimingParameters(
 			mass: 1,
 			stiffness: pow(2 * .pi / 0.3, 2),
@@ -371,7 +386,7 @@ open class OverlayContainerViewController: UIViewController {
         groundView.pinToSuperview()
         view.addSubview(overlayTranslationContainerView)
         overlayTranslationContainerView.pinToSuperview()
-        
+
         overlayTranslationContainerView.addSubview(overlayTranslationView)
         overlayTranslationView.addSubview(overlayContainerView)
 		overlayContainerView.addSubview(overlayContainerWrappedView)
@@ -578,6 +593,13 @@ extension OverlayContainerViewController: HeightConstraintOverlayTranslationCont
             willMoveOverlay: controller,
             toNotchAt: index
         )
+
+			hideKeyboardIfNeeded(forNotch: index)
+			// TODO: func
+			if configuration.heightForNotch(at: index) == 0 {
+				self.finalBottomContraintValue = self.translationHeightConstraint?.constant ?? -700
+				self.updatePinnedViewConstraints(nil)
+			}
     }
 
     func translationControllerWillStartDraggingOverlay(_ translationController: OverlayTranslationController) {
@@ -616,6 +638,13 @@ extension OverlayContainerViewController: HeightConstraintOverlayTranslationCont
         }
         transitionCoordinator.animate(alongsideTransition: { [weak self] context in
             self?.updateOverlayContainerConstraints()
+            if context is InterruptibleAnimatorOverlayContainerTransitionCoordinator {
+							if context.targetTranslationHeight != 0 {
+								self?.updatePinnedViewConstraints(nil)
+							}
+            } else {
+                self?.updatePinnedViewConstraints(context)
+            }
             self?.overlayTranslationContainerView.layoutIfNeeded()
         }, completion: nil)
         delegate?.overlayContainerViewController(

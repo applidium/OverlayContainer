@@ -54,4 +54,7 @@ public extension OverlayContainerViewControllerDelegate {
                                         forOverlay overlayViewController: UIViewController) -> Bool {
         return true
     }
+
+    func overlayPinnedViewConfig() -> OverlayPinnedViewConfig? { nil }
+    func overlayKeyboardPolicy() -> KeyboardPolicy? { nil }
 }

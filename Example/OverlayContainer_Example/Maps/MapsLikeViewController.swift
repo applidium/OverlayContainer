@@ -12,7 +12,7 @@ import UIKit
 class MapsLikeViewController: UIViewController {
 
 	enum OverlayNotch: Int, CaseIterable {
-		case minimum, maximum
+		case minimum, medium, maximum
 	}
 
 	@IBOutlet var overlayContainerView: UIView!
@@ -21,19 +21,27 @@ class MapsLikeViewController: UIViewController {
 	@IBOutlet private var widthConstraint: NSLayoutConstraint!
 	@IBOutlet private var trailingConstraint: NSLayoutConstraint!
 
+
+	weak var underlyingNC: UINavigationController?
+	weak var overlay: OverlayContainerViewController?
+
 	// MARK: - UIViewController
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		let overlayController = OverlayContainerViewController()
+		overlay = overlayController
 		let searchController = SearchViewController(showsCloseAction: false)
+		searchController.delegate = self
+		let nc = UINavigationController(rootViewController: searchController)
+		underlyingNC = nc
 		overlayController.delegate = self
-		overlayController.viewControllers = [searchController]
+		overlayController.viewControllers = [nc]
 		addChild(overlayController, in: overlayContainerView)
 		addChild(MapsViewController(), in: backgroundView)
 
 		searchController.onTapHandler = { [weak overlayController] in
-			overlayController?.moveOverlay(toNotchAt: Bool.random() ? 0 : 1, animated: true)
+			overlayController?.moveOverlay(toNotchAt: Bool.random() ? 1 : 2, animated: true)
 		}
 	}
 
@@ -58,6 +66,8 @@ class MapsLikeViewController: UIViewController {
 		switch notch {
 		case .maximum:
 			return availableSpace * 3 / 4
+		case .medium:
+			return availableSpace * 2 / 4
 		case .minimum:
 			return availableSpace * 1 / 4
 		}
@@ -72,6 +82,7 @@ extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
 		return OverlayNotch.allCases.count
 	}
 
+
 	func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
 																			heightForNotchAt index: Int,
 																			availableSpace: CGFloat) -> CGFloat {
@@ -81,7 +92,8 @@ extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
 
 	func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
 																			scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView? {
-		return (overlayViewController as? SearchViewController)?.tableView
+
+		return (self.underlyingNC?.viewControllers.first as? SearchViewController)?.tableView
 	}
 
 	func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
@@ -93,5 +105,18 @@ extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
 		}
 		let convertedPoint = coordinateSpace.convert(point, to: header)
 		return header.bounds.contains(convertedPoint)
+	}
+}
+
+extension MapsLikeViewController: SearchViewControllerDelegate {
+	func searchViewControllerDidSelectARow(_ searchViewController: SearchViewController) {
+		let vc = ColoredViewController()
+		underlyingNC?.pushViewController(vc, animated: true)
+		underlyingNC?.navigationBar.isHidden = false
+		overlay?.moveOverlay(toNotchAt: 2, animated: true)
+	}
+	
+	func searchViewControllerDidSelectCloseAction(_ searchViewController: SearchViewController) {
+		//
 	}
 }

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3207B312C81FFAE00DEF099 /* OverlayContainer in Embed Frameworks */ = {isa = PBXBuildFile; productRef = E774DEFA29352E8D0032DDBA /* OverlayContainer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E7022C91222699BD00AD86B5 /* ModalNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7022C90222699BD00AD86B5 /* ModalNavigationViewController.swift */; };
 		E7397E7E244079C200AAAD57 /* ActivityControllerPresentationLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7397E7D244079C200AAAD57 /* ActivityControllerPresentationLikeViewController.swift */; };
 		E774DEFB29352E8D0032DDBA /* OverlayContainer in Frameworks */ = {isa = PBXBuildFile; productRef = E774DEFA29352E8D0032DDBA /* OverlayContainer */; };
@@ -35,6 +36,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B3207B312C81FFAE00DEF099 /* OverlayContainer in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,7 +443,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C7G63Q6LZ9;
+				DEVELOPMENT_TEAM = 5HLYPH8YNZ;
 				INFOPLIST_FILE = OverlayContainer_Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -459,7 +461,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C7G63Q6LZ9;
+				DEVELOPMENT_TEAM = 5HLYPH8YNZ;
 				INFOPLIST_FILE = OverlayContainer_Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
