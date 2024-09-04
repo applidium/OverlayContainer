@@ -3,6 +3,16 @@ import UIKit
 class SafeAreaBottomView: UIView {}
 
 extension OverlayContainerViewController {
+
+	public func meera_invalidatePinnedView() {
+		guard isViewLoaded else { return }
+		if let pinnedView {
+			pinnedView.removeFromSuperview()
+		}
+
+		loadOverlayPinnedView()
+	}
+
     internal func loadOverlayPinnedView() {
         guard let pinnedViewConfig = configuration.overlayPinnedViewConfig(),
               let _pinnedView = pinnedViewConfig.pinnedView else {
@@ -25,6 +35,8 @@ extension OverlayContainerViewController {
             switch pinnedViewConfig.constraintsMode {
             case .set(let insets, let edges, let height, let width):
                 pinnedViewContainer.addSubview(_pinnedView)
+							// TODO: возможно это стоит поменять
+							_pinnedView.frame.origin = .init(x: 0, y: UIScreen.main.bounds.height)
                 _pinnedView.translatesAutoresizingMaskIntoConstraints = false
                 _pinnedView.pinToSuperview(with: insets, edges: edges)
                 if let height {
@@ -48,6 +60,8 @@ extension OverlayContainerViewController {
             switch pinnedViewConfig.constraintsMode {
             case .set(let insets, let edges, let height, let width):
                 pinnedViewContainer.addSubview(_pinnedView)
+							// TODO: возможно это стоит поменять
+							_pinnedView.frame.origin = .init(x: 0, y: UIScreen.main.bounds.height)
                 _pinnedView.translatesAutoresizingMaskIntoConstraints = false
                 _pinnedView.pinToSuperview(with: insets, edges: edges)
                 if let height {
