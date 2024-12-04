@@ -280,8 +280,8 @@ open class OverlayContainerViewController: UIViewController {
             bottomConstraint.isActive = true
         }
 
-        translationHeightConstraint?.priority = .defaultHigh
-        overlayContainerViewStyleConstraint?.priority = .defaultHigh
+        translationHeightConstraint?.priority = .required - 1
+        overlayContainerViewStyleConstraint?.priority = .required - 1
     }
 
     private func loadTranslationController() {
