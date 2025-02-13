@@ -283,6 +283,8 @@ open class OverlayContainerViewController: UIViewController {
                 scrollView: scrollView
             )
             drivers.append(driver)
+        } else {
+            overlayPanGesture.drivingScrollView = nil
         }
         translationDrivers = drivers
     }
